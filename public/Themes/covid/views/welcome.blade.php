@@ -18,58 +18,94 @@
 
 
 @section('content')
+<section>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8"><img src="{{ themes('img/covid-logo.png')  }}"> </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 text-center pt-5 mr-2" style="background-color: #ffe0e3; height: 435px;">
+            <img src="{{ themes('img/PreScreening.png')  }}"><br>
+            <div style="width: 50%;margin: 0px auto;">Pre-Screening is for eligible travellers who are planning to travel from Malaysia to Singapore. Eligible travellers are required to undergo a COVID-19 PCR test 72 Hours before departure</div><br>
+            <a href="{{ url('book-test/pre-screening')  }}"><img src="{{ themes('img/booktestbtn.png')  }}"></a>
+        </div>
+        <div class="col-md-5 text-center pt-5" style="background-color: #ffeebc; height: 435px;">
+            <img src="{{ themes('img/Point-of-entry-test.png')  }}"><br>
+            <div style="width: 50%;margin: 0px auto;">Point-of-Entry Testing will be conducted on all travellers entering Malaysia via Johor. Nasal swab samples will be tested at the point of care as travellers enter Malaysia</div><br>
+            <a href="{{ url('book-test/point-of-entry-test')  }}"><img src="{{ themes('img/booktestbtn-yellow.png')  }}"></a>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</section>
 
+<br><br>
     <section id="intro">
 
+        <div class="row">
 
-
-        <div class="intro-text">
-            <br><br><br><br><br><br><br><br><br><br><br>
-            <h2>COVID-19 Drive-Thru Testing</h2>
-            <p>By Appointment Only<br><br>
-                Price: <strong>RM 300 Nett</strong><br><br>
-            </p>
-
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <p class="text-left">-- MoH accredited rt-PCR test<br>
-                        -- Aim to have the results ready within 48 hours **<br><br>
-
-                        <i>** May be subjected to delays if surge in demand</i><br><br>
-
-                        <strong>IMPORTANT MESSAGE :</strong> If you display any symptoms such as fever, cough and sore throat AND have been in contact with a CONFIRMED case of COVID-19, please proceed to the nearest public healthcare facility for screening and management.
-
-                        For more information please refer to FAQ
-                        <br><br>
-                    </p>
-                </div>
+            <div class="text-center" style="height: 425px;padding-top: 130px; font-family: Helvetica; font-size: 28px;">
+                <div style="width: 50%;margin: 0px auto; color: #a85258;"><strong>Malaysia</strong> and <strong>Singapore</strong> have agreed to special travel arrangements to facilitate essential travel while ensuring the safety of travellers and public health via the <strong>Reciprocal Green Lane (RGL)</strong> and <strong>Periodic Commuting Arrangement (PCA)</strong> schemes.</div>
             </div>
-
-
-            <a href="{{ url('book-test')  }}" class="btn-get-started" onclick="window.location={{ url('book-test')  }}">Book Test</a>
-
-
 
         </div>
 
 
-        {{--<div class="product-screens">--}}
-            {{--<div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">--}}
-                {{--<img src="assets/img/product-screen-1.png" alt="">--}}
-            {{--</div>--}}
+    </section>
 
-            {{--<div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">--}}
-                {{--<img src="assets/img/product-screen-2.png" alt="">--}}
-            {{--</div>--}}
+<section>
+    <div class="row">
 
-            {{--<div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">--}}
-                {{--<img src="assets/img/product-screen-3.png" alt="">--}}
-            {{--</div>--}}
+        <div class="text-center col-md-12" style="color: #a85258;height: 345px;padding-top: 130px;">
+            <p style=" font-family: Helvetica; font-size: 28px;">A COLLABORATION BETWEEN</p>
+            <div class="row col-md-12 text-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-8">
+                    <div class="row text-center">
+                    <div class=" text-center pointer bm-card mr-2">
+                        <div class="card-body p-2">
+                            <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Ministry of Health
+                        </div>
+                    </div>
+                    <div class="text-center pointer bm-card mr-2">
+                        <div class="card-body p-2">
+                            <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Ministry of Foreign Affairs
+                        </div>
+                    </div>
+                    <div class="text-center pointer bm-card mr-2">
+                        <div class="card-body p-2">
+                            <img src="{{ themes('img/JohorStateGovernmentLogo.webp')  }}"><br>Johor State Government
+                        </div>
+                    </div>
+                    <div class="text-center pointer bm-card mr-2">
+                        <div class="card-body p-2">
+                            <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Johor State <br> Department of Health
+                        </div>
+                    </div>
+                    <div class="text-center pointer bm-card mr-2">
+                        <div class="card-body p-2">
+                            <img src="{{ themes('img/JabatanImigresenMalaysiaLogo.webp')  }}"><br>Immigration Department <br>of Malaysia
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
 
-        {{--</div>--}}
+    </div>
 
-    </section><!-- End Intro Section -->
+
+    <div class="row">
+        <div class="text-center col-md-12" style="color: #A85258;height: 100px;padding-top: 100px;">
+            <p>Powered by Jengu © 2020</p>
+        </div>
+    </div>
+</section>
+
+
+
 
 
 

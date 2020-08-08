@@ -16,10 +16,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/book-test', function () {
-    Theme::set('covid');
-    return view('book-test');
-});
+//Route::get('/book-test', function () {
+//    Theme::set('covid');
+//    return view('book-test');
+//});
+
+Route::get('/book-test/{testType}', 'HomeController@bookTest');
+
 
 
 Route::get('/video-popup/{ID}', 'HomeController@videoPopup');

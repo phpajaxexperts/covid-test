@@ -149,13 +149,13 @@
 
 
 @section('content')
-
+    <input type="hidden" name="testType" id="testType" value="{{$testType}}">
     <input type="hidden" name="selectedCenter" id="selectedCenter" value="">
     <input type="hidden" name="selectedTimeSlot" id="selectedTimeSlot" value="">
     <input type="hidden" name="selectedDate" id="selectedDate" value="">
     <input type="hidden" name="selectedTime" id="selectedTime" value="">
 
-    <section id="intro">
+    <section>
         <div class="row">
             <div class="col-md-2">
 
@@ -372,36 +372,8 @@
                     </div>
                 </div>
             </div>
-
-
-            {{--<br />--}}
-            {{--<input type="button" id="btnPrevious" value="Previous" style = "display:none"/>--}}
-            {{--<input type="button" id="btnNext" value="Next" />--}}
-
-        </div>
-        <div class="col-md-2">
-
         </div>
     </div>
-
-
-
-
-    {{--<div class="product-screens">--}}
-        {{--<div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">--}}
-            {{--<img src="assets/img/product-screen-1.png" alt="">--}}
-        {{--</div>--}}
-
-        {{--<div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">--}}
-            {{--<img src="assets/img/product-screen-2.png" alt="">--}}
-        {{--</div>--}}
-
-        {{--<div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">--}}
-            {{--<img src="assets/img/product-screen-3.png" alt="">--}}
-        {{--</div>--}}
-
-    {{--</div>--}}
-
 </section><!-- End Intro Section -->
 
 

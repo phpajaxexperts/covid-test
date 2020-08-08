@@ -1,5 +1,0 @@
-<select name="%%itemName%%" class="form-control" id="%%itemName%%" %%required%%>
-    @foreach ($%%options%% as $optionKey => $optionValue)
-        <option value="{{ $optionValue->ID }}" {{ (isset($%%crudNameSingular%%->%%itemName%%) && $%%crudNameSingular%%->%%itemName%% == $optionValue->ID) ? 'selected' : ''}}>{{ $optionValue->name }}</option>
-    @endforeach
-</select>
