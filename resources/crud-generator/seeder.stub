@@ -1,0 +1,18 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Administrator\Entities\Section;
+use Modules\Administrator\Entities\Module;
+use Modules\Administrator\Entities\Permissions;
+
+
+class {{DummyClass}}DataBaseSeeder extends Seeder
+{
+    public function run()
+    {
+        {{seeder_schema}}
+    }
+}

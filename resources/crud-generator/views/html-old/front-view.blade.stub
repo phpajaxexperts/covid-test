@@ -1,0 +1,24 @@
+@extends('layouts.master')
+
+@section('scripts')
+
+@stop
+
+@section('content')
+    <div class="grid">
+        @foreach($%%crudName%% as $item)
+                <a href="{{ url('/%%viewUrlName%%/detail/' . $item->%%primaryKey%%) }}" title="%%modelName%%">
+                    <div>
+                        @if($item->image)
+                        <img src="{{ asset('media/%%viewUrlName%%/'.$item->image)}}" height="200" width="200">
+                        @else
+                        <img src="{{ asset('media/no-image.jpg') }}" height="200" width="200">
+                        @endif
+                    </div>
+                    <div class="module">
+                        %%formBodyHtml%%
+                    </div>
+                </a>
+        @endforeach
+    </div>
+@endsection

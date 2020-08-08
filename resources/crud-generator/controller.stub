@@ -1,0 +1,144 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+use {{modelNamespace}}{{modelName}};
+use Illuminate\Http\Request;
+
+use Modules\Common\Http\Controllers\Backend\SectionComponent\TrivComponent;
+
+{{foreign_key_table_init}}
+
+
+class DummyClass extends Controller
+{
+     public function __construct() {
+         $this->middleware(['auth', 'clearance']); //clearance middleware lets only users with a //specific permission permission to access these resources
+     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function view(Request $request)
+    {
+        $keyword = $request->get('search');
+        $perPage = {{pagination}};
+
+        if (!empty($keyword)) {
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
+        } else {
+            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
+        }
+
+        return view('{{viewModulePath}}backend.{{viewName}}.view', compact('{{crudName}}'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        {{foreign_key_records}}
+
+        TrivComponent::create();
+
+        return view('{{viewModulePath}}backend.{{viewName}}.create' {{foreign_key_record_variables}});
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        $ID = {{modelName}}::create($requestData)->ID;
+
+        TrivComponent::store($ID);
+
+        return redirect('{{routeGroup}}view-{{viewUrlName}}')->with('flash_message', '{{modelName}} added!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function detail($id)
+    {
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+
+        return view('{{viewModulePath}}backend.{{viewName}}.detail', compact('{{crudNameSingular}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $section_rs =  $id;
+
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+
+        {{foreign_key_records}}
+
+        TrivComponent::edit($id);
+
+        return view('{{viewModulePath}}backend.{{viewName}}.edit', compact('{{crudNameSingular}}','section_rs') {{foreign_key_record_variables}});
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, $id)
+    {
+        {{validationRules}}
+        $requestData = $request->all();
+        {{fileSnippet}}
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        ${{crudNameSingular}}->update($requestData);
+
+        TrivComponent::update($id);
+
+        return redirect('{{routeGroup}}view-{{viewUrlName}}')->with('flash_message', '{{modelName}} updated!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        {{modelName}}::destroy($id);
+
+        TrivComponent::destroy($id);
+
+        return redirect('{{routeGroup}}view-{{viewUrlName}}')->with('flash_message', '{{modelName}} deleted!');
+    }
+}

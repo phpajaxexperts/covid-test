@@ -1,0 +1,13 @@
+{
+    "name": "Testcenters",
+    "alias": "testcenters",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Testcenters\\Providers\\TestcentersServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

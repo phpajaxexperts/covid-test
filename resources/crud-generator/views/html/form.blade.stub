@@ -1,0 +1,31 @@
+@include('common::backend.component.top-common-components')
+
+<div class="card card-outline card-info">
+    <div class="card-header">
+      <h3 class="card-title">%%modelName%% Detail</h3>
+      <div class="card-tools">
+        <!-- Buttons, labels, and many other things can be placed here! -->
+        <!-- Here is a label for example -->
+      </div>
+      <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+
+%%formFieldsHtml%%
+
+        </div>
+
+        @include('common::backend.component.bottom-common-components')
+
+        <div class="card">
+            <div class="card-footer align-right">
+                <a href="{{ url('/%%routeGroup%%view-%%viewUrlName%%') }}" title="Back"><button class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Cancel</button></a>
+                <input class="btn btn-primary" type="submit" value="{{ isset($submitButtonText) ?  $submitButtonText : 'Submit' }}">
+                <input type="hidden" name="module" id="module" value="{{$module}}" >
+                <input type="hidden" name="section" id="section" value="{{$section}}" >
+                <input type="hidden" name="section_rs" id="section_rs" value="{{ isset($section_rs)?$section_rs:''}}" >
+            </div>
+            <!-- /.card-footer -->
+        </div>

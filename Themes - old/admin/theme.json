@@ -1,0 +1,9 @@
+{
+  "name": "admin",
+  "title": "Triv Admin",
+  "description": "Triv Admin",
+  "author": "Triv",
+  "version": "1.0",
+  "parent": "",
+  "themepath": "themes/admin"
+}

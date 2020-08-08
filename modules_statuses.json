@@ -1,0 +1,13 @@
+{
+    "Blog": true,
+    "Article": true,
+    "Store": true,
+    "Classifieds": true,
+    "Administrator": true,
+    "Common": true,
+    "Testing": true,
+    "Users": true,
+    "Cooking": true,
+    "Members": true,
+    "Testcenters": true
+}

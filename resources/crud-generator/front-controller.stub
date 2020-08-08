@@ -1,0 +1,110 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+use {{modelNamespace}}{{modelName}};
+use Illuminate\Http\Request;
+
+class DummyClass extends Controller
+{
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function view(Request $request)
+    {
+        
+        $section_config = config('{{moduleName}}.{{sectionName}}');
+        $section = $section_config['section'];
+        $perPage = $section_config['perpage'];
+
+        $img_folder = $section_config['images'];
+        $arr_img_opt = array('section' => $section, 'img_size_name' => 'standard');
+        $img_optimize_params = getCdnImageOptimizeParams($arr_img_opt);
+
+        $keyword = $request->get('search');
+        $request_type = $request->get('request_type');  // Request Type is Paging or Not
+        $sort_by = $request->get('sort_by');
+
+        if($sort_by=='Recent'){
+            $order_by = 'created_at';
+            $order = 'DESC';
+        }elseif($sort_by=='A-Z'){
+            $order_by = 'title';
+            $order = 'ASC';
+        }elseif($sort_by=='Z-A'){
+            $order_by = 'title';
+            $order = 'DESC';
+        }else{
+            $order_by = 'created_at';
+            $order = 'DESC';
+        }
+
+        if (!empty($keyword)) {
+            ${{crudName}} = {{modelName}}::with(['primaryimage' => function ($q) use ($section) {
+                    $q->where('section', $section);
+                }])->{{whereSnippet}}orderBy($order_by, $order)->paginate($perPage);
+        } else {
+            ${{crudName}} = {{modelName}}::with(['primaryimage' => function ($q) use ($section) {
+                    $q->where('section', $section);
+                }])->orderBy($order_by, $order)->paginate($perPage);
+        }
+
+        if($request_type=='paging'){
+            if(count(${{crudName}})>0){
+                foreach(${{crudName}} as $key => $item){
+                    if(isset($item->primaryimage->image)){
+                        $arr_params = array("img_folder" => $img_folder,'img_optimize_params' => $img_optimize_params,'ID' => $item->ID,'image' => isset($item->primaryimage->image)?$item->primaryimage->image:'');
+                        $image_url = imageUrlGenerator($arr_params);
+                    }else{
+                        $image_url = asset('img-opt/images/noimage.jpg'.$img_optimize_params);
+                    }
+                    ${{crudName}}[$key]['image_url'] = $image_url;
+                }
+            }
+
+            return response()->json(${{crudName}},200);
+        }else
+        return view('{{viewModulePath}}frontend.{{viewName}}.front-view', compact('{{crudName}}','section','img_folder','img_optimize_params'));
+    }
+
+    public function detail($section_rs_ID)
+    {
+        $section_config = config('{{moduleName}}.{{sectionName}}');
+        $section = $section_config['section'];
+
+        $img_folder = $section_config['images'];
+        $arr_img_opt = array('section' => $section, 'img_size_name' => 'standard');
+        $img_optimize_params = getCdnImageOptimizeParams($arr_img_opt);
+
+        ${{crudNameSingular}} = {{modelName}}::with(['images' => function ($q) use ($section) {
+            $q->where('section', $section);
+        }])
+        ->with(['videos' => function ($q) use ($section) {
+            $q->where('section', $section);
+        }])
+        ->with(['files' => function ($q) use ($section) {
+            $q->where('section', $section);
+        }])
+        ->with(['metaDetails' => function ($q) use ($section) {
+            $q->where('section', $section);
+        }])
+        ->with(['customFieldsData' => function ($q) use ($section) {
+            $q->where('section', $section);
+        }])
+        ->findOrFail($section_rs_ID);
+
+        $images = ${{crudNameSingular}}->images;
+        $files = ${{crudNameSingular}}->files;
+        $videos = ${{crudNameSingular}}->videos;
+        $customFieldsData = ${{crudNameSingular}}->customFieldsData;
+
+        return view('{{viewModulePath}}frontend.{{viewName}}.front-detail', compact('{{crudNameSingular}}','section','section_rs_ID','images','files','videos','customFieldsData','img_folder','img_optimize_params'));
+    }
+
+}
