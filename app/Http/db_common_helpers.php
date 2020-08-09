@@ -64,6 +64,14 @@ function getCenters()
     return $days;
 }
 
+function getCountries()
+{
+    $countries = DB::table('core_country')
+        ->where('core_country.active', 1)
+        ->get();
+    return $countries;
+}
+
 function getHoursOfOperation($centerID)
 {
     $hours = DB::table('centers_hours_of_operation')

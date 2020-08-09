@@ -59,6 +59,20 @@ return [
     'image_crop_url' =>  'img-opt',
 
     'media_folder' =>  'media',
+    'raudhapay_payment_gateway_status' => 'sandbox',
+    //'raudhapay_payment_gateway_status' => 'live',
+    'raudhapay_live' => array(
+            'api_url' => 'https://stg-api.raudhahpay.com/api',
+            'collection_code' => 'wCi3CgcW',
+            'api_token' => 'grXvha3ZjTokEOOYjOBgWLv3Juxs_Qbx',
+    ),
+
+    'raudhapay_sandbox' => [
+        'api_url' => 'https://stg-api.raudhahpay.com/api',
+        'collection_code' => 'wCi3CgcW',
+        'api_token' => 'grXvha3ZjTokEOOYjOBgWLv3Juxs_Qbx',
+    ],
+
 
     /*
     |--------------------------------------------------------------------------
