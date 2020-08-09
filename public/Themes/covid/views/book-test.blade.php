@@ -92,18 +92,18 @@
             terms: "Please accept terms and conditions",
         },
         submitHandler: function(form) {
+            $ ("#tabs" ).tabs("enable", 1);
             $( "#tabs" ).tabs({ active: 1 });
         }
     });
 
     $("#frmPaymentConfirm").validate({
-        rules: {
-            confirm_terms:{ required: true} ,
-        },
-        messages: {
-            confirm_terms: "Please accept terms and conditions",
-        },
-
+//        rules: {
+//            confirm_terms:{ required: true} ,
+//        },
+//        messages: {
+//            confirm_terms: "Please accept terms and conditions",
+//        },
         submitHandler: function(form) {
 
             var testType = $('#testType').val();
@@ -148,8 +148,9 @@
     var currentTab = 0;
     $(function () {
         $("#tabs").tabs({
-            active: 0
-        });
+            active: 0,
+           disabled: [1, 2, 3]
+    });
 
         $(".tabs_hop").tabs({
             active: 0
@@ -160,6 +161,7 @@
         $( "#divSelectedCenter" ).html($( "#center_"+centerID+"" ).html());
         $( "#divSelectedCenterConfirm" ).html($( "#center_"+centerID+"" ).html());
         $( "#selectedCenter").val(centerID);
+        $ ("#tabs" ).tabs("enable", 2);
         $( "#tabs" ).tabs({ active: 2 });
         $( ".center_hours_of_operation").hide();
         $( "#center_hours_of_operation_"+centerID).show();
@@ -191,6 +193,7 @@
         $( "#divConfirmNationality" ).html($( "#country option:selected" ).text());
 
         testAmountCalc();
+        $ ("#tabs" ).tabs("enable", 3);
         $( "#tabs" ).tabs({ active: 3 });
     }
 
@@ -287,9 +290,8 @@
                         <li><a href="#fragment-3"><span>Time Slots</span></a></li>
                         <li><a href="#fragment-4"><span>Payment</span></a></li>
                     </ul>
-                    <div id="fragment-1" style="height: 750px; overflow-y: auto;">
+                    <div id="fragment-1" style="overflow-y: auto;">
                         <form method="post" name="frmRegister" id="frmRegister" action="{{ url('payment-process-init')  }}">
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <h3>Health Assessment</h3>
@@ -528,11 +530,6 @@
                         <br><br>
 
                             <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
-
-                        <p><input type="checkbox" name="confirm_terms" id="confirm_terms" value="1"> Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd respects and is committed to the protection of your personal information and your privacy. All personal data is collected and handled in accordance with the Malaysian Personal Data Protection Act 2010 (“PDPA”). Our Personal Data Protection Notice can be viewed at this link here.</p>
-
-                        <p>By submitting this form, I hereby give consent to Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd to collect or process the Patient’s personal data in accordance with the Personal Data Protection Notice. I hereby undertake that the information provided here is true and correct.</p>
-
                         <div class="text-right">
                         <button type="submit">Proceed to Payment</button>
                         </div>
