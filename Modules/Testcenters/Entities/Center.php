@@ -25,7 +25,7 @@ class Center extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'email_address', 'password', 'street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'active'];
+    protected $fillable = ['name', 'doctor_name', 'email_address', 'password', 'street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'process_type','slots_per_hour', 'patients_per_slot', 'active'];
 
     
 

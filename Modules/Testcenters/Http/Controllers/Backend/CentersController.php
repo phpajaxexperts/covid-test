@@ -58,7 +58,9 @@ class CentersController extends Controller
 
         TrivComponent::create();
 
-        return view('testcenters::backend.center.create' );
+        $hours_of_operations = [];
+
+        return view('testcenters::backend.center.create' , compact('hours_of_operations'));
     }
 
     /**
@@ -76,6 +78,27 @@ class CentersController extends Controller
             $requestData['password'] = Hash::make($requestData['password']);
 
         $ID = Center::create($requestData)->ID;
+
+
+        $days = getDays();
+        if(count($days)>0){
+            foreach ($days as $day){
+                if(isset($requestData['all_day_close_'.$day->ID]))
+                    $all_day_close = $requestData['all_day_close_'.$day->ID];
+                else
+                    $all_day_close = 0;
+
+                $arr_hours_of_operation = array(
+                    'center' => $ID,
+                    'day' => $day->ID,
+                    'open' => $requestData['open_'.$day->ID],
+                    'close' => $requestData['close_'.$day->ID],
+                    'all_day_close' => $all_day_close,
+                    'active' => 1
+                );
+                CenterHoursOfOperation::create($arr_hours_of_operation);
+            }
+        }
 
         TrivComponent::store($ID);
 

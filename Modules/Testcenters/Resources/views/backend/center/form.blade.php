@@ -26,12 +26,30 @@
     <!-- /.card-header -->
     <div class="card-body">
 
+<div class="form-group {{ $errors->has('process_type') ? 'has-error' : ''}}">
+    <label for="process_type" class="col-md-4 control-label">{{ 'Process Type' }}</label>
+    <div class="col-md-6">
+        <select name="process_type" class="form-control" id="process_type" >
+            @foreach (json_decode('{"1":"Pre Processing","2":"Point of Entry"}', true) as $optionKey => $optionValue)
+                <option value="{{ $optionKey }}" {{ (isset($center->process_type) && $center->process_type == $optionKey) ? 'selected' : ''}}>{{ $optionValue }}</option>
+            @endforeach
+        </select>
+        {!! $errors->first('process_type', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
 
 <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-    <label for="name" class="col-md-4 control-label">{{ 'Name' }}</label>
+    <label for="name" class="col-md-4 control-label">{{ 'Clinic Name' }}</label>
     <div class="col-md-6">
         <input class="form-control required" name="name" type="text" id="name" value="{{ isset($center->name) ? $center->name : ''}}" >
         {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group {{ $errors->has('doctor_name') ? 'has-error' : ''}}">
+    <label for="doctor_name" class="col-md-4 control-label">{{ 'Doctor Name' }}</label>
+    <div class="col-md-6">
+        <input class="form-control required" name="doctor_name" type="text" id="doctor_name" value="{{ isset($center->doctor_name) ? $center->doctor_name : ''}}" >
+        {!! $errors->first('doctor_name', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('email_address') ? 'has-error' : ''}}">
@@ -79,7 +97,8 @@
         <input class="form-control" name="zip_code" type="text" id="zip_code" value="{{ isset($center->zip_code) ? $center->zip_code : ''}}" >
         {!! $errors->first('zip_code', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('active') ? 'has-error' : ''}}">
+</div>
+<div class="form-group {{ $errors->has('active') ? 'has-error' : ''}}">
     <label for="active" class="col-md-4 control-label">{{ 'Active' }}</label>
     <div class="col-md-6">
         <select name="active" class="form-control" id="active" >
@@ -103,6 +122,20 @@
             <!-- Here is a label for example -->
         </div>
         <!-- /.card-tools -->
+    </div>
+    <div class="form-group {{ $errors->has('slots_per_hour') ? 'has-error' : ''}}">
+        <label for="slots_per_hour" class="col-md-4 control-label">{{ 'Slots Per Hour' }}</label>
+        <div class="col-md-6">
+            <input class="form-control" name="slots_per_hour" type="text" id="slots_per_hour" value="{{ isset($center->slots_per_hour) ? $center->slots_per_hour : ''}}" >
+            {!! $errors->first('slots_per_hour', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group {{ $errors->has('patients_per_slot') ? 'has-error' : ''}}">
+        <label for="patients_per_slot" class="col-md-4 control-label">{{ 'Patients Per Slot' }}</label>
+        <div class="col-md-6">
+            <input class="form-control" name="patients_per_slot" type="text" id="patients_per_slot" value="{{ isset($center->patients_per_slot) ? $center->patients_per_slot : ''}}" >
+            {!! $errors->first('patients_per_slot', '<p class="help-block">:message</p>') !!}
+        </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body">

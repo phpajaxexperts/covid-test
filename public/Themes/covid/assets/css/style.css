@@ -1345,3 +1345,23 @@ body.mobile-nav-active #mobile-nav-toggle {
 .clearboth{
   clear: both;
 }
+
+.nav-item{
+  padding-right: 20px;
+}
+
+a.nav-link {
+  color: #A85258 !important;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+a.nav-link:hover {
+  color: #FFC824 !important;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+li.active {
+  color: #FFC824 !important;
+}

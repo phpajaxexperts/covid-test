@@ -56,10 +56,16 @@ function getDays()
     return $days;
 }
 
-function getCenters()
+function getCenters($testType)
 {
+    if($testType=='pre-screening')
+        $testType = 1;
+    elseif($testType=='point-of-entry-test')
+        $testType = 2;
+
     $days = DB::table('centers')
         ->where('centers.active', 1)
+        ->where('centers.process_type', $testType)
         ->get();
     return $days;
 }

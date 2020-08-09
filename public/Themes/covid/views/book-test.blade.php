@@ -58,8 +58,6 @@
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 
 <script>
-
-
     $("#frmRegister").validate({
         rules: {
             name: {
@@ -204,6 +202,20 @@
         else if($( "#testType" ).val()=='point-of-entry-test')
             $( "#divConfirmAmount" ).html('130');
     }
+
+
+    function commuteBySelected(val){
+        if(val==1){
+            $('#center_4').show();
+            $('#center_5').hide();
+        }else if(val==2){
+            $('#center_4').hide();
+            $('#center_5').show();
+        }else if(val==3){
+            alert('Test not required');
+        }
+    }
+
 </script>
 @endpush
 
@@ -214,14 +226,59 @@
     <input type="hidden" name="selectedTimeSlot" id="selectedTimeSlot" value="">
     <input type="hidden" name="selectedDate" id="selectedDate" value="">
     <input type="hidden" name="selectedTime" id="selectedTime" value="">
-
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4"><a href="{{ url('/')  }}"><img src="{{ themes('img/covid-logo.png')  }}"></a></div>
+        <div class="col-md-6 mt-5">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">FAQs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
     <section>
+
         <div class="row">
             <div class="col-md-2">
 
             </div>
             <div class="col-md-8">
-                <div id="tabs" class="mt-5">
+                <h1>
+                    @if($testType=='pre-screening')
+                        Pre Screening
+                    @else
+                        Point of Entry Test
+                    @endif
+                </h1>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-8">
+                <div id="tabs">
                     <ul>
                         <li><a href="#fragment-1"><span>Personal Details</span></a></li>
                         <li><a href="#fragment-2"><span>Centers</span></a></li>
@@ -233,23 +290,31 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Do you have fever OR any of these symptoms - shortness of breath, cough or sore throat?</p>
-                                    <p>Fever = More than 37.5 ℃</p>
+                                    <h3>Health Assessment</h3>
+                                    <p>Information about COVID-19 is constantly changing and the level of COVID-19 activity varies by community. For current updates on COVID-19 and details on testing and other health measures, visit MOH website at <a href="https://www.moh.gov.my" target="_blank">https://www.moh.gov.my</a></p>
+                                    <p>To your best knowledge, have you been exposed to a person with a confirmed case of COVID-19 in the past 14 days?</p>
                                     <p>
                                         <input type="radio" name="symtoms" id="symtoms" value="1"> Yes<br>
-                                        <input type="radio" name="symtoms" id="symtoms" value="2"> No
+                                        <input type="radio" name="symtoms" id="symtoms" value="0"> No
                                     </p>
-                                    <p>Have you traveled to affected countries in the past 14 days OR had close contact with a confirmed case of COVID-19?</p>
-                                    <p>Affected countries: e.g. USA, UK, China, South Korea, Iran, Japan or Italy. Note: Transit in the airport is not considered as travel in those countries</p>
+                                    <p>Have you travelled overseas in the past 14 days?</p>
                                     <p>
                                         <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="1"> Yes<br>
-                                        <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="2"> No
+                                        <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="0"> No
                                     </p>
+                                    <p>In the last 48 hours, have you had any of the following symptoms:</p>
+                                    <ul>
+                                        <li>a fever of 37.8 C (100 F) or above,</li>
+                                        <li>Cough or sore throat,</li>
+                                        <li>shortness of breath or trouble breathing.</li>
+                                    </ul>
                                     <p>
-                                        <input type="checkbox" name="terms" id="terms" value="1"> Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd respects and is committed to the protection of your personal information and your privacy. All personal data is collected and handled in accordance with the Malaysian Personal Data Protection Act 2010 (“PDPA”). Our Personal Data Protection Notice can be viewed at this link here.
-                                        <br><br>
-                                        By submitting this form, I hereby give consent to Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd to collect or process the Patient’s personal data in accordance with the Personal Data Protection Notice. I hereby undertake that the information provided here is true and correct.
+                                        <input type="radio" name="symtoms2" id="symtoms2" value="1"> Yes<br>
+                                        <input type="radio" name="symtoms2" id="symtoms2" value="0"> No
                                     </p>
+
+                                    <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <a href="{{ url(themes('pdf/Jengu–PersonalDataProtectionNotice.pdf'))  }}">here</a> to be redirected to Jengu’s Personal Data Protection Notice. </p>
+                                    <p>I hereby undertake that the information provided here is true and correct. I hereby acknowledge, agree and consent to the terms as stated in Jengu’s Personal Data Protection Notice. <input type="checkbox" name="terms" id="terms" value="1"></p>
                                 </div>
 
                                 <div class="col-md-6">
@@ -313,18 +378,34 @@
                                             {!! $errors->first('email_address', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
+
+                                    @if($testType == 'point-of-entry-test')
+                                        <div class="form-group {{ $errors->has('commute_by') ? 'has-error' : ''}}">
+                                            <label for="commute_by" class="control-label">{{ 'Mode of travel or transport' }}</label>
+                                            <div>
+                                                <select class="form-control"  name="commute_by" id="commute_by" onchange="commuteBySelected(this.value);">
+                                                    <option value=""> - select - </option>
+                                                    <option value="1">Motorcycle, Private Cars, Vans, Taxis, Buses</option>
+                                                    <option value="2">Walking/Cycling</option>
+                                                    <option value="3">Large Trucks</option>
+                                                </select>
+                                                {!! $errors->first('email_address', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <button type="submit" >Submit</button>
                                 </div>
                             </div>
 
                             <div class="row col-md-12 mt-2">
                                 <div class="text-right col-md-12">
-                                    <button type="submit" >Submit</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div id="fragment-2"  style="height: 750px; overflow-y: auto;">
-                        @php( $centers = getCenters())
+                        @php( $centers = getCenters($testType))
                         @if(count($centers)>0)
                             <ul class="list-group">
                                 @foreach($centers as $center)
@@ -338,123 +419,123 @@
                             </ul>
                         @endif
                 </div>
-                <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
-                    <div id="divSelectedCenter" class="mb-3">
+                    <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
+                        <div id="divSelectedCenter" class="mb-3">
 
-                    </div>
-                    @if(count($centers)>0)
-                        @foreach($centers as $center)
-                            <div class="center_hours_of_operation" id="center_hours_of_operation_{{$center->ID}}" style="display: none;">
-                                <div class="tabs_hop">
-                                    <ul>
-                                        @php( $hours_of_operations = getHoursOfOperation($center->ID) )
+                        </div>
+                        @if(count($centers)>0)
+                            @foreach($centers as $center)
+                                <div class="center_hours_of_operation" id="center_hours_of_operation_{{$center->ID}}" style="display: none;">
+                                    <div class="tabs_hop">
+                                        <ul>
+                                            @php( $hours_of_operations = getHoursOfOperation($center->ID) )
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @php( $cur_date_timestamp = time() + 86400 * $i )
+                                                @if(count($hours_of_operations)>0)
+                                                    @foreach($hours_of_operations as $hours_of_operation)
+                                                        @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
+                                                            <li style="font-size: 13px;"><a href="#tab_hoo_{{$center->ID}}_{{$i}}"><span>{{date("d/m/Y", $cur_date_timestamp)}}</span></a></li>
+                                                            @break
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endfor
+                                        </ul>
+
                                         @for ($i = 1; $i <= 5; $i++)
                                             @php( $cur_date_timestamp = time() + 86400 * $i )
                                             @if(count($hours_of_operations)>0)
                                                 @foreach($hours_of_operations as $hours_of_operation)
                                                     @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                        <li style="font-size: 13px;"><a href="#tab_hoo_{{$center->ID}}_{{$i}}"><span>{{date("d/m/Y", $cur_date_timestamp)}}</span></a></li>
+                                                        <div id="tab_hoo_{{$center->ID}}_{{$i}}" style="overflow-y: auto;">
+                                                            {{--{{$hours_of_operation->open}} - {{$hours_of_operation->close}}--}}
+                                                            @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
+                                                            @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
+                                                            @for ($j = 1; $j <= $difference; $j++)
+                                                                <div class="row mb-3">
+                                                                    @for ($k = 1; $k <= $center->slots_per_hour; $k++)
+                                                                        @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
+                                                                        <div class="card text-center pointer bm-card mr-2">
+                                                                            <div class="card-body p-2" style="font-size: 13px;">
+                                                                                <a href="javascript:void(0);" onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('d/m/Y',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')">{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        @php( $start_time = date('h:i a',$time_slots))
+                                                                    @endfor
+                                                                </div>
+                                                            @endfor
+                                                        </div>
                                                         @break
                                                     @endif
                                                 @endforeach
                                             @endif
                                         @endfor
-                                    </ul>
 
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @php( $cur_date_timestamp = time() + 86400 * $i )
-                                        @if(count($hours_of_operations)>0)
-                                            @foreach($hours_of_operations as $hours_of_operation)
-                                                @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                    <div id="tab_hoo_{{$center->ID}}_{{$i}}" style="overflow-y: auto;">
-                                                        {{--{{$hours_of_operation->open}} - {{$hours_of_operation->close}}--}}
-                                                        @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
-                                                        @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
-                                                        @for ($j = 1; $j <= $difference; $j++)
-                                                            <div class="row mb-3">
-                                                                @for ($k = 1; $k <= 6; $k++)
-                                                                    @php( $time_slots = strtotime($start_time) + 240)
-                                                                    <div class="card text-center pointer bm-card mr-2">
-                                                                        <div class="card-body p-2" style="font-size: 13px;">
-                                                                            <a href="javascript:void(0);" onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('d/m/Y',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')">{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    @php( $start_time = date('h:i a',$time_slots))
-                                                                @endfor
-                                                            </div>
-                                                        @endfor
-                                                    </div>
-                                                    @break
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endfor
-
+                                    </div>
                                 </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div id="fragment-4" style="height: 750px; overflow-y: auto;">
+                        <form name="frmPaymentConfirm" id="frmPaymentConfirm">
+                        <strong>Test Location:</strong><br>
+                        <div id="divSelectedCenterConfirm" class="mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Date :</strong> <br><span id="divDateConfirm"></span>
                             </div>
-                        @endforeach
-                    @endif
-                </div>
-                <div id="fragment-4" style="height: 750px; overflow-y: auto;">
-                    <form name="frmPaymentConfirm" id="frmPaymentConfirm">
-                    <strong>Test Location:</strong><br>
-                    <div id="divSelectedCenterConfirm" class="mb-3"></div>
+                            <div class="col-md-6">
+                                <strong>Time :</strong> <br><span id="divTimeConfirm"></span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Name :</strong> <br><span id="divConfirmName"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Date of Birth :</strong> <br><span id="divConfirmDob"></span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>IC/Passport Number :</strong> <br><span id="divConfirmICPassportNumber"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Contact Number :</strong> <br><span id="divConfirmContactNumber"></span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Gender :</strong> <br><span id="divConfirmGender"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Email Address :</strong> <br><span id="divConfirmEmailAddress"></span>
+                            </div>
+                        </div>
+                        <br><br>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Date :</strong> <br><span id="divDateConfirm"></span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Nationality :</strong> <br><span id="divConfirmNationality"></span>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <strong>Time :</strong> <br><span id="divTimeConfirm"></span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Name :</strong> <br><span id="divConfirmName"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Date of Birth :</strong> <br><span id="divConfirmDob"></span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>IC/Passport Number :</strong> <br><span id="divConfirmICPassportNumber"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Contact Number :</strong> <br><span id="divConfirmContactNumber"></span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Gender :</strong> <br><span id="divConfirmGender"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Email Address :</strong> <br><span id="divConfirmEmailAddress"></span>
-                        </div>
-                    </div>
-                    <br><br>
+                        <br><br>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Nationality :</strong> <br><span id="divConfirmNationality"></span>
+                            <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
+
+                        <p><input type="checkbox" name="confirm_terms" id="confirm_terms" value="1"> Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd respects and is committed to the protection of your personal information and your privacy. All personal data is collected and handled in accordance with the Malaysian Personal Data Protection Act 2010 (“PDPA”). Our Personal Data Protection Notice can be viewed at this link here.</p>
+
+                        <p>By submitting this form, I hereby give consent to Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd to collect or process the Patient’s personal data in accordance with the Personal Data Protection Notice. I hereby undertake that the information provided here is true and correct.</p>
+
+                        <div class="text-right">
+                        <button type="submit">Proceed to Payment</button>
                         </div>
+                        </form>
                     </div>
-                    <br><br>
-
-                        <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
-
-                    <p><input type="checkbox" name="confirm_terms" id="confirm_terms" value="1"> Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd respects and is committed to the protection of your personal information and your privacy. All personal data is collected and handled in accordance with the Malaysian Personal Data Protection Act 2010 (“PDPA”). Our Personal Data Protection Notice can be viewed at this link here.</p>
-
-                    <p>By submitting this form, I hereby give consent to Gribbles Pathology (M) Sdn Bhd, Quantum Diagnostics Sdn Bhd and Clinipath (M) Sdn Bhd to collect or process the Patient’s personal data in accordance with the Personal Data Protection Notice. I hereby undertake that the information provided here is true and correct.</p>
-
-                    <div class="text-right">
-                    <button type="submit">Proceed to Payment</button>
-                    </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
