@@ -24,6 +24,7 @@
 
         <!-- Vendor CSS Files -->
         <link href="{{ themes('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ themes('css/pace/pace-theme-corner-indicator.css') }}" rel="stylesheet" />
         <link href="{{ themes('vendor/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
         <link href="{{ themes('vendor/animate.css/animate.min.css') }}" rel="stylesheet">
         <link href="{{ themes('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -64,7 +65,7 @@
         <script src="{{ themes('vendor/venobox/venobox.min.js') }}"></script>
         <script src="{{ themes('vendor/superfish/superfish.min.js') }}"></script>
         <script src="{{ themes('vendor/hoverIntent/hoverIntent.js') }}"></script>
-
+        <script src="{{ themes('js/pace.min.js') }}"></script>
         <!-- Template Main JS File -->
         <script src="{{ themes('js/main.js') }}"></script>
 

@@ -133,10 +133,10 @@
 
                 },
                 beforeSend: function(){
-
+                    //$("div.paceDiv").show();
                 },
                 complete: function(){
-
+                    //$("div.paceDiv").hide();
                 }
             });
 
