@@ -256,10 +256,11 @@
     <section>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10 text-center pt-5" style="background-color: #c07275; height: 185px; color: #ffe0e3;">
+                <br>
                 <h1>
                     @if($testType=='pre-screening')
                         Pre Screening
@@ -268,11 +269,12 @@
                     @endif
                 </h1>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
 
             </div>
 
         </div>
+        <br><br>
         <div class="row">
             <div class="col-md-2">
 
