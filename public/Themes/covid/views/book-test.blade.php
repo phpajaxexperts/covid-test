@@ -313,7 +313,7 @@
                                         <input type="radio" name="symtoms2" id="symtoms2" value="0"> No
                                     </p>
 
-                                    <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <a href="{{ url(themes('pdf/Jengu–PersonalDataProtectionNotice.pdf'))  }}">here</a> to be redirected to Jengu’s Personal Data Protection Notice. </p>
+                                    <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <a href="{{ url('pdf/JenguPersonalDataProtectionNotice.pdf')  }}">here</a> to be redirected to Jengu’s Personal Data Protection Notice. </p>
                                     <p>I hereby undertake that the information provided here is true and correct. I hereby acknowledge, agree and consent to the terms as stated in Jengu’s Personal Data Protection Notice. <input type="checkbox" name="terms" id="terms" value="1"></p>
                                 </div>
 
