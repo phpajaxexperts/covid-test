@@ -336,7 +336,7 @@ function sendTestResulstUpdateMail($data){
 
     $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
     if($data['test_result']==1){
-        $test_result = '<h3>Result : <span style="color:#FF0000"><h3>POSITIVE</span></h3><br> Note: Necessary actions need to be taken!';
+        $test_result = '<h3>Result : <span style="color:#FF0000"><h3>POSITIVE</span></h3>Note: Necessary actions need to be taken!';
         $result_type = 'POSITIVE';
         $result_note = 'Necessary actions need to be taken!';
     }elseif($data['test_result']==2){
@@ -344,7 +344,7 @@ function sendTestResulstUpdateMail($data){
         $result_type = 'NEGATIVE';
         $result_note = 'No action required!';
     }elseif($data['test_result']==3){
-        $test_result = '<h3>Result : <span style="color:#CCCCCC">INVALID</span></h3><br> Note: Invalid Result, so you have to take re-test!';
+        $test_result = '<h3>Result : <span style="color:#CCCCCC">INVALID</span></h3>Note: Invalid Result, so you have to take re-test!';
         $result_type = 'INVALID';
         $result_note = 'Invalid Result, so you have to take re-test!';
     }
