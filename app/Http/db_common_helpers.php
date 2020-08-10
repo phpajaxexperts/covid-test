@@ -359,7 +359,7 @@ function sendTestResulstUpdateMail($data){
 
     $qrcode_info = encrptString($qrcode_info);
 
-    $qrcode = QrCode::format('svg')->generate($qrcode_info);
+    $qrcode = QrCode::size(300)->format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
 <html>
 <body>
