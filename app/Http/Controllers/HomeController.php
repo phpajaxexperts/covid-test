@@ -135,6 +135,7 @@ class HomeController extends Controller
         $sessionid = $_REQUEST['ref1'];
         $bookingID = $_REQUEST['ref2'];
 
+        echo $sessionid; exit;
         $patient = DB::table('patients')
             ->where('patients.sessionid', $sessionid)
             ->first();
