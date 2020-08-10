@@ -293,28 +293,43 @@ function searchForBookingTime($booking_time, $array) {
 
 
 function bookingConfirmMail($data){
-    $to = $data['patient']['email_address'];
+    //echo "<pre>";print_r($data); exit;
+    //$to = $data['patient']->email_address;
+    $to = 'v.veerabharathi@gmail.com';
     $from = 'veerabharathi2020@gmail.com';
     $subject = 'Covid-19 Test - Booking Confirmation';
 
     $hostname = request()->getSchemeAndHttpHost();
     $host = asset('/');
+
+    $clinic_address = '<strong>'.$data['center']->name.'</strong><br>'.$data['center']->doctor_name.'<br>'.$data['center']->street_address_1.',';
+    if($data['center']->street_address_2)
+        $clinic_address .= '<br>'.$data['center']->street_address_2.',';
+    $clinic_address .= '<br>'.$data['center']->city.', '.$data['center']->state.' '.$data['center']->zip_code.'.';
+
+    $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
+
     $mssg = <<< EOM
 <html>
 <body>
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 <tr>
-<td align="center"><img src="$host/images/email-logo.png" alt="logo" /></td>
+<td align="center"><img src="$host/Themes/covid/assets/img/covid-logo.png" alt="logo" /></td>
 </tr>
 <tr>
 <td valign="top" style="font: 14px/20px Cambria;"><br />
-Thanks for booking with us. Your Results will be send on email in 24Hrs.<br />
+<h2>Booking Confirmed</h2>
+Thanks for booking with us.<br /><br />
 
-Clinic Address
---------------
+<h3>Clinic Address</h3>
+$clinic_address
+<br /><br />
 
-Date & Time
-------------
+<h3>Date & Time</h3>
+$booking_time
+
+<br /><br />
+Thank You
 EOM;
 
 
@@ -331,7 +346,12 @@ EOM;
 // echo "Your request has been added successfully.";
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $headers .= "From: Smithfield Isle of Wight Tourism <" . $from.">";
-    @mail($to,$subject,$mssg,$headers);
+    $headers .= "From: Jengu.co<" . $from.">";
+    $stat = mail($to,$subject,$mssg,$headers);
+    if($stat){
+        echo "mail sent".$stat;
+    }else{
+        echo "mail not sent".$stat;
+    }
 }
 ?>

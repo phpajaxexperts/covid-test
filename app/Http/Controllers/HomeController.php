@@ -132,37 +132,42 @@ class HomeController extends Controller
     {
         //echo "<pre>";print_r($_REQUEST);
 
-        $sessionid = $_REQUEST['ref1'];
-        $bookingID = $_REQUEST['ref2'];
-        $booking = getBooking($bookingID);
-        //echo $sessionid; exit;
-        $patient = DB::table('patients')
-            ->where('patients.sessionid', $sessionid)
-            ->first();
+        if($_REQUEST['paid']=='1'){
+            $sessionid = $_REQUEST['ref1'];
+            $bookingID = $_REQUEST['ref2'];
+            $booking = getBooking($bookingID);
+            $center = getCenter($booking->center);
+            //echo $sessionid; exit;
+            $patient = DB::table('patients')
+                ->where('patients.sessionid', $sessionid)
+                ->first();
 
-        //print_r($patient); exit;
-        $arr_payment = array(
-            'patient' => $patient->ID,
-            'booking' => $bookingID,
-            'amount' => $_REQUEST['amount'],
-            'bill_id' => $_REQUEST['bill_id'],
-            'bill_no' => $_REQUEST['bill_no'],
-            'currency' => $_REQUEST['currency'],
-            'paid' => $_REQUEST['paid'],
-            'payment_method' => $_REQUEST['payment_method'],
-            'ref_id' => $_REQUEST['ref_id'],
-            'status' => $_REQUEST['status'],
-            'signature' => $_REQUEST['signature'],
-        );
-        $ID = DB::table('payments')->insertGetId($arr_payment);
+            //print_r($patient); exit;
+            $arr_payment = array(
+                'patient' => $patient->ID,
+                'booking' => $bookingID,
+                'amount' => $_REQUEST['amount'],
+                'bill_id' => $_REQUEST['bill_id'],
+                'bill_no' => $_REQUEST['bill_no'],
+                'currency' => $_REQUEST['currency'],
+                'paid' => $_REQUEST['paid'],
+                'payment_method' => $_REQUEST['payment_method'],
+                'ref_id' => $_REQUEST['ref_id'],
+                'status' => $_REQUEST['status'],
+                'signature' => $_REQUEST['signature'],
+            );
+            $ID = DB::table('payments')->insertGetId($arr_payment);
 
-        $data = array(
-            'patient' => $patient,
-            'booking' => $booking
-        );
-        bookingConfirmMail($data);
-
-       //return redirect('/payment-receipt/'.$arr_payment['bill_id']);
+            $data = array(
+                'patient' => $patient,
+                'booking' => $booking,
+                'center' => $center
+            );
+            bookingConfirmMail($data);
+            return redirect('/payment-receipt/'.$arr_payment['bill_id']);
+        }else{
+            return view('payment-failed',compact('bill_id'));
+        }
     }
 
     public function paymentReceipt(Request $request)
