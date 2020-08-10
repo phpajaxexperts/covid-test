@@ -162,8 +162,7 @@ class HomeController extends Controller
         );
         bookingConfirmMail($data);
 
-
-        //return redirect('/payment-receipt/'.$arr_payment['bill_id']);
+       //return redirect('/payment-receipt/'.$arr_payment['bill_id']);
     }
 
     public function paymentReceipt(Request $request)

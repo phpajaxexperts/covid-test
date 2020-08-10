@@ -291,6 +291,7 @@ function searchForBookingTime($booking_time, $array) {
     return 0;
 }
 
+
 function bookingConfirmMail($data){
     $to = $data['patient']['email_address'];
     $from = 'veerabharathi2020@gmail.com';
