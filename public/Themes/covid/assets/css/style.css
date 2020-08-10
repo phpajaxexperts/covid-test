@@ -252,7 +252,31 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
   }
 }
-
+.intro-content-area {
+    min-height: 425px;
+    font-family: Helvetica;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 1199px) {
+    .intro-content-area {
+        font-size: 22px;
+        padding: 20px;
+    }
+}
+.intro-content {
+    margin: 0 auto;
+    color: #a85258;
+    background-color: #ddffdd;
+    padding: 15px;
+}
+@media (min-width: 1200px) {
+    .intro-content {
+        width: 50%;
+    }
+}
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/

@@ -20,9 +20,9 @@
 @section('content')
 <section>
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4"><a href="{{ url('/')  }}"><img src="{{ themes('img/covid-logo.png')  }}"></a></div>
-        <div class="col-md-6 mt-5">
+        <div class="col-12 col-lg-2 d-none d-lg-block"></div>
+        <div class="col-12 col-lg-4 text-center text-lg-left"><a href="{{ url('/')  }}"><img src="{{ themes('img/covid-logo.png')  }}"></a></div>
+        <div class="col-12 col-lg-6 mt-5 d-none d-lg-block">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
@@ -65,65 +65,59 @@
 </section>
 
 <br><br>
-    <section id="intro">
-
-        <div class="row">
-
-            <div class="text-center" style="min-height: 425px;padding-top: 130px; font-family: Helvetica; font-size: 28px;">
-                <div style="width: 50%;margin: 0px auto; color: #a85258; background-color: #ddffdd; padding: 15px;"><strong>Malaysia</strong> and <strong>Singapore</strong> have agreed to special travel arrangements to facilitate essential travel while ensuring the safety of travellers and public health via the <strong>Reciprocal Green Lane (RGL)</strong> and <strong>Periodic Commuting Arrangement (PCA)</strong> schemes.</div>
+<section id="intro">
+    <div class="row">
+        <div class="col-12">
+            <div class="intro-content-area">
+                <div class="intro-content">
+                    <strong>Malaysia</strong> and <strong>Singapore</strong> have agreed to special travel arrangements to facilitate essential travel while ensuring the safety of travellers and public health via the <strong>Reciprocal Green Lane (RGL)</strong> and <strong>Periodic Commuting Arrangement (PCA)</strong> schemes.
+                </div>
             </div>
-
         </div>
-
-
-    </section>
+    </div>
+</section>
 
 <section>
-    <div class="row">
-
-        <div class="text-center col-md-12" style="color: #a85258;min-height: 345px;padding-top: 130px;">
-            <p style=" font-family: Helvetica; font-size: 28px;">A COLLABORATION BETWEEN</p>
-            <div class="row col-md-12 text-center">
-                <div class="col-md-3"></div>
-                <div class="col-md-8 col-sm-1">
-                    <div class="row text-center align-middle">
-                    <div class="col-md-2 col-sm-1 text-center pointer bm-card">
+    <div class="container-fluid container-xl">
+        <div class="row" style="color: #a85258;min-height: 345px;padding-top: 130px;">
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <p style=" font-family: Helvetica; font-size: 28px;">A COLLABORATION BETWEEN</p>
+                </div>
+                <div class="row text-center align-middle justify-content-between">
+                    <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
                         <div class="card-body p-2">
                             <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Ministry of Health
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-1 text-center pointer bm-card mr-2">
+                    <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
                         <div class="card-body p-2">
                             <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Ministry of Foreign Affairs
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-1 text-center pointer bm-card">
+                    <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
                         <div class="card-body p-2">
                             <img src="{{ themes('img/JohorStateGovernmentLogo.webp')  }}"><br>Johor State Government
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-1 text-center pointer bm-card">
+                    <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
                         <div class="card-body p-2">
                             <img src="{{ themes('img/MalaysianGovernmentLogo.webp')  }}"><br>Johor State <br> Department of Health
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-1 text-center pointer bm-card">
+                    <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
                         <div class="card-body p-2">
                             <img src="{{ themes('img/JabatanImigresenMalaysiaLogo.webp')  }}"><br>Immigration Department <br>of Malaysia
                         </div>
                     </div>
-                    </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         </div>
 
-    </div>
-
-
-    <div class="row">
-        <div class="text-center col-md-12" style="color: #A85258;height: 100px;padding-top: 100px;">
-            <p>Powered by Jengu © 2020</p>
+        <div class="row">
+            <div class="col-md-12">
+                <p style="color: #A85258;padding-top: 60px;padding-bottom: 60px;margin-bottom: 0;text-align: center;">Powered by Jengu © 2020</p>
+            </div>
         </div>
     </div>
 </section>
