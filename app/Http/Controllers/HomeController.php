@@ -134,14 +134,13 @@ class HomeController extends Controller
 
         $sessionid = $_REQUEST['ref1'];
         $bookingID = $_REQUEST['ref2'];
-
-        echo $sessionid; exit;
+        $booking = getBooking($bookingID);
+        //echo $sessionid; exit;
         $patient = DB::table('patients')
             ->where('patients.sessionid', $sessionid)
             ->first();
 
-        print_r($patient); exit;
-
+        //print_r($patient); exit;
         $arr_payment = array(
             'patient' => $patient->ID,
             'booking' => $bookingID,
@@ -157,9 +156,14 @@ class HomeController extends Controller
         );
         $ID = DB::table('payments')->insertGetId($arr_payment);
 
+        $data = array(
+            'patient' => $patient,
+            'booking' => $booking
+        );
+        bookingConfirmMail($data);
 
 
-        return redirect('/payment-receipt/'.$arr_payment['bill_id']);
+        //return redirect('/payment-receipt/'.$arr_payment['bill_id']);
     }
 
     public function paymentReceipt(Request $request)

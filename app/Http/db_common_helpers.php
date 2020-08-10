@@ -275,6 +275,13 @@ function objToArray($obj, &$arr){
     return $arr;
 }
 
+function getBooking($ID){
+    $booking = DB::table('patients_booking')
+        ->where('patients_booking.ID', $ID)
+        ->first();
+    return $booking;
+}
+
 function searchForBookingTime($booking_time, $array) {
     foreach ($array as $key => $val) {
         if ($val['booking_time'] === $booking_time) {
@@ -285,7 +292,7 @@ function searchForBookingTime($booking_time, $array) {
 }
 
 function bookingConfirmMail($data){
-    $to = $data['email_address'];
+    $to = $data['patient']['email_address'];
     $from = 'veerabharathi2020@gmail.com';
     $subject = 'Covid-19 Test - Booking Confirmation';
 
