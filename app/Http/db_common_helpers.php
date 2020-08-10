@@ -368,7 +368,7 @@ function sendTestResulstUpdateMail($data){
 <td align="center"><img src="$host/Themes/covid/assets/img/covid-logo.png" alt="logo" /></td>
 </tr>
 <tr>
-<td valign="top" style="font: 14px/20px Cambria;"><br />
+<td valign="top" style="font: 14px/20px Verdana,Arial,sans-serif;"><br />
 <h2>Test Result</h2>
 Covid-19 Test Taken on $booking_time.<br /><br />
 
@@ -423,7 +423,6 @@ function encrptString($string){
 // Display the encrypted string
     //echo "Encrypted String: " . $encryption . "\n";
     return $encryption;
-
 }
 
 function decryptString($encryption){
