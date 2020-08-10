@@ -414,7 +414,7 @@ function encrptString($string){
     $encryption_iv = '1234567891011121';
 
 // Store the encryption key
-    $encryption_key = "VEERABHARATHI";
+    $encryption_key = "JenguCovidTestKit";
 
 // Use openssl_encrypt() function to encrypt the data
     $encryption = openssl_encrypt($string, $ciphering,
@@ -436,7 +436,7 @@ function decryptString($encryption){
     $decryption_iv = '1234567891011121';
 
 // Store the decryption key
-    $decryption_key = "VEERABHARATHI";
+    $decryption_key = "JenguCovidTestKit";
 
 // Use openssl_decrypt() function to decrypt the data
     $decryption=openssl_decrypt ($encryption, $ciphering,
