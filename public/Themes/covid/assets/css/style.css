@@ -1389,3 +1389,70 @@ a.nav-link:hover {
 li.active {
   color: #FFC824 !important;
 }
+
+/*--------------------------------------------------------------
+# custom tabs
+--------------------------------------------------------------*/
+.ui-widget.ui-widget-content {
+    border-width: 0 !important;
+    padding: 0;
+}
+.ui-tabs .ui-tabs-nav {
+    border: none;
+    background: transparent;
+    padding: 0 !important;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.ui-tabs .ui-tabs-nav li {
+    background: none;
+    border: none;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: 16px 24px !important;
+    display: block;
+    text-transform: uppercase;
+    background-color: #EFF0F2;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor {
+    background-color: #dc1e28;
+    color: #FFF;
+}
+.fragment-container {
+    border-top: 5px solid #dc1e28;
+    padding-top: 20px;
+}
+
+.ui-tabs.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: "Montserrat", sans-serif !important;
+}
+
+.ui-tabs.ui-widget p {
+    margin-bottom: 1rem !important;
+}
+.ui-tabs.ui-widget .btn{
+    text-transform: uppercase;
+    padding: 10px 70px;
+    border-radius: 0;
+}
+.btn-blue, .btn-blue:hover {
+    color: #fff;
+    background-color: #1a2b56;
+    border-color: #1a2b56;
+}
+label.cus-error.error {
+    display: block !important;
+}
+.left-col {
+    background-color: #EEEEEE;
+    padding: 25px;
+    padding-right: 40px !important;
+}
+.right-col {
+    padding-left: 40px !important;
+}
