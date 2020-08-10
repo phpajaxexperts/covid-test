@@ -325,8 +325,8 @@ function getBookingsByDate($dat){
 function sendTestResulstUpdateMail($data){
 
 
-    $to = $data['patient']->email_address;
-    //$to = 'noreply@jengu.co';
+    //$to = $data['patient']->email_address;
+    $to = 'noreply@jengu.co';
     $from = config('app.noreply_email_address');
     //$from = 'v.veerabharathi@gmail.com';
     $subject = 'Covid-19 Test - Result';
@@ -357,6 +357,7 @@ function sendTestResulstUpdateMail($data){
     $qrcode_info .= 'Test Result : '.$result_type.'\n';
     $qrcode_info .= 'Note : '.$result_note;
 
+    //echo encrptString($qrcode_info); exit;
     $qrcode_info = encrptString($qrcode_info);
 
     $qrcode = QrCode::size(300)->format('svg')->generate($qrcode_info);

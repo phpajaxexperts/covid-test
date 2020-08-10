@@ -3,10 +3,16 @@
 
 @push('css')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="{{ themes('css/intlTelInput.min.css') }} ">
 <style>
     .slot_booked{
         background-color: #EEE;
     }
+
+    .iti__selected-flag{
+        height: 35px !important;
+    }
+
     body{
         font-size: 13px;
     }
@@ -55,12 +61,19 @@
 @endpush
 
 @push('js')
-
+<script src="{{ themes('js/intlTelInput.min.js') }}"></script>
+<script src="{{ themes('js/utils.js') }}"></script>
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 
 <script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        // any initialisation options go here
+    });
+
+
     $("#frmRegister").validate({
         rules: {
             name: {
@@ -84,6 +97,8 @@
             } ,
             travelled_infected_country:{ required: true, requiredRadioValue: "0"} ,
             terms:{ required: true} ,
+            country:{ required: true},
+            commute_by:{ required: true},
         },
         messages: {
             name: "Please enter your full name.",
@@ -107,6 +122,8 @@
                 requiredRadioValue : "This is the test for asymptomatic only."
             },
             terms: "Please accept terms and conditions",
+            country: "Please select your nationality.",
+            commute_by: "Please select your mode of transport.",
         },
         errorPlacement: function(error, element) {
             if (element.attr("type") == "radio") {
@@ -138,8 +155,9 @@
 
 
             var data = $( '#frmRegister' ).serialize()
-
-            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot;
+            //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
+            var phone_country_code = '';
+            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code;
 
             $.ajaxSetup({
                 headers: {
@@ -211,6 +229,8 @@
         $( "#divConfirmName" ).html($( "#name" ).val());
         $( "#divConfirmDob" ).html($( "#dob" ).val());
         $( "#divConfirmICPassportNumber" ).html($( "#nric_passport" ).val());
+        //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
+        //$( "#divConfirmContactNumber" ).html(phone_country_code+$( "#phone" ).val());
         $( "#divConfirmContactNumber" ).html($( "#phone" ).val());
         var gender_id = $('input[name="gender"]:checked').val();
         if(gender_id==1)
@@ -314,7 +334,7 @@
                                 <div class="row">
                                     <div class="col-md-6 left-col">
                                         <h3 class="text-uppercase">Health Assessment</h3>
-                                        <p>Information about COVID-19 is constantly changing and the level of COVID-19 activity varies by community. For current updates on COVID-19 and details on testing and other health measures, visit MOH website at <a href="https://www.moh.gov.my" target="_blank">https://www.moh.gov.my</a></p>
+                                        <p>Information about COVID-19 is constantly changing and the level of COVID-19 activity varies by community. For current updates on COVID-19 and details on testing and other health measures, visit MOH website at <strong><a href="https://www.moh.gov.my" target="_blank">https://www.moh.gov.my</a></strong></p>
                                         <p>To your best knowledge, have you been exposed to a person with a confirmed case of COVID-19 in the past 14 days?</p>
                                         <p>
                                             <label id="symtoms-error" class="cus-error error" for="symtoms" style="display: none;">Please answer survey</label>
@@ -335,9 +355,9 @@
                                             <label id="symtoms2-error" class="cus-error error" for="symtoms2" style="display: none;">Please answer survey</label>
                                             <input type="radio" name="symtoms2" id="symtoms2" value="1"> Yes &nbsp;&nbsp;<input type="radio" name="symtoms2" id="symtoms2" value="0"> No
                                         </p>
-                                        <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <a href="{{ url('pdf/JenguPersonalDataProtectionNotice.pdf')  }}">here</a> to be redirected to Jengu’s Personal Data Protection Notice. </p>
+                                        <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <strong><a href="{{ url('pdf/JenguPersonalDataProtectionNotice.pdf')  }}">here</a></strong> to be redirected to Jengu’s Personal Data Protection Notice. </p>
                                         <p>I hereby undertake that the information provided here is true and correct. I hereby acknowledge, agree and consent to the terms as stated in Jengu’s Personal Data Protection Notice.
-                                        <br><input type="checkbox" name="terms" id="terms" value="1"> Agree<br><label id="terms-error"  class="error" for="terms" style="display: none;">Please accept terms and conditions</label></p>
+                                        <br><br><input type="checkbox" name="terms" id="terms" value="1"> Agree<br><label id="terms-error"  class="error" for="terms" style="display: none;">Please accept terms and conditions</label></p>
                                     </div>
                                     <div class="col-md-6 right-col">
                                         <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
@@ -409,7 +429,7 @@
                                                         <option value=""> - select - </option>
                                                         <option value="1">Motorcycle, Private Cars, Vans, Taxis, Buses</option>
                                                         <option value="2">Walking/Cycling</option>
-                                                        <option value="3">Large Trucks</option>
+                                                        <option value="">Large Trucks</option>
                                                     </select>
                                                     {!! $errors->first('email_address', '<p class="help-block">:message</p>') !!}
                                                 </div>
@@ -451,7 +471,7 @@
                                             <div class="card">
                                                 <div class="card-body" id="center_{{$center->ID}}">
                                                     <h5 class="card-title">{{$center->name}}</h5>
-                                                    <p class="card-text">{{$center->street_address_1}}, @if(isset($center->street_address_2)) {{$center->street_address_2}}, @endif {{$center->city}}, {{$center->state}} {{$center->zip_code}}</p>
+                                                    <p class="card-text">@if(isset($center->street_address_1)){{$center->street_address_1}},@endif @if(isset($center->street_address_2)){{$center->street_address_2}},@endif @if(isset($center->city)){{$center->city}},@endif {{$center->state}} {{$center->zip_code}}</p>
                                                     <a href="javascript:void(0);" class="centers_links btn btn-blue" onclick='selectCenter("{{$center->ID}}");'>select</a>
                                                 </div>
                                             </div>

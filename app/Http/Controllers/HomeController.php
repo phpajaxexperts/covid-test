@@ -103,7 +103,7 @@ class HomeController extends Controller
 
             $res = curlPost($url,$data,$access_token);
 
-            //echo "<pre>";print_r($res); exit;
+            echo "<pre>";print_r($res); exit;
 
             if($res->status == 2){
                 $response = array(
