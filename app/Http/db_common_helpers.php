@@ -335,18 +335,26 @@ function sendTestResulstUpdateMail($data){
     $host = asset('/');
 
     $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
-    if($data['test_result']==1)
+    if($data['test_result']==1){
         $test_result = '<span style="color:#FF0000"><h3>POSITIVE</h3></span><br> Note: Necessary actions need to be taken!';
-    elseif($data['test_result']==2)
+        $result_type = 'POSITIVE';
+        $result_note = 'Necessary actions need to be taken!';
+    }elseif($data['test_result']==2){
         $test_result = '<span style="color:#00FF00"><h3>NEGATIVE</h3></span>';
-    elseif($data['test_result']==3)
+        $result_type = 'NEGATIVE';
+        $result_note = 'No action required!';
+    }elseif($data['test_result']==3){
         $test_result = '<span style="color:#EEEEEE"><h3>INVALID</h3></span><br> Note: Invalid Result, so you have to take re-test!';
+        $result_type = 'INVALID';
+        $result_note = 'Invalid Result, so you have to take re-test!';
+    }
 
-    $qrcode_info = 'Name : '.$data['patient']->name.'<br>';
-    $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'<br>';
-    $qrcode_info .= 'Phone : '.$data['patient']->phone;
-    $qrcode_info .= 'Test Taken on : '.$booking_time;
-    $qrcode_info .= 'Test Result : '.$test_result;
+    $qrcode_info = 'Name : '.$data['patient']->name.'\n';
+    $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'\n';
+    $qrcode_info .= 'Phone : '.$data['patient']->phone.'\n';
+    $qrcode_info .= 'Test Taken on : '.$booking_time.'\n';
+    $qrcode_info .= 'Test Result : '.$result_type.'\n';
+    $qrcode_info .= 'Note : '.$result_note;
 
     $qrcode = QrCode::format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
