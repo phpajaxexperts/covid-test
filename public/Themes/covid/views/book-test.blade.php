@@ -153,11 +153,17 @@
             var selectedTime = $('#selectedTime').val();
             var selectedTimeSlot = $('#selectedTimeSlot').val();
 
+            if($('#commute_by').length>0){
+                var commute_by = $('#commute_by').val();
+            }else{
+                var commute_by = '';
+            }
+
 
             var data = $( '#frmRegister' ).serialize()
             //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
             var phone_country_code = '';
-            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code;
+            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by;
 
             $.ajaxSetup({
                 headers: {

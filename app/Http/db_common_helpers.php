@@ -278,7 +278,7 @@ function bookingConfirmMail($data){
 <td align="center"><img src="$host/Themes/covid/assets/img/covid-logo.png" alt="logo" /></td>
 </tr>
 <tr>
-<td valign="top" style="font: 14px/20px Cambria;"><br />
+<td valign="top" style="font: 14px/20px Verdana,Arial,sans-serif;"><br />
 <h2>Booking Confirmed</h2>
 Thanks for booking with us.<br /><br />
 

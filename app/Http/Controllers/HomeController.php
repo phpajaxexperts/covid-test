@@ -64,6 +64,7 @@ class HomeController extends Controller
                     'booking_date' => $booking_date,
                     'booking_time' => $booking_time,
                     'sessionid' => $session_id,
+                    'commute_by' => $requestData['commute_by'],
                 );
 
                 $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
@@ -189,6 +190,7 @@ class HomeController extends Controller
                 'center' => $center
             );
             bookingConfirmMail($data);
+            Session::regenerate(true);
             return redirect('/payment-receipt/'.$arr_payment['bill_id']);
         }else{
             return view('payment-failed',compact('bill_id'));
