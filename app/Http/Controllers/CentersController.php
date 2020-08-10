@@ -29,15 +29,16 @@ class CentersController extends Controller
         Theme::set('centers');
         //$dat = date('Y-m-d',time() + 86400);
         $dat = date('Y-m-d');
-        $patients = getPatientsByDate($dat);
-        return view('patients', compact('patients','dat'));
+        $bookings = getBookingsByDate($dat);
+        return view('patients', compact('bookings','dat'));
     }
 
     public function updatePatient(Request $request)
     {
         Theme::set('centers');
         $bookingID = $request->bookingID;
-        $booking = getBooking($bookingID);
+        $status = $request->status;
+
         return view('update-patient', compact('booking'));
     }
 

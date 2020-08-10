@@ -300,7 +300,7 @@ EOM;
     }
 }
 
-function getPatientsByDate($dat){
+function getBookingsByDate($dat){
     $bookings = DB::table('patients_booking')
         ->select('patients_booking.*','patients.name','patients.phone')
         ->join('patients','patients.ID','=','patients_booking.patient')

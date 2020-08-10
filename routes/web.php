@@ -80,4 +80,4 @@ Route::group(['prefix' => 'administrator'], function () {
 
 Route::get('/center/dashboard', 'CentersController@dashboard');
 Route::get('/center/patients', 'CentersController@patients');
-Route::get('/center/update-patient/{bookingID}', 'CentersController@updatePatient');
+Route::post('/center/update-patient', 'CentersController@updatePatient');

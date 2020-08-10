@@ -17,6 +17,39 @@
             "responsive": true,
         });
     });
+
+    function updateStatus(ID,status){
+        $('#loading_'+id).show();
+        var param = 'ID='+ID+'&status='+status;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "{{ url('/center/update-patient') }}",
+            data: param,
+            success: function(msg){
+                if(msg.status=='success')
+                    window.location = msg.payment_url;
+                else
+                if(msg.status=='slot_filled')
+                    alert(msg.msg);
+                else
+                    alert('Rrequest failed, please try again');
+
+            },
+            beforeSend: function(){
+                //$("div.paceDiv").show();
+            },
+            complete: function(){
+                //$("div.paceDiv").hide();
+            }
+        });
+    }
 </script>
 @endpush
 
@@ -36,18 +69,31 @@
                     <th>Phone</th>
                     <th>Booked On</th>
                     <th>Test Result</th>
-                    <th>Actions</th>
+                    {{--<th>Actions</th>--}}
                 </tr>
                 </thead>
                 <tbody>
-                @if(count($patients)>0)
-                    @foreach($patients as $patient)
+                @if(count($bookings)>0)
+                    @foreach($bookings as $booking)
                         <tr>
-                            <td>{{$patient->name}}</td>
-                            <td>{{$patient->phone}}</td>
-                            <td>{{date('d/m/Y',strtotime($patient->booking_time))}} at {{date('h:i A',strtotime($patient->booking_time))}}</td>
-                            <td>{{$patient->test_result}}</td>
-                            <td><a href="{{ url('/center/update-patient/'.$patient->ID)  }}"><button type="button" class="btn btn-info">Update</button></a></td>
+                            <td>{{$booking->name}}</td>
+                            <td>{{$booking->phone}}</td>
+                            <td>{{date('d/m/Y',strtotime($booking->booking_time))}} at {{date('h:i A',strtotime($booking->booking_time))}}</td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" border="0" style="border: 0px; background: none;" width="100%">
+                                    <tr>
+                                        <td style="border: 0px; background: none;">
+                                            <input type="radio" onclick="updateStatus('{{$booking->ID}}',1);" @if($booking->test_result==1) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="1"> <span class="text-red">Positive</span><br>
+                                            <input type="radio" onclick="updateStatus('{{$booking->ID}}',2);" @if($booking->test_result==2) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="2"> <span class="text-green">Negative</span><br>
+                                            <input type="radio" onclick="updateStatus('{{$booking->ID}}',3);" @if($booking->test_result==3) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="3"> <span class="text-grey">Invalid Results</span><br>
+                                        </td>
+                                        <td  style="border: 0px; background: none;">
+                                            <i id="loading_{{$booking->ID}}" class="hourglass-32x32" style="display: none;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            {{--<td><a href="{{ url('/center/update-patient/'.$patient->ID)  }}"><button type="button" class="btn btn-info">Update</button></a></td>--}}
                         </tr>
                     @endforeach
                 @endif
