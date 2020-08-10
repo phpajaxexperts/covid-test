@@ -368,13 +368,13 @@ function sendTestResulstUpdateMail($data){
 <td align="center"><img src="$host/Themes/covid/assets/img/covid-logo.png" alt="logo" /></td>
 </tr>
 <tr>
-<td valign="top" style="font: 14px/20px Verdana,Arial,sans-serif;"><br />
+<td valign="top" style="font: 14px/20px Verdana,Arial,sans-serif;">
 <h2>Test Result</h2>
 Covid-19 Test Taken on $booking_time.<br /><br />
 
 <strong>Result :</strong> <br>
 $test_result
-<br><br>
+<br>
 $qrcode
 <br /><br />
 Thank You
