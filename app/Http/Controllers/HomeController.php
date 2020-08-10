@@ -34,9 +34,18 @@ class HomeController extends Controller
         $center = getCenter($requestData['selectedCenter']);
         $patients_per_slot = $center->patients_per_slot;
 
-        $booked_patients_count_in_slot = getBookedPatientsCountInSlot($booking_time,$center->ID);
-        if($patients_per_slot>$booked_patients_count_in_slot){
+
+        $booking_exist = checkSessionIDExist($session_id);
+
+        if(!isset($booking_exist))
+            $booked_patients_count_in_slot = getBookedPatientsCountInSlot($booking_time,$center->ID);
+        else
+            $booked_patients_count_in_slot = 0;
+        if($patients_per_slot>$booked_patients_count_in_slot || isset($booking_exist)){
+            if(!isset($booking_exist))
             $ID = Patient::create($requestData)->ID;
+            else
+            $ID = $booking_exist->patient;
 
             //echo date('Y-m-d H:ia',strtotime($requestData['selectedTimeSlot'])); exit;
             //$booked_times = explode(' ',$requestData['selectedTimeSlot']);
@@ -47,14 +56,20 @@ class HomeController extends Controller
             elseif($requestData['testType']=='point-of-entry-test')
                 $testType = 2;
 
-            $arr_payment = array(
-                'patient' => $ID,
-                'center' => $center->ID,
-                'booking_type' => $testType,
-                'booking_date' => $booking_date,
-                'booking_time' => $booking_time,
-            );
-            $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
+            if(!isset($booking_exist)){
+                $arr_payment = array(
+                    'patient' => $ID,
+                    'center' => $center->ID,
+                    'booking_type' => $testType,
+                    'booking_date' => $booking_date,
+                    'booking_time' => $booking_time,
+                    'sessionid' => $session_id,
+                );
+
+                $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
+            }else
+                $bookingID = $booking_exist->ID;
+
 
             if($requestData['testType']=='pre-screening' && $requestData['country']=='132'){
                 $title = 'Pre Screening Test';
@@ -103,16 +118,23 @@ class HomeController extends Controller
 
             $res = curlPost($url,$data,$access_token);
 
-            echo "<pre>";print_r($res); exit;
+            //echo "<pre>";print_r($res); exit;
 
-            if($res->status == 2){
-                $response = array(
-                    'payment_url' => $res->payment_url,
-                    'status'   => 'success'
-                );
+            if(isset($res->status)){
+                if($res->status == 2){
+                    $response = array(
+                        'payment_url' => $res->payment_url,
+                        'status'   => 'success'
+                    );
+                }else{
+                    $response = array(
+                        'status'   => 'failed'
+                    );
+                }
             }else{
                 $response = array(
-                    'status'   => 'failed'
+                    'status'   => 'failed',
+                    'payment_err_msg'   => $res,
                 );
             }
 
@@ -177,7 +199,15 @@ class HomeController extends Controller
     {
         $bill_id = $request->bill_id;
         Theme::set('covid');
-        return view('payment-success',compact('bill_id'));
+
+        $booking = DB::table('payments')
+            ->select('centers.*','patients_booking.booking_time')
+            ->join('patients_booking','patients_booking.ID','=','payments.booking')
+            ->join('centers','centers.ID','=','patients_booking.center')
+            ->where('payments.bill_id','=',$bill_id)
+            ->first();
+
+        return view('payment-success',compact('bill_id','booking'));
     }
 
     public function centerLogin(Request $request)

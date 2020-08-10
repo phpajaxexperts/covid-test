@@ -234,6 +234,15 @@ function getPatient($ID){
     return $patient;
 }
 
+function checkSessionIDExist($sessionID){
+    $patient = DB::table('patients_booking')
+        ->where('patients_booking.sessionid', $sessionID)
+        ->first();
+    return $patient;
+}
+
+
+
 function searchForBookingTime($booking_time, $array) {
     foreach ($array as $key => $val) {
         if ($val['booking_time'] === $booking_time) {
@@ -299,7 +308,7 @@ EOM;
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $headers .= "From: Jengu.co<" . $from.">";
-    $stat = mail($to,$subject,$mssg,$headers);
+    $stat = @mail($to,$subject,$mssg,$headers);
     if($stat){
         echo "mail sent".$stat;
     }else{
@@ -323,8 +332,6 @@ function getBookingsByDate($dat){
 }
 
 function sendTestResulstUpdateMail($data){
-
-
     //$to = $data['patient']->email_address;
     $to = 'noreply@jengu.co';
     $from = config('app.noreply_email_address');
@@ -399,7 +406,7 @@ EOM;
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $headers .= "From: Jengu.co<" . $from.">";
-    $stat = mail($to,$subject,$mssg,$headers);
+    $stat = @mail($to,$subject,$mssg,$headers);
 //    if($stat){
 //        echo "mail sent".$stat;
 //    }else{

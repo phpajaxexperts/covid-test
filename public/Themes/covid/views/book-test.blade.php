@@ -174,9 +174,20 @@
                         window.location = msg.payment_url;
                     else
                         if(msg.status=='slot_filled')
-                        alert(msg.msg);
-                        else
-                        alert('Rrequest failed, please try again');
+                            alert(msg.msg);
+                        else{
+                            if(msg.payment_err_msg!=''){
+                                var errMsg = '';
+                                var data = msg.payment_err_msg;
+                                $.each(data, function(i, item) {
+                                    errMsg += data[i][0]+'\n';
+                                });
+                                alert('Request failed, please try again\n'+errMsg);
+                            }else{
+                                alert('Request failed, please try again');
+                            }
+                        }
+
 
                 },
                 beforeSend: function(){
