@@ -21,6 +21,7 @@
         "laravelcollective/html": "^6.1",
         "nwidart/laravel-modules": "^7.0",
         "shipu/themevel": "^2.2",
+        "simplesoftwareio/simple-qrcode": "^3.0",
         "spatie/laravel-permission": "^3.13"
     },
     "require-dev": {
