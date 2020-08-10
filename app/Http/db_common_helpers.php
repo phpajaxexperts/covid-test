@@ -336,11 +336,11 @@ function sendTestResulstUpdateMail($data){
 
     $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
     if($data['test_result']==1)
-        $test_result = '<span style="color:#FF0000"><h3>'.$data['test_result'].'</h3></span><br> Note: Necessary actions need to be taken!';
+        $test_result = '<span style="color:#FF0000"><h3>POSITIVE</h3></span><br> Note: Necessary actions need to be taken!';
     elseif($data['test_result']==2)
-        $test_result = '<span style="color:#00FF00"><h3>'.$data['test_result'].'</h3></span>';
+        $test_result = '<span style="color:#00FF00"><h3>NEGATIVE</h3></span>';
     elseif($data['test_result']==3)
-        $test_result = '<span style="color:#EEEEEE"><h3>'.$data['test_result'].'</h3></span><br> Note: Invalid Result, so you have to take re-test!';
+        $test_result = '<span style="color:#EEEEEE"><h3>INVALID</h3></span><br> Note: Invalid Result, so you have to take re-test!';
     $qrcode = QrCode::format('svg')->generate('This is test QR code by Veera!');
     $mssg = <<< EOM
 <html>
@@ -356,7 +356,7 @@ Covid-19 Test Taken on $booking_time.<br /><br />
 
 <strong>Result :</strong> <br>
 $test_result
-<br>
+<br><br>
 $qrcode
 <br /><br />
 Thank You
