@@ -375,10 +375,10 @@ EOM;
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $headers .= "From: Jengu.co<" . $from.">";
     $stat = mail($to,$subject,$mssg,$headers);
-    if($stat){
-        echo "mail sent".$stat;
-    }else{
-        echo "mail not sent".$stat;
-    }
+//    if($stat){
+//        echo "mail sent".$stat;
+//    }else{
+//        echo "mail not sent".$stat;
+//    }
 }
 ?>
