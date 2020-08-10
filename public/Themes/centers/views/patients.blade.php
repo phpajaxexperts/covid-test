@@ -19,7 +19,7 @@
     });
 
     function updateStatus(ID,status){
-        $('#loading_'+id).show();
+        $('#loading_'+ID).show();
         var param = 'ID='+ID+'&status='+status;
 
         $.ajaxSetup({
@@ -34,12 +34,11 @@
             data: param,
             success: function(msg){
                 if(msg.status=='success')
-                    window.location = msg.payment_url;
-                else
-                if(msg.status=='slot_filled')
-                    alert(msg.msg);
-                else
+                    $('#loading_'+ID).hide();
+                else if(msg.status=='failed')
                     alert('Rrequest failed, please try again');
+
+
 
             },
             beforeSend: function(){

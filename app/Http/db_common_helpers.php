@@ -227,6 +227,13 @@ function getBooking($ID){
     return $booking;
 }
 
+function getPatient($ID){
+    $patient = DB::table('patients')
+        ->where('patients.ID', $ID)
+        ->first();
+    return $patient;
+}
+
 function searchForBookingTime($booking_time, $array) {
     foreach ($array as $key => $val) {
         if ($val['booking_time'] === $booking_time) {
@@ -241,7 +248,7 @@ function bookingConfirmMail($data){
     //echo "<pre>";print_r($data); exit;
     $to = $data['patient']->email_address;
     //$to = 'v.veerabharathi@gmail.com';
-    $from = 'veerabharathi2020@gmail.com';
+    $from = config('app.noreply_email_address');
     $subject = 'Covid-19 Test - Booking Confirmation';
 
     $hostname = request()->getSchemeAndHttpHost();
@@ -315,4 +322,62 @@ function getBookingsByDate($dat){
     return $bookings;
 }
 
+function sendTestResulstUpdateMail($data){
+    //$to = $data['patient']->email_address;
+    $to = 'v.veerabharathi@gmail.com';
+    $from = config('app.noreply_email_address');
+    $subject = 'Covid-19 Test - Result';
+
+    $hostname = request()->getSchemeAndHttpHost();
+    $host = asset('/');
+
+    $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
+    if($data['test_result']==1)
+        $test_result = '<span style="color:#FF0000"><h3>'.$data['test_result'].'</h3></span><br> Note: Necessary actions need to be taken!';
+    elseif($data['test_result']==2)
+        $test_result = '<span style="color:#00FF00"><h3>'.$data['test_result'].'</h3></span>';
+    elseif($data['test_result']==3)
+        $test_result = '<span style="color:#EEEEEE"><h3>'.$data['test_result'].'</h3></span><br> Note: Invalid Result, so you have to take re-test!';
+
+    $mssg = <<< EOM
+<html>
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center"><img src="$host/Themes/covid/assets/img/covid-logo.png" alt="logo" /></td>
+</tr>
+<tr>
+<td valign="top" style="font: 14px/20px Cambria;"><br />
+<h2>Test Result</h2>
+Covid-19 Test Taken on $booking_time.<br /><br />
+
+<strong>Result :</strong> <br>
+$test_result
+
+<br /><br />
+Thank You
+EOM;
+
+
+    $mssg .= <<< EOM
+</td>
+</tr>
+</table>
+</body>
+</html>
+EOM;
+
+//print_r($mssg); exit;
+
+// echo "Your request has been added successfully.";
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= "From: Jengu.co<" . $from.">";
+    $stat = mail($to,$subject,$mssg,$headers);
+    if($stat){
+        echo "mail sent".$stat;
+    }else{
+        echo "mail not sent".$stat;
+    }
+}
 ?>

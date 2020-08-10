@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Center;
 use Illuminate\Http\Request;
 use DB;
 use Theme;
@@ -36,10 +37,34 @@ class CentersController extends Controller
     public function updatePatient(Request $request)
     {
         Theme::set('centers');
-        $bookingID = $request->bookingID;
+        $bookingID = $request->ID;
         $status = $request->status;
+        if($bookingID!='' && $status!=''){
+            DB::table('patients_booking')
+                ->where('ID', $bookingID)
+                ->update(['test_result' => $status]);
 
-        return view('update-patient', compact('booking'));
+
+            $booking = getBooking($bookingID);
+            $patient = getPatient($booking->patient);
+            $data = array(
+                'patient' => $patient,
+                'booking' => $booking,
+                'test_result'=> $status
+            );
+
+            sendTestResulstUpdateMail($data);
+            $response = array(
+                'status'   => 'success'
+            );
+            return response()->json($response, 200);
+        }else{
+            $response = array(
+                'status'   => 'failed'
+            );
+            return response()->json($response, 200);
+        }
+
     }
 
 }

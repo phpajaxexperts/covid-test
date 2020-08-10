@@ -199,6 +199,7 @@ class HomeController extends Controller
         $arr = $request->json()->all();
 //        print_r($request->json()->all()); exit;
 //        echo "<pre>";print_r($qrdata);
+        //mailto('');
         $response = array(
             'qrdata'   => $arr['qrdata'],
             'result' => 'Successfully decrypted and sending this msg'
