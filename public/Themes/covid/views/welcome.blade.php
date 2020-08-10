@@ -18,7 +18,6 @@
 
 
 @section('content')
-<img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!')!!}">
 <section>
     <div class="container-fluid">
         <div class="row">
