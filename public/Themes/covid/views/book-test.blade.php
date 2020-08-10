@@ -4,6 +4,9 @@
 @push('css')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <style>
+    .slot_booked{
+        background-color: #EEE;
+    }
     body{
         font-size: 13px;
     }
@@ -152,6 +155,9 @@
                     if(msg.status=='success')
                         window.location = msg.payment_url;
                     else
+                        if(msg.status=='slot_filled')
+                        alert(msg.msg);
+                        else
                         alert('Rrequest failed, please try again');
 
                 },
@@ -172,7 +178,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-           disabled: [1, 2, 3]
+           //disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
@@ -452,6 +458,13 @@
                         </div>
                         @if(count($centers)>0)
                             @foreach($centers as $center)
+                                @php( $selected_time_slots = getSeletedTimeSlotByCenter($center->ID) )
+                                {{--@if(searchForBookingTime('2020-08-11 07:08:00',$selected_time_slots))--}}
+                                    {{--yes exist--}}
+                                {{--@else--}}
+                                    {{--not exist--}}
+                                {{--@endif--}}
+                                {{--@php( exit )--}}
                                 <div class="center_hours_of_operation" id="center_hours_of_operation_{{$center->ID}}" style="display: none;">
                                     <div class="tabs_hop">
                                         <ul>
@@ -482,9 +495,14 @@
                                                                 <div class="row mb-3">
                                                                     @for ($k = 1; $k <= $center->slots_per_hour; $k++)
                                                                         @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
+                                                                        @if(searchForBookingTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)),$selected_time_slots))
+                                                                            @php( $booked = 'yes' )
+                                                                        @else
+                                                                            @php( $booked = 'no' )
+                                                                        @endif
                                                                         <div class="card text-center pointer bm-card mr-2">
-                                                                            <div class="card-body p-2" style="font-size: 13px;">
-                                                                                <a href="javascript:void(0);" onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')">{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                            <div class="card-body p-2 @if($booked=='yes') slot_booked @endif" style="font-size: 13px;">
+                                                                                <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                             </div>
                                                                         </div>
                                                                         @php( $start_time = date('h:i a',$time_slots))

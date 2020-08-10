@@ -56,6 +56,44 @@ function getDays()
     return $days;
 }
 
+function getCenter($ID)
+{
+    $center = DB::table('centers')
+        ->where('centers.active', 1)
+        ->where('centers.ID', $ID)
+        ->first();
+    return $center;
+}
+
+function getBookedPatientsCountInSlot($booking_time,$center)
+{
+    $booked_count = DB::table('patients_booking')
+        //->where('patients_booking.paid', 1)
+        ->where('patients_booking.booking_time', $booking_time)
+        ->where('patients_booking.center', $center)
+        ->get()
+        ->count();
+    return $booked_count;
+}
+
+function getSeletedTimeSlotByCenter($center)
+{
+    $bookings = DB::table('patients_booking')
+        ->select('patients_booking.booking_time')
+        ->where('patients_booking.center', $center)
+        ->get();
+    //echo "<pre>";print_r(json_decode($bookings->toJson()));
+    //echo "<pre>";print_r(array_values($bookings->toArray())); exit;
+    $resultArray = array();
+    $arr = objToArray($bookings, $resultArray);
+
+    //echo "<pre>";print_r(array_values($arr));
+
+    return $arr;
+}
+
+
+
 function getCenters($testType)
 {
     if($testType=='pre-screening')
@@ -215,5 +253,34 @@ function getHomeRecentModifiedRecipes($limit=10){
     return $rs;
 }
 
+function objToArray($obj, &$arr){
 
+    if(!is_object($obj) && !is_array($obj)){
+        $arr = $obj;
+        return $arr;
+    }
+
+    foreach ($obj as $key => $value)
+    {
+        if (!empty($value))
+        {
+            $arr[$key] = array();
+            objToArray($value, $arr[$key]);
+        }
+        else
+        {
+            $arr[$key] = $value;
+        }
+    }
+    return $arr;
+}
+
+function searchForBookingTime($booking_time, $array) {
+    foreach ($array as $key => $val) {
+        if ($val['booking_time'] === $booking_time) {
+            return 1;
+        }
+    }
+    return 0;
+}
 ?>
