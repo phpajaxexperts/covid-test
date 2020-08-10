@@ -139,21 +139,6 @@ function getChildUsers($userid)
     return $child_users;
 }
 
-function getUser($userid)
-{
-    $user = DB::table('cast_crews')
-        ->select(
-            'cast_crews.*',
-            'media.file_name'
-        )
-        ->leftJoin('media', function ($join) {
-            $join->on('media.id', '=', DB::raw('(SELECT media.id FROM media WHERE media.model_type = 1 AND media.model_id = cast_crews.ID ORDER BY media.id ASC LIMIT 1)'));
-        })
-        ->where('cast_crews.Id', $userid)
-        ->first();
-    return $user;
-}
-
 global $res_count;
 function getBinaryTree($userid)
 {
@@ -212,46 +197,6 @@ function getBinaryTree($userid)
     return $arr_users_tree;
 }
 
-function getRecipeByID($ID){
-    $section = 30;
-    $rs = Recipe::with(['primaryimage' => function ($q) use ($section) {
-        $q->where('section', $section);
-    }])->where('recipes.ID','=',$ID)->get()->first();
-
-    //dd($rs);
-
-    return $rs;
-}
-
-function getHomeTrendingRecipe($limit=5){
-    $section = 30;
-    $rs = Recipe::with(['primaryimage' => function ($q) use ($section) {
-        $q->where('section', $section);
-    }])->inRandomOrder()->limit($limit)->get();
-
-    //dd($rs);
-
-    return $rs;
-}
-
-
-function getHomeRecentRecipesVideos($limit=5){
-    $section = 30;
-    $rs = Recipe::with(['primaryvideo' => function ($q) use ($section) {
-        $q->where('section', $section);
-    }])->orderBy('created_at','DESC')->limit($limit)->get();
-
-    return $rs;
-}
-
-function getHomeRecentModifiedRecipes($limit=10){
-    $section = 30;
-    $rs = Recipe::with(['primaryimage' => function ($q) use ($section) {
-        $q->where('section', $section);
-    }])->orderBy('updated_at','DESC')->limit($limit)->get();
-
-    return $rs;
-}
 
 function objToArray($obj, &$arr){
 
@@ -354,4 +299,20 @@ EOM;
         echo "mail not sent".$stat;
     }
 }
+
+function getPatientsByDate($dat){
+    $bookings = DB::table('patients_booking')
+        ->select('patients_booking.*','patients.name','patients.phone')
+        ->join('patients','patients.ID','=','patients_booking.patient')
+        ->where('patients_booking.booking_date', $dat)
+        ->where('patients_booking.paid', 1)
+        ->orderBy('patients.name','asc')
+        ->get();
+        //->toSql();
+    //echo $dat; exit;
+    //echo $bookings; exit;
+    //dd($bookings);
+    return $bookings;
+}
+
 ?>

@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapClinicRoutes();
+        //$this->mapClinicRoutes();
 
         //$this->mapCenterRoutes();
 
@@ -77,17 +77,17 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-    protected function mapClinicRoutes()
-    {
-        Route::group([
-            'middleware' => ['web', 'clinic', 'auth:clinic'],
-            'prefix' => 'clinic',
-            'as' => 'clinic.',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/clinic.php');
-        });
-    }
+//    protected function mapClinicRoutes()
+//    {
+//        Route::group([
+//            'middleware' => ['web', 'clinic', 'auth:clinic'],
+//            'prefix' => 'clinic',
+//            'as' => 'clinic.',
+//            'namespace' => $this->namespace,
+//        ], function ($router) {
+//            require base_path('routes/clinic.php');
+//        });
+//    }
 
     /**
      * Define the "member" routes for the application.

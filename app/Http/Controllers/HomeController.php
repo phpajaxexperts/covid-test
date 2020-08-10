@@ -29,6 +29,7 @@ class HomeController extends Controller
         $session_id = Session::getId();
         $requestData['sessionid'] = $session_id;
         $booking_time = date('Y-m-d H:i',strtotime($requestData['selectedTimeSlot']));
+        $booking_date = date('Y-m-d',strtotime($requestData['selectedTimeSlot']));
 
         $center = getCenter($requestData['selectedCenter']);
         $patients_per_slot = $center->patients_per_slot;
@@ -50,6 +51,7 @@ class HomeController extends Controller
                 'patient' => $ID,
                 'center' => $center->ID,
                 'booking_type' => $testType,
+                'booking_date' => $booking_date,
                 'booking_time' => $booking_time,
             );
             $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);

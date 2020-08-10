@@ -23,4 +23,21 @@ class CentersController extends Controller
         Theme::set('centers');
         return view('dashboard');
     }
+
+    public function patients(Request $request)
+    {
+        Theme::set('centers');
+        //$dat = date('Y-m-d',time() + 86400);
+        $dat = date('Y-m-d');
+        $patients = getPatientsByDate($dat);
+        return view('patients', compact('patients','dat'));
+    }
+    public function updatePatient(Request $request)
+    {
+        Theme::set('centers');
+        $bookingID = $request->bookingID;
+        $booking = getBooking($bookingID);
+        return view('update-patient', compact('booking'));
+    }
+
 }
