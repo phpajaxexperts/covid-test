@@ -199,14 +199,15 @@ class HomeController extends Controller
         $arr = $request->json()->all();
 //        print_r($request->json()->all()); exit;
 //        echo "<pre>";print_r($qrdata);
-        $from = 'v.veerabharathi@gmail.com';
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= "From: Jengu.co<" . $from.">";
-        mail('noreply@jengu.co','API REQUEST', 'THIS is api request'.$arr['qrdata'],$headers);
+//        $from = 'v.veerabharathi@gmail.com';
+//        $headers  = 'MIME-Version: 1.0' . "\r\n";
+//        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+//        $headers .= "From: Jengu.co<" . $from.">";
+//        mail('noreply@jengu.co','API REQUEST', 'THIS is api request'.$arr['qrdata'],$headers);
+
         $response = array(
             'qrdata'   => $arr['qrdata'],
-            'result' => 'Successfully decrypted and sending this msg'
+            'result' => decryptString($arr['qrdata'])
         );
         return response()->json($response, 200);
     }

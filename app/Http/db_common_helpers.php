@@ -357,6 +357,8 @@ function sendTestResulstUpdateMail($data){
     $qrcode_info .= 'Test Result : '.$result_type.'\n';
     $qrcode_info .= 'Note : '.$result_note;
 
+    $qrcode_info = encrptString($qrcode_info);
+
     $qrcode = QrCode::format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
 <html>
@@ -399,4 +401,50 @@ EOM;
 //        echo "mail not sent".$stat;
 //    }
 }
+
+function encrptString($string){
+    // Store the cipher method
+    $ciphering = "AES-128-CTR";
+
+// Use OpenSSl Encryption method
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
+
+// Non-NULL Initialization Vector for encryption
+    $encryption_iv = '1234567891011121';
+
+// Store the encryption key
+    $encryption_key = "VEERABHARATHI";
+
+// Use openssl_encrypt() function to encrypt the data
+    $encryption = openssl_encrypt($string, $ciphering,
+        $encryption_key, $options, $encryption_iv);
+
+// Display the encrypted string
+    //echo "Encrypted String: " . $encryption . "\n";
+    return $encryption;
+
+}
+
+function decryptString($encryption){
+    // Store the cipher method
+    $ciphering = "AES-128-CTR";
+
+// Use OpenSSl Encryption method
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
+    $decryption_iv = '1234567891011121';
+
+// Store the decryption key
+    $decryption_key = "VEERABHARATHI";
+
+// Use openssl_decrypt() function to decrypt the data
+    $decryption=openssl_decrypt ($encryption, $ciphering,
+        $decryption_key, $options, $decryption_iv);
+
+// Display the decrypted string
+    //echo "Decrypted String: " . $decryption;
+    return $decryption;
+}
+
 ?>

@@ -307,14 +307,12 @@ function makeSingleDimArrByKey($data,$key_name){
     return $arr;
 }
 
-
 function fileUrlGenerator($arr){
     $file_url = config('app.media_folder').'/';
     $file_url .= $arr['file_folder'];
     
     return $file_url;
 }
-
 
 function imageUrlGenerator($arr){
     $img_url = url(config('app.image_crop_url')).'/';
@@ -393,7 +391,6 @@ function getVideoThumbUrl($video_url,$video_type){
     }
     return $thumb_url;
 }
-
 
 function getYouTubeVideoID($video_url){
     $video_id = '';

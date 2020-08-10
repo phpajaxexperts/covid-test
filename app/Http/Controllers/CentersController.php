@@ -21,6 +21,11 @@ class CentersController extends Controller
 
     public function dashboard(Request $request)
     {
+//        $encrypt = encrptString('Madhan how it it Welcome to chennai ithu enga ooru');
+//        echo $encrypt.'<br>';
+//        echo $decrypt = decryptString($encrypt);
+//        exit;
+
         Theme::set('centers');
         return view('dashboard');
     }
