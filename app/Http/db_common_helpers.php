@@ -379,7 +379,9 @@ $test_result
 <td align="center">$qrcode</td>
 </tr>
 <tr>
+<td>
 Thank You
+</td>
 </tr>
 EOM;
 
