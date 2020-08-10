@@ -194,8 +194,15 @@ class HomeController extends Controller
 
     }
 
-
-
+    public function qrcodeDecrypt(Request $request)
+    {
+        $qrdata = $request->qrdata;
+        $response = array(
+            'qrdata'   => $qrdata,
+            'result' => 'Successfully decrypted and sending this msg'
+        );
+        return response()->json($response, 200);
+    }
 
 
     }
