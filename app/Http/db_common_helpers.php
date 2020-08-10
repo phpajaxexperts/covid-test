@@ -286,7 +286,7 @@ function searchForBookingTime($booking_time, $array) {
 
 function bookingConfirmMail($data){
     $to = $data['email_address'];
-    $from = 'v.veerabharathi@gmail.com';
+    $from = 'veerabharathi2020@gmail.com';
     $subject = 'Covid-19 Test - Booking Confirmation';
 
     $hostname = request()->getSchemeAndHttpHost();
