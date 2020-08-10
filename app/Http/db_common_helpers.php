@@ -336,15 +336,15 @@ function sendTestResulstUpdateMail($data){
 
     $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
     if($data['test_result']==1){
-        $test_result = '<span style="color:#FF0000"><h3>POSITIVE</h3></span><br> Note: Necessary actions need to be taken!';
+        $test_result = '<h3>Result : <span style="color:#FF0000"><h3>POSITIVE</span></h3><br> Note: Necessary actions need to be taken!';
         $result_type = 'POSITIVE';
         $result_note = 'Necessary actions need to be taken!';
     }elseif($data['test_result']==2){
-        $test_result = '<span style="color:#00FF00"><h3>NEGATIVE</h3></span>';
+        $test_result = '<h3>Result : <span style="color:#00FF00">NEGATIVE</span></h3>';
         $result_type = 'NEGATIVE';
         $result_note = 'No action required!';
     }elseif($data['test_result']==3){
-        $test_result = '<span style="color:#EEEEEE"><h3>INVALID</h3></span><br> Note: Invalid Result, so you have to take re-test!';
+        $test_result = '<h3>Result : <span style="color:#CCCCCC">INVALID</span></h3><br> Note: Invalid Result, so you have to take re-test!';
         $result_type = 'INVALID';
         $result_note = 'Invalid Result, so you have to take re-test!';
     }
@@ -372,7 +372,7 @@ function sendTestResulstUpdateMail($data){
 <h2>Test Result</h2>
 You have received test result for Covid-19 Test Taken on $booking_time.<br /><br />
 
-<strong>Result :</strong> $test_result
+$test_result
 </tr>
 <tr>
 <td align="center">$qrcode</td>
