@@ -341,7 +341,14 @@ function sendTestResulstUpdateMail($data){
         $test_result = '<span style="color:#00FF00"><h3>NEGATIVE</h3></span>';
     elseif($data['test_result']==3)
         $test_result = '<span style="color:#EEEEEE"><h3>INVALID</h3></span><br> Note: Invalid Result, so you have to take re-test!';
-    $qrcode = QrCode::format('svg')->generate('This is test QR code by Veera!');
+
+    $qrcode_info = 'Name : '.$data['patient']->name.'<br>';
+    $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'<br>';
+    $qrcode_info .= 'Phone : '.$data['patient']->phone;
+    $qrcode_info .= 'Test Taken on : '.$booking_time;
+    $qrcode_info .= 'Test Result : '.$test_result;
+
+    $qrcode = QrCode::format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
 <html>
 <body>
