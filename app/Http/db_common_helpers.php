@@ -357,7 +357,6 @@ function sendTestResulstUpdateMail($data){
     $qrcode_info .= 'Test Result : '.$result_type.'\n';
     $qrcode_info .= 'Note : '.$result_note;
 
-
     $qrcode = QrCode::format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
 <html>
