@@ -313,7 +313,7 @@
                             <form method="post" name="frmRegister" id="frmRegister" action="{{ url('payment-process-init')  }}">
                                 <div class="row">
                                     <div class="col-md-6 left-col">
-                                        <h3>Health Assessment</h3>
+                                        <h3 class="text-uppercase">Health Assessment</h3>
                                         <p>Information about COVID-19 is constantly changing and the level of COVID-19 activity varies by community. For current updates on COVID-19 and details on testing and other health measures, visit MOH website at <a href="https://www.moh.gov.my" target="_blank">https://www.moh.gov.my</a></p>
                                         <p>To your best knowledge, have you been exposed to a person with a confirmed case of COVID-19 in the past 14 days?</p>
                                         <p>
@@ -426,8 +426,9 @@
                                 </div>
                             </form>
                         </div>
-                        <div id="fragment-2"  style="height: 750px; overflow-y: auto;">
+                        <div id="fragment-2" class="centers-list"  style="height: 750px; overflow-y: auto;">
                             @php( $centers = getCenters($testType))
+                            <? /* ?>
                             @if(count($centers)>0)
                                 <ul class="list-group">
                                     @foreach($centers as $center)
@@ -436,11 +437,28 @@
                                                 <strong>{{$center->name}}</strong></h5><br>
                                                 {{$center->street_address_1}}, @if(isset($center->street_address_2)) {{$center->street_address_2}}, @endif {{$center->city}}, {{$center->state}} {{$center->zip_code}}
                                             </li>
-                                        </a><br>
+                                        </a>
                                     @endforeach
                                 </ul>
                             @endif
-                    </div>
+                            <? */ ?>
+
+                            @if(count($centers)>0)
+                                <div class="row">
+                                    @foreach($centers as $center)
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-body" id="center_{{$center->ID}}">
+                                                    <h5 class="card-title">{{$center->name}}</h5>
+                                                    <p class="card-text">{{$center->street_address_1}}, @if(isset($center->street_address_2)) {{$center->street_address_2}}, @endif {{$center->city}}, {{$center->state}} {{$center->zip_code}}</p>
+                                                    <a href="javascript:void(0);" class="centers_links btn btn-blue" onclick='selectCenter("{{$center->ID}}");'>select</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                         <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
                             <div id="divSelectedCenter" class="mb-3">
 
