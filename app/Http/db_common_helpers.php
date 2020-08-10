@@ -323,6 +323,13 @@ function getBookingsByDate($dat){
 }
 
 function sendTestResulstUpdateMail($data){
+
+    ini_set("SMTP","mail.jengu.co");
+// Please specify an SMTP Number 25 and 8889 are valid SMTP Ports.
+    ini_set("smtp_port","587");
+// Please specify the return address to use
+    ini_set('sendmail_from', 'noreply@jengu.co');
+
     //$to = $data['patient']->email_address;
     $to = 'veerabharathi2020@gmail.com';
     //$from = config('app.noreply_email_address');
