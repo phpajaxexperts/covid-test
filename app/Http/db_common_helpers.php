@@ -338,7 +338,7 @@ function sendTestResulstUpdateMail($data){
         $test_result = '<span style="color:#00FF00"><h3>'.$data['test_result'].'</h3></span>';
     elseif($data['test_result']==3)
         $test_result = '<span style="color:#EEEEEE"><h3>'.$data['test_result'].'</h3></span><br> Note: Invalid Result, so you have to take re-test!';
-
+    echo $qrcode = QrCode::format('svg')->generate('This is test QR code by Veera!'); exit;
     $mssg = <<< EOM
 <html>
 <body>
@@ -353,7 +353,8 @@ Covid-19 Test Taken on $booking_time.<br /><br />
 
 <strong>Result :</strong> <br>
 $test_result
-
+<br>
+$qrcode
 <br /><br />
 Thank You
 EOM;
