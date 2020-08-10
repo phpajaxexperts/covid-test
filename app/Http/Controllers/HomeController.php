@@ -203,7 +203,7 @@ class HomeController extends Controller
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
         $headers .= "From: Jengu.co<" . $from.">";
-        mailto('noreply@jengu.co','API REQUEST', 'THIS is api request'.$arr['qrdata'],$headers);
+        mail('noreply@jengu.co','API REQUEST', 'THIS is api request'.$arr['qrdata'],$headers);
         $response = array(
             'qrdata'   => $arr['qrdata'],
             'result' => 'Successfully decrypted and sending this msg'
