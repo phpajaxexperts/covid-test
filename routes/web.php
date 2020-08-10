@@ -28,6 +28,14 @@ Route::get('/payment-receipt/{bill_id}', 'HomeController@paymentReceipt');
 
 
 
+Route::get('/center', function () {
+    Theme::set('centers');
+    return view('login');
+});
+
+Route::post('/center/login', 'HomeController@centerLogin');
+
+
 
 Route::get('/video-popup/{ID}', 'HomeController@videoPopup');
 
@@ -66,6 +74,4 @@ Route::group(['prefix' => 'administrator'], function () {
   Route::get('/password/reset/{token}', 'AdministratorAuth\ResetPasswordController@showResetForm');
 });
 
-
-Route::resource('administrator/patients', '..\..\..\Modules\Members\Http\Controllers\\PatientsController');
-Route::resource('administrator/centers', '..\..\..\Modules\Testcenters\Http\Controllers\\CentersController');
+Route::get('/center/dashboard', 'CentersController@dashboard');

@@ -36,6 +36,16 @@ return [
     */
 
     'guards' => [
+        'clinic' => [
+            'driver' => 'session',
+            'provider' => 'clinics',
+        ],
+
+        'center' => [
+            'driver' => 'session',
+            'provider' => 'centers',
+        ],
+
         'member' => [
             'driver' => 'session',
             'provider' => 'members',
@@ -76,6 +86,16 @@ return [
     */
 
     'providers' => [
+        'clinics' => [
+            'driver' => 'eloquent',
+            'model' => App\Clinic::class,
+        ],
+
+        'centers' => [
+            'driver' => 'eloquent',
+            'model' => App\Center::class,
+        ],
+
         'members' => [
             'driver' => 'eloquent',
             'model' => App\Member::class,
@@ -113,6 +133,18 @@ return [
     */
 
     'passwords' => [
+        'clinics' => [
+            'provider' => 'clinics',
+            'table' => 'clinic_password_resets',
+            'expire' => 60,
+        ],
+
+        'centers' => [
+            'provider' => 'centers',
+            'table' => 'center_password_resets',
+            'expire' => 60,
+        ],
+
         'members' => [
             'provider' => 'members',
             'table' => 'member_password_resets',

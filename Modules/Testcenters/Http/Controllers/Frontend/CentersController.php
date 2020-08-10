@@ -16,7 +16,15 @@ class CentersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function view(Request $request)
+    public function dashboard(Request $request)
+    {
+
+        echo "dashboard"; exit;
+    }
+
+
+
+        public function view(Request $request)
     {
         
         $section_config = config('testcenters.centers');

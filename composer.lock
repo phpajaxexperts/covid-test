@@ -4597,12 +4597,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "ea342353a3ef4f453809acc4ebc55382231d4d23"
+                "reference": "244ba1057f48744764dbecfa90501ddcc8655f9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/ea342353a3ef4f453809acc4ebc55382231d4d23",
-                "reference": "ea342353a3ef4f453809acc4ebc55382231d4d23",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/244ba1057f48744764dbecfa90501ddcc8655f9d",
+                "reference": "244ba1057f48744764dbecfa90501ddcc8655f9d",
                 "shasum": ""
             },
             "require": {
@@ -4652,7 +4652,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2020-05-20T17:43:50+00:00"
+            "time": "2020-08-10T08:03:57+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

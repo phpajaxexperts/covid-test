@@ -68,6 +68,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'theme' => \Shipu\Themevel\Middleware\RouteMiddleware::class,
         'clearance' => \App\Http\Middleware\ClearanceMiddleware::class,
+        'centerclearance' => \App\Http\Middleware\CenterClearanceMiddleware::class,
+
     ];
 
     /**

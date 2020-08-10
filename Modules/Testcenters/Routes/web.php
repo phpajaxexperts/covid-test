@@ -31,12 +31,12 @@ Route::group([
     Route::delete('/destroy-center/{id}', 'CentersController@destroy')->name('Destroy Center');
 });
 
-Route::group([
-                'middleware' => ['web', 'theme:smkV1.0'], 
-                'prefix' => '',
-                'namespace' => 'Frontend',
-                ], function ()
-                {
-                    Route::get('/centers', 'CentersController@view');
-                    Route::get('/center/detail/{id}', 'CentersController@detail');
-                });
+//Route::group([
+//    'middleware' => ['web',  '', '','theme:center'], //you need to add the last middleware to array to fix it (version < v.1.0.6)
+//    'prefix' => 'center',
+//    'namespace' => 'Frontend',
+//    ], function ()
+//    {
+//        Route::get('/dashboard', 'CentersController@dashboard');
+//        Route::get('/patients', 'CentersController@detail');
+//    });

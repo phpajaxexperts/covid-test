@@ -8,6 +8,7 @@ use Theme;
 use GuzzleHttp;
 use Modules\Members\Entities\Patient;
 use Session;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -177,6 +178,19 @@ class HomeController extends Controller
         return view('payment-success',compact('bill_id'));
     }
 
+    public function centerLogin(Request $request)
+    {
+        $email_address = $request->email_address;
+        $password = $request->password;
+        $credentials = $request->only('email_address', 'password');
+        if (Auth::guard('center')->attempt($credentials)) {
+            return redirect('center/dashboard');
+        }else{
+            return redirect('center');
+        }
+
+
+    }
 
 
 

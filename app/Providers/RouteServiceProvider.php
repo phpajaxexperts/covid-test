@@ -46,6 +46,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapClinicRoutes();
+
+        //$this->mapCenterRoutes();
+
         $this->mapMemberRoutes();
 
         $this->mapAdministratorRoutes();
@@ -69,6 +73,19 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/administrator.php');
+        });
+    }
+
+
+    protected function mapClinicRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'clinic', 'auth:clinic'],
+            'prefix' => 'clinic',
+            'as' => 'clinic.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/clinic.php');
         });
     }
 
