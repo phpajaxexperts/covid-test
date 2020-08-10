@@ -325,10 +325,10 @@ function getBookingsByDate($dat){
 function sendTestResulstUpdateMail($data){
 
 
-    //$to = $data['patient']->email_address;
-    $to = 'noreply@jengu.co';
-    //$from = config('app.noreply_email_address');
-    $from = 'v.veerabharathi@gmail.com';
+    $to = $data['patient']->email_address;
+    //$to = 'noreply@jengu.co';
+    $from = config('app.noreply_email_address');
+    //$from = 'v.veerabharathi@gmail.com';
     $subject = 'Covid-19 Test - Result';
 
     $hostname = request()->getSchemeAndHttpHost();
