@@ -369,7 +369,7 @@ function sendTestResulstUpdateMail($data){
 </tr>
 <tr>
 <td valign="top" style="font: 14px/20px Verdana,Arial,sans-serif;">
-<h2>Test Result</h2>
+<h2>Covid-19 Test Result</h2>
 You have received test result for Covid-19 Test Taken on $booking_time.<br /><br />
 
 $test_result
