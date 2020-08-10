@@ -350,11 +350,13 @@ function sendTestResulstUpdateMail($data){
     }
 
     $qrcode_info = 'Name : '.$data['patient']->name.'\n';
+    $qrcode_info .= 'NRIC/Passport : '.$data['patient']->nric_passport.'\n';
     $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'\n';
     $qrcode_info .= 'Phone : '.$data['patient']->phone.'\n';
     $qrcode_info .= 'Test Taken on : '.$booking_time.'\n';
     $qrcode_info .= 'Test Result : '.$result_type.'\n';
     $qrcode_info .= 'Note : '.$result_note;
+
 
     $qrcode = QrCode::format('svg')->generate($qrcode_info);
     $mssg = <<< EOM
