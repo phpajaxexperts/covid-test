@@ -82,7 +82,7 @@
         <div class="row" style="color: #a85258;min-height: 345px;padding-top: 130px;">
             <div class="col-12">
                 <div class="row justify-content-center">
-                    <p style=" font-family: Helvetica; font-size: 28px;">A COLLABORATION BETWEEN</p>
+                    <p style=" font-family: Helvetica; font-size: 28px;text-align: center;">A COLLABORATION BETWEEN</p>
                 </div>
                 <div class="row text-center align-middle justify-content-between">
                     <div class="col-lg-2 col-md-4 col-12 text-center pointer bm-card">
