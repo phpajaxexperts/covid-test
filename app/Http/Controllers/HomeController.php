@@ -156,8 +156,6 @@ class HomeController extends Controller
 
 
 
-
-
         return redirect('/payment-receipt/'.$arr_payment['bill_id']);
     }
 

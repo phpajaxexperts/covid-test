@@ -521,6 +521,7 @@
                             @endforeach
                         @endif
                     </div>
+
                     <div id="fragment-4" style="height: 750px; overflow-y: auto;">
                         <form name="frmPaymentConfirm" id="frmPaymentConfirm">
                         <strong>Test Location:</strong><br>
