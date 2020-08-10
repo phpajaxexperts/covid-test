@@ -28,7 +28,7 @@ Route::get('/payment-receipt/{bill_id}', 'HomeController@paymentReceipt');
 
 
 Route::get('/qrcode', function () {
-    Theme::set('centers');
+    Theme::set('covid');
     return view('qrcode');
 });
 
