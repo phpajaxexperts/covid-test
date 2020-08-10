@@ -164,4 +164,10 @@ $(document).ready(function(){
     });
 
     //$(document).ajaxStart(function() { Pace.restart(); });
+
+    jQuery.validator.addMethod("requiredRadioValue", function(value, element, params) {
+        var selectedValue = $('input:radio[name=' + element.name + ']:checked').val();
+        return (typeof(params) == 'array') ? (params.indexOf(selectedValue) != -1) : selectedValue == params;
+    }, "You must select the required option.");
 });
+

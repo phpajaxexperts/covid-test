@@ -74,8 +74,12 @@
                 required: true,
                 email: true
             },
-            symtoms:{ required: true} ,
-            travelled_infected_country:{ required: true} ,
+            symtoms:{ required: true, requiredRadioValue: "0"} ,
+            symtoms2:{
+                required: true,
+                requiredRadioValue: "0"
+            } ,
+            travelled_infected_country:{ required: true, requiredRadioValue: "0"} ,
             terms:{ required: true} ,
         },
         messages: {
@@ -87,9 +91,26 @@
                 required: "Please fill up your email address.",
                 email: "Please enter a valid email address.",
             },
-            symtoms: "Please answer survey",
-            travelled_infected_country: "Please answer survey",
+            symtoms: {
+                required : "Please answer survey",
+                requiredRadioValue : "This is the test for asymptomatic only."
+            },
+            symtoms2: {
+                required : "Please answer survey",
+                requiredRadioValue : "This is the test for asymptomatic only."
+            },
+            travelled_infected_country: {
+                required : "Please answer survey",
+                requiredRadioValue : "This is the test for asymptomatic only."
+            },
             terms: "Please accept terms and conditions",
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("type") == "radio") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
         },
         submitHandler: function(form) {
             $ ("#tabs" ).tabs("enable", 1);
@@ -110,10 +131,12 @@
             var selectedCenter = $('#selectedCenter').val();
             var selectedDate = $('#selectedDate').val();
             var selectedTime = $('#selectedTime').val();
+            var selectedTimeSlot = $('#selectedTimeSlot').val();
+
 
             var data = $( '#frmRegister' ).serialize()
 
-            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime;
+            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot;
 
             $.ajaxSetup({
                 headers: {
@@ -298,13 +321,13 @@
                                     <p>Information about COVID-19 is constantly changing and the level of COVID-19 activity varies by community. For current updates on COVID-19 and details on testing and other health measures, visit MOH website at <a href="https://www.moh.gov.my" target="_blank">https://www.moh.gov.my</a></p>
                                     <p>To your best knowledge, have you been exposed to a person with a confirmed case of COVID-19 in the past 14 days?</p>
                                     <p>
-                                        <input type="radio" name="symtoms" id="symtoms" value="1"> Yes<br>
-                                        <input type="radio" name="symtoms" id="symtoms" value="0"> No
+                                        <label id="symtoms-error" class="error" for="symtoms" style="display: none;">Please answer survey</label><br>
+                                        <input type="radio" name="symtoms" id="symtoms" value="1"> Yes &nbsp;&nbsp;<input type="radio" name="symtoms" id="symtoms" value="0"> No
                                     </p>
                                     <p>Have you travelled overseas in the past 14 days?</p>
                                     <p>
-                                        <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="1"> Yes<br>
-                                        <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="0"> No
+                                        <label id="travelled_infected_country-error" class="error" for="travelled_infected_country" style="display: none;">Please answer survey</label><br>
+                                        <input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="1"> Yes &nbsp;&nbsp;<input type="radio" name="travelled_infected_country" id="travelled_infected_country" value="0"> No
                                     </p>
                                     <p>In the last 48 hours, have you had any of the following symptoms:</p>
                                     <ul>
@@ -313,8 +336,8 @@
                                         <li>shortness of breath or trouble breathing.</li>
                                     </ul>
                                     <p>
-                                        <input type="radio" name="symtoms2" id="symtoms2" value="1"> Yes<br>
-                                        <input type="radio" name="symtoms2" id="symtoms2" value="0"> No
+                                        <label id="symtoms2-error" class="error" for="symtoms2" style="display: none;">Please answer survey</label><br>
+                                        <input type="radio" name="symtoms2" id="symtoms2" value="1"> Yes &nbsp;&nbsp;<input type="radio" name="symtoms2" id="symtoms2" value="0"> No
                                     </p>
 
                                     <p>I hereby give consent to Jengu to collect or process the Travellers personal data and sensitive data (including health information) in accordance with the written notice. Please click <a href="{{ url('pdf/JenguPersonalDataProtectionNotice.pdf')  }}">here</a> to be redirected to Jengu’s Personal Data Protection Notice. </p>
@@ -461,7 +484,7 @@
                                                                         @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
                                                                         <div class="card text-center pointer bm-card mr-2">
                                                                             <div class="card-body p-2" style="font-size: 13px;">
-                                                                                <a href="javascript:void(0);" onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('d/m/Y',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')">{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                                <a href="javascript:void(0);" onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')">{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                             </div>
                                                                         </div>
                                                                         @php( $start_time = date('h:i a',$time_slots))

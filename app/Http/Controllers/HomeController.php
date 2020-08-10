@@ -30,6 +30,18 @@ class HomeController extends Controller
 
         $ID = Patient::create($requestData)->ID;
 
+        //echo date('Y-m-d H:ia',strtotime($requestData['selectedTimeSlot'])); exit;
+        //$booked_times = explode(' ',$requestData['selectedTimeSlot']);
+        //$booked_time = $booked_times[0].' '.$booked_times[1].$booked_times[2];
+
+        $booked_time = date('Y-m-d H:i',strtotime($requestData['selectedTimeSlot']));
+
+        $arr_payment = array(
+            'patient' => $ID,
+            'booked_time' => $booked_time
+        );
+        DB::table('patients_slot_booking')->insertGetId($arr_payment);
+
         if($requestData['testType']=='pre-screening' && $requestData['country']=='132'){
             $title = 'Pre Screening Test';
             $amount = 200;
