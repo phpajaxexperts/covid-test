@@ -1428,6 +1428,17 @@ li.active {
     padding-top: 20px;
 }
 
+.ui-widget select {
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMiA3Ij48c3R5bGUgdHlwZT0idGV4dC9jc3MiPiAgDQoJLnN0MHtmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDt9DQo8L3N0eWxlPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMS45IDAuN2wtMC42LTAuNkMxMS4yIDAgMTEuMSAwIDExIDBjLTAuMSAwLTAuMiAwLTAuMyAwLjFMNiA0LjggMS4zIDAuMUMxLjIgMCAxLjEgMCAxIDAgMC45IDAgMC44IDAgMC43IDAuMUwwLjEgMC43QzAgMC44IDAgMC45IDAgMWMwIDAuMSAwIDAuMiAwLjEgMC4zbDUuNiA1LjZDNS44IDcgNS45IDcgNiA3YzAuMSAwIDAuMiAwIDAuMy0wLjFsNS42LTUuNkMxMiAxLjIgMTIgMS4xIDEyIDEgMTIgMC45IDEyIDAuOCAxMS45IDAuN3oiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    background-size: 13px 13px;
+}
+
 .ui-tabs.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
     font-family: "Montserrat", sans-serif !important;
 }
@@ -1441,12 +1452,17 @@ li.active {
     border-radius: 0;
 }
 .btn-blue, .btn-blue:hover {
-    color: #fff;
-    background-color: #1a2b56;
-    border-color: #1a2b56;
+    color: #fff !important;
+    background-color: #1a2b56 !important;
+    border-color: #1a2b56 !important;
+}
+.centers_links.btn-blue, .centers_links.btn-blue:hover {
+    font-size: 12px;
+    padding: 8px 35px !important;
+    letter-spacing: 0.10em;
 }
 label.cus-error.error {
-    display: block !important;
+    display: block;
 }
 .left-col {
     background-color: #EEEEEE;
@@ -1455,4 +1471,32 @@ label.cus-error.error {
 }
 .right-col {
     padding-left: 40px !important;
+}
+.ui-widget-content .left-col a {
+    color: #dc1e28 !important;
+}
+.ui-widget-content .left-col a:hover {
+    text-decoration: underline;
+}
+div#fragment-2, div#fragment-3, div#fragment-4 {
+    padding-left: 0;
+    padding-right: 0;
+}
+.centers-list h5.card-title, #divSelectedCenter h5.card-title, #divSelectedCenterConfirm h5.card-title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #dc1e28;
+    margin-bottom: 4px;
+}
+#divSelectedCenter .btn, #divSelectedCenterConfirm .btn {
+    display: none;
+}
+div#divSelectedCenterConfirm {
+    background-color: #EEEEEE;
+    padding: 20px;
+    border-bottom: 1px solid #dc1e28;
+}
+#divSelectedCenterConfirm p.card-text {
+    margin-bottom: 0 !important
 }
