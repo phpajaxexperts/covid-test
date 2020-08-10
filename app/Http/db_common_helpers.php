@@ -283,4 +283,47 @@ function searchForBookingTime($booking_time, $array) {
     }
     return 0;
 }
+
+function bookingConfirmMail($data){
+    $to = $data['email_address'];
+    $from = 'v.veerabharathi@gmail.com';
+    $subject = 'Covid-19 Test - Booking Confirmation';
+
+    $hostname = request()->getSchemeAndHttpHost();
+    $host = asset('/');
+    $mssg = <<< EOM
+<html>
+<body>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center"><img src="$host/images/email-logo.png" alt="logo" /></td>
+</tr>
+<tr>
+<td valign="top" style="font: 14px/20px Cambria;"><br />
+Thanks for booking with us. Your Results will be send on email in 24Hrs.<br />
+
+Clinic Address
+--------------
+
+Date & Time
+------------
+EOM;
+
+
+    $mssg .= <<< EOM
+</td>
+</tr>
+</table>
+</body>
+</html>
+EOM;
+
+//print_r($mssg); exit;
+
+// echo "Your request has been added successfully.";
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= "From: Smithfield Isle of Wight Tourism <" . $from.">";
+    @mail($to,$subject,$mssg,$headers);
+}
 ?>

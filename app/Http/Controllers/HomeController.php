@@ -152,8 +152,12 @@ class HomeController extends Controller
             'status' => $_REQUEST['status'],
             'signature' => $_REQUEST['signature'],
         );
-
         $ID = DB::table('payments')->insertGetId($arr_payment);
+
+
+
+
+
         return redirect('/payment-receipt/'.$arr_payment['bill_id']);
     }
 

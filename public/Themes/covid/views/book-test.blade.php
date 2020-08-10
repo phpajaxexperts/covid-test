@@ -495,7 +495,7 @@
                                                                 <div class="row mb-3">
                                                                     @for ($k = 1; $k <= $center->slots_per_hour; $k++)
                                                                         @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
-                                                                        @if(searchForBookingTime(date('Y-m-d H:i:s',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)),$selected_time_slots))
+                                                                        @if(searchForBookingTime(date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)),$selected_time_slots))
                                                                             @php( $booked = 'yes' )
                                                                         @else
                                                                             @php( $booked = 'no' )
