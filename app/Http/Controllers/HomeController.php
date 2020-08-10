@@ -139,6 +139,8 @@ class HomeController extends Controller
             ->where('patients.sessionid', $sessionid)
             ->first();
 
+        print_r($patient);
+
         $arr_payment = array(
             'patient' => $patient->ID,
             'booking' => $bookingID,
