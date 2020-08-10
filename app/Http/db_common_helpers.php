@@ -294,8 +294,8 @@ function searchForBookingTime($booking_time, $array) {
 
 function bookingConfirmMail($data){
     //echo "<pre>";print_r($data); exit;
-    //$to = $data['patient']->email_address;
-    $to = 'v.veerabharathi@gmail.com';
+    $to = $data['patient']->email_address;
+    //$to = 'v.veerabharathi@gmail.com';
     $from = 'veerabharathi2020@gmail.com';
     $subject = 'Covid-19 Test - Booking Confirmation';
 
