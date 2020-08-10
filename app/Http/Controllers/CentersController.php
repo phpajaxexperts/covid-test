@@ -32,6 +32,7 @@ class CentersController extends Controller
         $patients = getPatientsByDate($dat);
         return view('patients', compact('patients','dat'));
     }
+
     public function updatePatient(Request $request)
     {
         Theme::set('centers');

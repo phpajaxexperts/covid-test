@@ -27,6 +27,10 @@ Route::get('/payment-confirm', 'HomeController@paymentConfirm');
 Route::get('/payment-receipt/{bill_id}', 'HomeController@paymentReceipt');
 
 
+Route::get('/qrcode', function () {
+    Theme::set('centers');
+    return view('qrcode');
+});
 
 Route::get('/center', function () {
     Theme::set('centers');
