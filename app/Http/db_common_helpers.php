@@ -373,10 +373,13 @@ function sendTestResulstUpdateMail($data){
 You have received test result for Covid-19 Test Taken on $booking_time.<br /><br />
 
 <strong>Result :</strong> $test_result
-<br>
-$qrcode
-<br /><br />
+</tr>
+<tr>
+<td align="center">$qrcode</td>
+</tr>
+<tr>
 Thank You
+</tr>
 EOM;
 
     $mssg .= <<< EOM
