@@ -386,12 +386,12 @@ You have received test result for Covid-19 Test Taken on $booking_time.<br />
 $test_result
 </tr>
 <tr>
-<td align="center">$qrcode</td>
-</tr>
-<tr>
 <td>
 Thank You
 </td>
+</tr>
+<tr>
+<td align="center">$qrcode</td>
 </tr>
 EOM;
 
