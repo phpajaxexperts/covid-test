@@ -41,9 +41,9 @@
                 <h3>Result : <span style="color:#CCCCCC">INVALID</span></h3>
                 Note: Invalid Result, so you have to take re-test!';
             @endif
-
-
+            <br><br>
             Thank You
+            <br><br>
 
             <img src="{!!$message->embedData(QrCode::size(300)->format('png')->generate($data['qrcode_info']), 'QrCode.png', 'image/png')!!}">
         </td>
