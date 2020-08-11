@@ -553,8 +553,15 @@
                                                                     <div class="row mb-3">
                                                                         @for ($k = 1; $k <= $center->slots_per_hour; $k++)
                                                                             @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
-                                                                            @if(searchForBookingTime(date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)),$selected_time_slots))
-                                                                                @php( $booked = 'yes' )
+                                                                            @php( $cur_time_slot = date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)) )
+                                                                            {{--@php( $booked_patients_count_in_slot = getBookedPatientsCountInSlot($cur_time_slot,$center->ID) )--}}
+                                                                            @php( $res = searchForBookingTime($cur_time_slot, $selected_time_slots) )
+                                                                            @if($res['status']=='yes')
+                                                                                @if($selected_time_slots[$res['key']]['booking_count']>=$center->patients_per_slot)
+                                                                                    @php( $booked = 'yes' )
+                                                                                @else
+                                                                                    @php( $booked = 'no' )
+                                                                                @endif
                                                                             @else
                                                                                 @php( $booked = 'no' )
                                                                             @endif

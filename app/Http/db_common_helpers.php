@@ -79,15 +79,17 @@ function getBookedPatientsCountInSlot($booking_time,$center)
 function getSeletedTimeSlotByCenter($center)
 {
     $bookings = DB::table('patients_booking')
-        ->select('patients_booking.booking_time')
+        ->select('patients_booking.booking_time',DB::raw('count(*) as booking_count'))
         ->where('patients_booking.center', $center)
+        ->groupBy('patients_booking.booking_time')
         ->get();
+    //echo "<prE>";print_r($bookings); exit;
     //echo "<pre>";print_r(json_decode($bookings->toJson()));
     //echo "<pre>";print_r(array_values($bookings->toArray())); exit;
     $resultArray = array();
     $arr = objToArray($bookings, $resultArray);
 
-    //echo "<pre>";print_r(array_values($arr));
+    //echo "<pre>";print_r($arr); exit;
 
     return $arr;
 }
@@ -246,10 +248,10 @@ function checkSessionIDExist($sessionID){
 function searchForBookingTime($booking_time, $array) {
     foreach ($array as $key => $val) {
         if ($val['booking_time'] === $booking_time) {
-            return 1;
+            return array('status' => 'yes','key' => $key);
         }
     }
-    return 0;
+    return array('status' => 'no','key' => '');
 }
 
 
