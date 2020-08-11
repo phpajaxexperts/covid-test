@@ -289,8 +289,7 @@ Thanks for booking with us.<br /><br />
 $clinic_address
 <br /><br />
 
-<strong>Date & Time</strong>
-$booking_time
+<strong>Date & Time</strong>: $booking_time
 
 <br /><br />
 Thank You

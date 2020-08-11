@@ -77,10 +77,10 @@
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 
 <script>
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-        // any initialisation options go here
-    });
+//    var input = document.querySelector("#phone");
+//    window.intlTelInput(input, {
+//        // any initialisation options go here
+//    });
 
 
     $("#frmRegister").validate({
