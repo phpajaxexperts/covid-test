@@ -31,20 +31,12 @@
         <td class="email-wrapper">
             <h2>Covid-19 Test Result</h2>
             You have received test result for Covid-19 Test Taken on $booking_time.<br />
-            $test_result
+            {{$data['test_result']}}
+            @if($data['result_note']){{$data['result_note']}}@endif
 
-            <img src="{!!$message->embedData(QrCode::format('png')->generate($data['qrcode_info']), 'QrCode.png', 'image/png')!!}">
-                {{--First Name: {{$data['first_name']}}<br>--}}
-                {{--Last Name: {{$data['last_name']}}<br>--}}
-                {{--Email Address: <a href="mailto:{{$data['email_address']}}">{{$data['email_address']}}</a><br>--}}
-                {{--Phone :{{$data['phone_number']}}<br>--}}
-                {{--@if($data['comments'])--}}
-                {{--Message :--}}
-                {{--{{$data['comments']}}--}}
-                {{--<br><br>--}}
-                {{--@else--}}
-                    {{--<br>--}}
-                {{--@endif--}}
+            Thank You
+
+            <img src="{!!$message->embedData(QrCode::size(300)->format('png')->generate($data['qrcode_info']), 'QrCode.png', 'image/png')!!}">
         </td>
     </tr>
 </table>

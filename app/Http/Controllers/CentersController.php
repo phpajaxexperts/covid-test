@@ -89,6 +89,10 @@ class CentersController extends Controller
                 $result_note = 'Invalid Result, so you have to take re-test!';
             }
 
+            $data['test_result'] = $test_result;
+            $data['result_type'] = $result_type;
+            $data['result_note'] = $result_note;
+
             $qrcode_info = 'Name : '.$data['patient']->name.'\n';
             $qrcode_info .= 'NRIC/Passport : '.$data['patient']->nric_passport.'\n';
             $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'\n';
