@@ -37,7 +37,7 @@ class HomeController extends Controller
         ];
 
         $this->validate($request, [
-            'name' => 'required|unique|max:255',
+            'name' => 'required|max:255',
             'nric_passport' => 'required',
             'phone' => 'required',
             'email_address' => 'required',
@@ -45,12 +45,8 @@ class HomeController extends Controller
             'testType' => 'required',
             'selectedCenter' => 'required',
             'selectedTimeSlot' => 'required',
-        ]);
+        ],$messages);
 
-        $validator = Validator::make(
-            ['name' => 'Dayle'],
-            ['name' => 'required|min:5']
-        );
 
         //echo "<pre>";print_r($requestData); exit;
         $requestData['active'] = 1;

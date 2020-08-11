@@ -170,12 +170,14 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            $("#loadingPayment").show();
             $.ajax({
                 type: "POST",
                 url: "{{ url('/payment-process-init') }}",
                 data: param,
+                async: false,
                 success: function(msg){
+                    $("#loadingPayment").hide();
                     if(msg.status=='success')
                         window.location = msg.payment_url;
                     else
@@ -193,8 +195,6 @@
                                 alert('Request failed, please try again');
                             }
                         }
-
-
                 },
                 statusCode: {
                     422: function(xhr) {
