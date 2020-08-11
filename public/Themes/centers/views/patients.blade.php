@@ -8,13 +8,13 @@
 <script>
     $(function () {
 
-        $("#frmDate").validate({
-            rules: {
-                dat: {
-                    required: true
-                }
-            }
-        });
+//        $("#frmDate").validate({
+//            rules: {
+//                dat: {
+//                    required: true
+//                }
+//            }
+//        });
 
         $('#dataTable').DataTable({
             "paging": true,
