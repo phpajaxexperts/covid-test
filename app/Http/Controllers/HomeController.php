@@ -14,6 +14,7 @@ class HomeController extends Controller
 {
     public function bookTest(Request $request)
     {
+        Session::regenerate(true);
         $testType = $request->testType;
         Theme::set('covid');
         return view('book-test', compact('testType'));
