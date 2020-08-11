@@ -548,7 +548,7 @@
                                                     @endif
                                                 @endfor
                                             </ul>
-                                            <div id="tab_hoo_container">
+                                            <div id="tab_hop_container">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @php( $cur_date_timestamp = time() + 86400 * $i )
                                                 @if(count($hours_of_operations)>0)
@@ -574,7 +574,7 @@
                                                                             @else
                                                                                 @php( $booked = 'no' )
                                                                             @endif
-                                                                            <div class="card text-center pointer bm-card mr-2">
+                                                                            <div class="card text-center pointer bm-card mr-2 mb-2">
                                                                                 <div class="card-body p-2 @if($booked=='yes') slot_booked @endif" style="font-size: 13px;">
                                                                                     <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                                 </div>
