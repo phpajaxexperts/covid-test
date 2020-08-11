@@ -1506,3 +1506,6 @@ div#divSelectedCenterConfirm {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .iti__flag {background-image: url("../img/flags@2x.png");}
 }
+
+.hourglass-32x32 { animation: hourglass-32x32 1.5s steps(15) infinite; display: block; width: 32px; height: 32px; background-image:url(../img/loading.png); }
+@keyframes hourglass-32x32 { from { background-position: 0px 0px; } to { background-position: 0px -480px; } }

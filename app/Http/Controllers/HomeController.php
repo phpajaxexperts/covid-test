@@ -24,6 +24,34 @@ class HomeController extends Controller
 
         $requestData = $request->all();
 
+        $messages = [
+            'name.required' => 'Name is required field!',
+            'nric_passport.required' => 'NRIC/Passport is required field!',
+            'phone.required' => 'Phone is required field!',
+            'email_address.required' => 'Email Address is required field!',
+            'country.required' => 'Country is required field!',
+            'testType.required' => 'Pre Procession or Point of entry selection is required field!',
+            'selectedCenter.required' => 'Center is required field!',
+            'selectedTimeSlot.required' => 'Date & Time is required field!',
+
+        ];
+
+        $this->validate($request, [
+            'name' => 'required|unique|max:255',
+            'nric_passport' => 'required',
+            'phone' => 'required',
+            'email_address' => 'required',
+            'country' => 'required',
+            'testType' => 'required',
+            'selectedCenter' => 'required',
+            'selectedTimeSlot' => 'required',
+        ]);
+
+        $validator = Validator::make(
+            ['name' => 'Dayle'],
+            ['name' => 'required|min:5']
+        );
+
         //echo "<pre>";print_r($requestData); exit;
         $requestData['active'] = 1;
         $session_id = Session::getId();

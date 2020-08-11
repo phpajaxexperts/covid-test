@@ -196,11 +196,24 @@
 
 
                 },
+                statusCode: {
+                    422: function(xhr) {
+                        //if(window.console) console.log(xhr.responseText);
+                        var data = jQuery.parseJSON( xhr.responseText );
+                        var errors = data.errors;
+                        var errMsg = '';
+                        $.each(errors, function(i, item) {
+                            errMsg += errors[i][0]+'\n';
+                        });
+                        alert(data.message+'\n'+errMsg);
+                        //alert(data.message);
+                    }
+                },
                 beforeSend: function(){
-                    //$("div.paceDiv").show();
+                    $("#loadingPayment").show();
                 },
                 complete: function(){
-                    //$("div.paceDiv").hide();
+                    $("#loadingPayment").hide();
                 }
             });
 
@@ -617,7 +630,11 @@
                             <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
                                 <div class="text-center pt-3">
                                     <button class="btn btn-blue" type="submit">Proceed to Payment</button>
+                                    <div id="loadingPayment" style="display: none;" class="spinner-border text-primary mt-3" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
                                 </div>
+
                             </form>
                         </div>
                     </div>
