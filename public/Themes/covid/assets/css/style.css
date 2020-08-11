@@ -1537,6 +1537,9 @@ div#divSelectedCenterConfirm {
 #tab_hop_container .card-body.selected a {
     color: #FFF;
 }
+.timeslot {
+    min-width: 155px;
+}
 /*--------------------------------------------------------------
 # end custom nested tabs
 --------------------------------------------------------------*/

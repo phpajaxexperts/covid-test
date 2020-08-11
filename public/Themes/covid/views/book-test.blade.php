@@ -584,7 +584,7 @@
                                                                 @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
                                                                 @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
                                                                 @for ($j = 1; $j <= $difference; $j++)
-                                                                    <div class="row mb-3">
+                                                                    <div class="row mb-2">
                                                                         @for ($k = 1; $k <= $center->slots_per_hour; $k++)
                                                                             @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
                                                                             @php( $cur_time_slot = date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)) )
@@ -599,7 +599,7 @@
                                                                             @else
                                                                                 @php( $booked = 'no' )
                                                                             @endif
-                                                                            <div class="card text-center pointer bm-card mr-2 mb-2">
+                                                                            <div class="card text-center pointer bm-card mr-2 mb-2 timeslot">
                                                                                 <div class="card-body p-2 @if($booked=='yes') slot_booked @endif" style="font-size: 13px;">
                                                                                     <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                                 </div>
