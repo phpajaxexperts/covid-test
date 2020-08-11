@@ -51,6 +51,7 @@ class HomeController extends Controller
 
         //echo "<pre>";print_r($requestData); exit;
         $requestData['active'] = 1;
+        $requestData['phone'] = $requestData['phone_country_code'].$requestData['phone'];
         $session_id = Session::getId();
         $requestData['sessionid'] = $session_id;
         $booking_time = date('Y-m-d H:i',strtotime($requestData['selectedTimeSlot']));

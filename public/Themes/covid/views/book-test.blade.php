@@ -77,7 +77,8 @@
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 
 <script>
-//    var input = document.querySelector("#phone");
+    var input = document.querySelector("#phone");
+    var iti = intlTelInput(input);
 //    window.intlTelInput(input, {
 //        // any initialisation options go here
 //    });
@@ -170,8 +171,10 @@
 
 
             var data = $( '#frmRegister' ).serialize()
+            console.log("country data"+iti.getSelectedCountryData());
+            var countryData = iti.getSelectedCountryData();
             //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
-            var phone_country_code = '';
+            var phone_country_code = countryData.dialCode;
             var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by;
 
             $.ajaxSetup({
@@ -309,6 +312,15 @@
         }
     }
 
+    function showHideIdentityType(val) {
+        $('#div_nric_passport').show();
+        if(val==1){
+            $('#lbl_nric_passport').html('ID Number');
+        }else{
+            $('#lbl_nric_passport').html('Passport Number');
+        }
+    }
+    
 </script>
 @endpush
 
@@ -407,13 +419,26 @@
                                                 <input class="form-control" name="name" type="text" id="name" value="{{ isset($patient->name) ? $patient->name : ''}}" >
                                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        </div><div class="form-group {{ $errors->has('nric_passport') ? 'has-error' : ''}}">
-                                            <label for="nric_passport" class="control-label">{{ 'NRIC or Passport Number ' }}</label>
+                                        </div>
+                                        <div class="form-group {{ $errors->has('identity_type') ? 'has-error' : ''}}">
+                                            <label for="identity_type" class=" control-label">{{ 'Identity Type' }}</label>
+                                            <div>
+                                                <select name="identity_type" class="form-control" id="identity_type" onchange="showHideIdentityType(this.value)" >
+                                                    @foreach (json_decode('{"1":"NRIC","2":"Passport Number"}', true) as $optionKey => $optionValue)
+                                                        <option value="{{ $optionKey }}" {{ (isset($patient->active) && $patient->active == $optionKey) ? 'selected' : ''}}>{{ $optionValue }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {!! $errors->first('identity_type', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group {{ $errors->has('nric_passport') ? 'has-error' : ''}}">
+                                            <label for="nric_passport" class="control-label" id="lbl_nric_passport">ID Number</label>
                                             <div>
                                                 <input class="form-control" name="nric_passport" type="text" id="nric_passport" value="{{ isset($patient->nric_passport) ? $patient->nric_passport : ''}}" >
                                                 {!! $errors->first('nric_passport', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        </div><div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
+                                        </div>
+                                        <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
                                             <label for="gender" class="control-label">{{ 'Gender' }}</label>
                                             <div>
                                                 <div class="radio">
