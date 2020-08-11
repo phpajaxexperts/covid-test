@@ -226,7 +226,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-           //disabled: [1, 2, 3]
+           disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
