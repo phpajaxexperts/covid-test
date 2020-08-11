@@ -65,9 +65,9 @@ return [
     'raudhapay_payment_gateway_status' => 'sandbox',
     //'raudhapay_payment_gateway_status' => 'live',
     'raudhapay_live' => array(
-            'api_url' => 'https://stg-api.raudhahpay.com/api',
-            'collection_code' => 'wCi3CgcW',
-            'api_token' => 'grXvha3ZjTokEOOYjOBgWLv3Juxs_Qbx',
+            'api_url' => 'https://api.raudhahpay.com/api',
+            'collection_code' => '9ZO0Ez8r',
+            'api_token' => 'ykvdzZ3W1Vr06BmubVecD3wUGdlihSuR',
     ),
 
     'raudhapay_sandbox' => [
