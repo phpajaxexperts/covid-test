@@ -25,7 +25,8 @@ class CentersController extends Controller
 //        echo $encrypt.'<br>';
 //        echo $decrypt = decryptString($encrypt);
 //        exit;
-
+       //echo Auth::guard('center')['user']->ID; exit;
+        //dd(Auth::guard('center'));
         Theme::set('centers');
         return view('dashboard');
     }
@@ -39,7 +40,7 @@ class CentersController extends Controller
 
         if(!isset($dat))
         $dat = date('Y-m-d');
-        $bookings = getBookingsByDate($dat);
+        $bookings = getBookingsByDate($dat,Auth::id());
         return view('patients', compact('bookings','dat'));
     }
 

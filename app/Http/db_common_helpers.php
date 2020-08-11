@@ -318,12 +318,13 @@ EOM;
     }
 }
 
-function getBookingsByDate($dat){
+function getBookingsByDate($dat,$ID){
     $bookings = DB::table('patients_booking')
         ->select('patients_booking.*','patients.name','patients.phone')
         ->join('patients','patients.ID','=','patients_booking.patient')
         ->where('patients_booking.booking_date', $dat)
         ->where('patients_booking.paid', 1)
+        ->where('patients_booking.center', $ID)
         ->orderBy('patients.name','asc')
         ->get();
         //->toSql();
