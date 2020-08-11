@@ -541,7 +541,7 @@
                                                     @if(count($hours_of_operations)>0)
                                                         @foreach($hours_of_operations as $hours_of_operation)
                                                             @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                                <li style="font-size: 13px;"><a href="#tab_hoo_{{$center->ID}}_{{$i}}"><span>{{date("d/m/Y", $cur_date_timestamp)}}</span></a></li>
+                                                                <li style="font-size: 13px;"><a href="#tab_hoo_{{$center->ID}}_{{$i}}"><span>{{date("d M, Y", $cur_date_timestamp)}}</span></a></li>
                                                                 @break
                                                             @endif
                                                         @endforeach
