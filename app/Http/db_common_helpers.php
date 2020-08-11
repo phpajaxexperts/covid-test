@@ -270,7 +270,8 @@ function bookingConfirmMail($data){
         $clinic_address .= '<br>'.$data['center']->street_address_2.',';
     $clinic_address .= '<br>'.$data['center']->city.', '.$data['center']->state.' '.$data['center']->zip_code.'.';
 
-    $booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
+    //$booking_time = date('d/m/Y h:i A',strtotime($data['booking']->booking_time));
+    $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
 
     $mssg = <<< EOM
 <html>
@@ -288,7 +289,7 @@ Thanks for booking with us.<br /><br />
 $clinic_address
 <br /><br />
 
-<h3>Date & Time</h3>
+<strong>Date & Time</strong>
 $booking_time
 
 <br /><br />
