@@ -208,6 +208,10 @@ class HomeController extends Controller
             );
             $ID = DB::table('payments')->insertGetId($arr_payment);
 
+            DB::table('patients_booking')
+                ->where('ID', $bookingID)
+                ->update(['paid' => 1]);
+
             $data = array(
                 'patient' => $patient,
                 'booking' => $booking,
