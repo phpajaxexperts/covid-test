@@ -75,6 +75,7 @@ class CentersController extends Controller
             //$subject = 'Covid-19 Test - Result';
 
             $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
+            $data['booking_time'] = $booking_time;
 
             if($data['test_result']==1){
                 $result_type = 'POSITIVE';
