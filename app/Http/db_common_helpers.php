@@ -372,6 +372,7 @@ function sendTestResulstUpdateMail($data){
     //$qrcode = QrCode::size(300)->format('svg')->generate($qrcode_info);
     $qrcode = QrCode::size(300)->format('png')->generate($qrcode_info);
 
+    $qrcode = '<img src="'.QrCode::size(300)->format('png')->generate($qrcode_info).'">';
 
     $mssg = <<< EOM
 <html>
@@ -394,7 +395,7 @@ Thank You
 </tr>
 <tr>
 <td align="center">
-<img src="$qrcode">
+$qrcode
 </td>
 </tr>
 EOM;
