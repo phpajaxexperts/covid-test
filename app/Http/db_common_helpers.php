@@ -369,8 +369,8 @@ function sendTestResulstUpdateMail($data){
 
     //echo encrptString($qrcode_info); exit;
     $qrcode_info = encrptString($qrcode_info);
-
     $qrcode = QrCode::size(300)->format('png')->generate($qrcode_info);
+
     $mssg = <<< EOM
 <html>
 <body>
