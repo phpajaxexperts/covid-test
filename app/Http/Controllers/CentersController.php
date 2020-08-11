@@ -34,6 +34,10 @@ class CentersController extends Controller
     {
         Theme::set('centers');
         //$dat = date('Y-m-d',time() + 86400);
+        if(isset($_POST['dat']) && $_POST['dat']!='dd-mm-yyyy')
+        $dat = date('Y-m-d',strtotime($_POST['dat']));
+
+        if(!isset($dat))
         $dat = date('Y-m-d');
         $bookings = getBookingsByDate($dat);
         return view('patients', compact('bookings','dat'));

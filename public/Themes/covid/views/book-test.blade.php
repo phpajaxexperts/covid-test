@@ -61,6 +61,15 @@
 @endpush
 
 @push('js')
+<script>
+//    $(function () {
+//        $('#dob').datetimepicker({
+//            minDate:new Date()
+//        });
+//    });
+</script>
+
+
 <script src="{{ themes('js/intlTelInput.min.js') }}"></script>
 <script src="{{ themes('js/utils.js') }}"></script>
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
@@ -232,6 +241,8 @@
         $(".tabs_hop").tabs({
             active: 0
         });
+
+        //MaxDate = DateTime.Now;
     });
 
     function selectCenter(centerID){

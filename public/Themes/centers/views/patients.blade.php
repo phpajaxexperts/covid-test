@@ -7,6 +7,15 @@
 <script src="{{ themes('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script>
     $(function () {
+
+        $("#frmDate").validate({
+            rules: {
+                dat: {
+                    required: true
+                }
+            }
+        });
+
         $('#dataTable').DataTable({
             "paging": true,
             "lengthChange": true,
@@ -58,6 +67,12 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">List of Patients on {{date('d/m/Y',strtotime($dat))}}</h3>
+            <div class="text-right">
+                <form name="frmDate" id="frmDate" action="{{ url('/center/patients')  }}" method="post">
+                    @csrf
+                <input type="date" name="dat" id="dat" placeholder="{{date('d-m-Y',strtotime($dat))}}" value="{{date('d-m-Y',strtotime($dat))}}"><button type="submit">Go</button>
+                </form>
+            </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
