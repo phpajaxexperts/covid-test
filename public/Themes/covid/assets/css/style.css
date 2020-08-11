@@ -1482,6 +1482,14 @@ div#fragment-2, div#fragment-3, div#fragment-4 {
     padding-left: 0;
     padding-right: 0;
 }
+#fragment-2 .card {
+    height: 100%;
+}
+#fragment-2 .card .card-text {
+    min-height: 42px;
+    max-height: 42px;
+    overflow: hidden;
+}
 .centers-list h5.card-title, #divSelectedCenter h5.card-title, #divSelectedCenterConfirm h5.card-title {
     font-size: 16px;
     font-weight: 700;

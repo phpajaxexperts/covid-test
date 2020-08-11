@@ -508,7 +508,7 @@
                             @if(count($centers)>0)
                                 <div class="row">
                                     @foreach($centers as $center)
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4 mb-4">
                                             <div class="card">
                                                 <div class="card-body" id="center_{{$center->ID}}">
                                                     <h5 class="card-title">{{$center->name}}</h5>
@@ -522,9 +522,7 @@
                             @endif
                         </div>
                         <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
-                            <div id="divSelectedCenter" class="mb-3">
-
-                            </div>
+                            <div id="divSelectedCenter" class="mb-3"></div>
                             @if(count($centers)>0)
                                 @foreach($centers as $center)
                                     @php( $selected_time_slots = getSeletedTimeSlotByCenter($center->ID) )
@@ -550,7 +548,7 @@
                                                     @endif
                                                 @endfor
                                             </ul>
-
+                                            <div id="tab_hoo_container">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @php( $cur_date_timestamp = time() + 86400 * $i )
                                                 @if(count($hours_of_operations)>0)
@@ -592,6 +590,7 @@
                                                 @endif
                                             @endfor
 
+                                        </div>
                                         </div>
                                     </div>
                                 @endforeach
