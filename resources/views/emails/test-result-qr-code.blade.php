@@ -30,7 +30,7 @@
     <tr>
         <td class="email-wrapper">
             <h2>Covid-19 Test Result</h2>
-            You have received test result for Covid-19 Test Taken on {{$booking_time}}.<br />
+            You have received test result for Covid-19 Test Taken on {{$data['booking_time']}}.<br />
             @if($data['test_result']==1)
                 <h3>Result : <span style="color:#FF0000">POSITIVE</span></h3>
                 Necessary actions need to be taken!
