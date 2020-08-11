@@ -27,6 +27,7 @@ class HomeController extends Controller
 
         $messages = [
             'name.required' => 'Name is required field!',
+            'identity_type.required' => 'Identity Type is required field!',
             'nric_passport.required' => 'NRIC/Passport is required field!',
             'phone.required' => 'Phone is required field!',
             'email_address.required' => 'Email Address is required field!',
@@ -39,6 +40,7 @@ class HomeController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255',
+            'identity_type' => 'required',
             'nric_passport' => 'required',
             'phone' => 'required',
             'email_address' => 'required',
@@ -241,6 +243,13 @@ class HomeController extends Controller
 
         return view('payment-success',compact('bill_id','booking'));
     }
+
+    public function updateAmountPaid(Request $request)
+    {
+        $msg = $_POST;
+        mail('noreply@jengu.co','this web hook update test for ', $msg );
+    }
+
 
     public function centerLogin(Request $request)
     {

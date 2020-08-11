@@ -25,7 +25,7 @@ class Patient extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'nric_passport', 'gender', 'dob', 'phone', 'email_address', 'country', 'symtoms', 'travelled_infected_country', 'test_result', 'sessionid', 'active'];
+    protected $fillable = ['name','identity_type', 'nric_passport', 'gender', 'dob', 'phone', 'email_address', 'country', 'symtoms', 'travelled_infected_country', 'test_result', 'sessionid', 'active'];
 
     
 
