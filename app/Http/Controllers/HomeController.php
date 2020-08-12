@@ -279,28 +279,36 @@ class HomeController extends Controller
 
         $bookingID = decryptString($arr['qrdata']);
         $booking = getBooking($bookingID);
-        $patient = getPatient($booking->patient);
-        $center = getCenter($booking->center);
+        if(isset($booking)){
+            $patient = getPatient($booking->patient);
+            $center = getCenter($booking->center);
 
-        if($booking->test_result==1)
-            $test_result = 'positive';
-        elseif($booking->test_result==2)
-            $test_result = 'negative';
-        elseif($booking->test_result==3)
-            $test_result = 'invalid';
+            if($booking->test_result==1)
+                $test_result = 'positive';
+            elseif($booking->test_result==2)
+                $test_result = 'negative';
+            elseif($booking->test_result==3)
+                $test_result = 'invalid';
 
-        $result = array(
-            'test_result' => $test_result,
-            'name' => $patient->name,
-            'test_date' => date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:s A',strtotime($booking->booking_time)),
-            'issuer' => $center->name,
-        );
+            $result = array(
+                'test_result' => $test_result,
+                'name' => $patient->name,
+                'test_date' => date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:s A',strtotime($booking->booking_time)),
+                'issuer' => $center->name,
+            );
 
-        $response = array(
-            'status' => 'success',
-            'result' => $result
-        );
-        return response()->json($response, 200);
+            $response = array(
+                'status' => 'success',
+                'result' => $result
+            );
+            return response()->json($response, 200);
+        }else{
+            $response = array(
+                'status' => 'failed',
+                'result' => 'Invalid, input data.'
+            );
+            return response()->json($response, 200);
+        }
     }
 
 
