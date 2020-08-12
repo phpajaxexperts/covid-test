@@ -246,6 +246,7 @@ class HomeController extends Controller
 
     public function updateAmountPaid(Request $request)
     {
+        $message = '';
         foreach ($_POST as $key => $value)
             $message .= "Field ".htmlspecialchars($key)." is ".htmlspecialchars($value)."<br>";
 
