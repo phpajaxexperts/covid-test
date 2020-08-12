@@ -83,6 +83,6 @@ Route::group(['prefix' => 'administrator'], function () {
 Route::get('/center/dashboard', 'CentersController@dashboard');
 Route::get('/center/patients', 'CentersController@patients');
 Route::post('/center/patients', 'CentersController@patients');
-
 Route::post('/center/update-patient', 'CentersController@updatePatient');
+Route::get('/center/logout', 'CentersController@logout');
 

@@ -137,9 +137,9 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{ themes('dist/img/user2-160x160.jpg')  }}" class="img-circle elevation-2" alt="User Image">
-            </div>
+            {{--<div class="image">--}}
+                {{--<img src="{{ themes('dist/img/user2-160x160.jpg')  }}" class="img-circle elevation-2" alt="User Image">--}}
+            {{--</div>--}}
             <div class="info">
                 <a href="#" class="d-block">{{Auth::guard('center')->getUser()->name}}</a>
             </div>
@@ -159,14 +159,15 @@
                         {{--</p>--}}
                     {{--</a>--}}
                     <ul class="nav nav-treeview">
+                        @php( $action_name = getActionName() )
                         <li class="nav-item">
-                            <a href="{{ url('center/dashboard')  }}" class="nav-link active">
+                            <a href="{{ url('center/dashboard')  }}" class="nav-link  @if($action_name=='' || $action_name=='dashboard') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('center/patients')  }}" class="nav-link">
+                            <a href="{{ url('center/patients')  }}" class="nav-link @if($action_name=='patients') active @endif ">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Patients</p>
                             </a>

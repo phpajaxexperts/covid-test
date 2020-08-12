@@ -40,12 +40,26 @@ class CentersController extends Controller
         Theme::set('centers');
         //echo Auth::getName(); exit;
         //$dat = date('Y-m-d',time() + 86400);
-        if(isset($_POST['dat']) && $_POST['dat']!='dd-mm-yyyy')
-        $dat = date('Y-m-d',strtotime($_POST['dat']));
+        if($_POST){
+            $dates = explode('-',$_POST['date_duration']);
+            //echo '"'.trim($dates[0]).'"<br>';
 
-        if(!isset($dat))
-        $dat = date('Y-m-d');
-        $bookings = getBookingsByDate($dat,Auth::id());
+            $start_date = explode('/',$dates[0]);
+            $start_date = trim($start_date[2]).'-'.$start_date[1].'-'.$start_date[0];
+
+            $end_date = explode('/',$dates[1]);
+            $end_date = $end_date[2].'-'.$end_date[1].'-'.trim($end_date[0]);
+
+//            echo "date:".$start_date;
+//            echo "enddate:".$end_date;exit;
+
+        }
+        if(!isset($start_date) && !isset($end_date)){
+            $start_date = date('Y-m-d');
+            $end_date = date('Y-m-d');
+        }
+        $dat = date('d/m/Y', strtotime($start_date)).' - '.date('d/m/Y', strtotime($end_date));
+        $bookings = getBookingsByDate($start_date,$end_date,Auth::id());
         return view('patients', compact('bookings','dat'));
     }
 
@@ -126,4 +140,10 @@ class CentersController extends Controller
 
     }
 
+    public function logout()
+    {
+        //Auth::logout();
+        auth('center')->logout();
+        return redirect('/center');
+    }
 }

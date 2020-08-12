@@ -2,6 +2,7 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ themes('plugins/sweetalert2/sweetalert2.css') }} ">
+<link rel="stylesheet" href="{{ themes('plugins/daterangepicker/daterangepicker.css') }}">
 @endpush
 
 @push('js')
@@ -10,8 +11,17 @@
 <script src="{{ themes('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ themes('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ themes('plugins/sweetalert2/sweetalert2.js')}}"></script>
+<script src="{{ themes('plugins/daterangepicker/daterangepicker.js') }}"></script>
 <script>
     $(function () {
+        $('#date_duration').daterangepicker({
+            timePicker: false,
+            //startDate: moment().startOf('hour'),
+            //endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
 //        $("#frmDate").validate({
 //            rules: {
 //                dat: {
@@ -105,11 +115,11 @@
     <div class="content-wrapper">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">List of Patients on {{date('d/m/Y',strtotime($dat))}}</h3>
+            <h3 class="card-title">List of Patients on {{$dat}}</h3>
             <div class="text-right">
                 <form name="frmDate" id="frmDate" action="{{ url('/center/patients')  }}" method="post">
                     @csrf
-                <input type="date" name="dat" id="dat" placeholder="{{date('d-m-Y',strtotime($dat))}}" value="{{date('d-m-Y',strtotime($dat))}}"><button type="submit">Go</button>
+                Date <input type="text" style="width: 200px;" name="date_duration" id="date_duration"><button type="submit">Go</button>
                 </form>
             </div>
         </div>
