@@ -58,6 +58,7 @@ class CentersController extends Controller
             $start_date = date('Y-m-d');
             $end_date = date('Y-m-d');
         }
+
         $dat = date('d/m/Y', strtotime($start_date)).' - '.date('d/m/Y', strtotime($end_date));
         $bookings = getBookingsByDate($start_date,$end_date,Auth::id());
         return view('patients', compact('bookings','dat'));

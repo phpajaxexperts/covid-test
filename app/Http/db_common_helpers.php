@@ -335,6 +335,7 @@ function getBookingsByDate($start_date,$end_date,$ID){
     return $bookings;
 }
 
+
 function sendTestResulstUpdateMail($data){
     $to = $data['patient']->email_address;
     //$to = 'noreply@jengu.co';
