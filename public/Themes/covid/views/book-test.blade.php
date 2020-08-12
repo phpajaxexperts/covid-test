@@ -435,7 +435,7 @@
                                     </div>
                                     <div class="col-md-6 right-col">
                                         <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                                            <label for="name" class="control-label">{{ 'Full Name* : (As in NRIC or Pass)' }}</label>
+                                            <label for="name" class="control-label">{{ 'Full Name* : (As per NRIC or Passport)' }}</label>
                                             <div>
                                                 <input class="form-control" name="name" type="text" id="name" value="{{ isset($patient->name) ? $patient->name : ''}}" >
                                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
