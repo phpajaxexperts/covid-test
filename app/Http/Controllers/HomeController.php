@@ -281,11 +281,11 @@ class HomeController extends Controller
         $patient = getPatient($booking->patient);
         $center = getCenter($booking->center);
 
-        if($booking['test_result']==1)
+        if($booking->test_result==1)
             $test_result = 'positive';
-        elseif($booking['test_result']==2)
+        elseif($booking->test_result==2)
             $test_result = 'negative';
-        elseif($booking['test_result']==3)
+        elseif($booking->test_result==3)
             $test_result = 'invalid';
 
         $result = array(
