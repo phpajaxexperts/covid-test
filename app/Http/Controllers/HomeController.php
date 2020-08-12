@@ -281,16 +281,21 @@ class HomeController extends Controller
         $patient = getPatient($booking->patient);
         $center = getCenter($booking->center);
 
+        if($booking['test_result']==1)
+            $test_result = 'positive';
+        elseif($booking['test_result']==2)
+            $test_result = 'negative';
+        elseif($booking['test_result']==3)
+            $test_result = 'invalid';
 
         $result = array(
-            'test_result' => $booking['test_result'],
-            'name' => $booking['name'],
+            'test_result' => $test_result,
+            'name' => $patient['name'],
             'test_date' => date('M d, Y',strtotime($booking['booking_time'])).' at '.date('h:s A',strtotime($booking['booking_time'])),
             'issuer' => $center['name'],
         );
 
         $response = array(
-            'qrdata'   => $arr['qrdata'],
             'status' => 'success',
             'result' => $result
         );
