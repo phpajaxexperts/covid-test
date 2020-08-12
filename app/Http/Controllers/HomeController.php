@@ -290,9 +290,9 @@ class HomeController extends Controller
 
         $result = array(
             'test_result' => $test_result,
-            'name' => $patient['name'],
-            'test_date' => date('M d, Y',strtotime($booking['booking_time'])).' at '.date('h:s A',strtotime($booking['booking_time'])),
-            'issuer' => $center['name'],
+            'name' => $patient->name,
+            'test_date' => date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:s A',strtotime($booking->booking_time)),
+            'issuer' => $center->name,
         );
 
         $response = array(
