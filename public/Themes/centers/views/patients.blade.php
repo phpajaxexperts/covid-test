@@ -1,13 +1,17 @@
 @extends('layouts.master')
 
+@push('css')
+<link rel="stylesheet" href="{{ themes('plugins/sweetalert2/sweetalert2.css') }} ">
+@endpush
+
 @push('js')
 <script src="{{ themes('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ themes('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{ themes('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ themes('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ themes('plugins/sweetalert2/sweetalert2.js')}}"></script>
 <script>
     $(function () {
-
 //        $("#frmDate").validate({
 //            rules: {
 //                dat: {
@@ -27,36 +31,70 @@
         });
     });
 
-    function updateStatus(ID,status){
-        $('#loading_'+ID).show();
-        var param = 'ID='+ID+'&status='+status;
+    function updateStatus(ID){
+        if($('#test_result_'+ID).val()){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    var param = 'ID='+ID+'&status='+$('#test_result_'+ID).val();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-        $.ajax({
-            type: "POST",
-            url: "{{ url('/center/update-patient') }}",
-            data: param,
-            success: function(msg){
-                if(msg.status=='success')
-                    $('#loading_'+ID).hide();
-                else if(msg.status=='failed')
-                    alert('Rrequest failed, please try again');
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('/center/update-patient') }}",
+                        data: param,
+                        success: function(msg){
+                            if(msg.status=='success'){
+                                var testResult='';
+                                var result_status = $('#test_result_'+ID).val();
+                                if(result_status==1)
+                                    testResult = '<span class="text-red" >POSITIVE</span>';
+                                else if(result_status==2)
+                                    testResult ='<span class="text-green" >NEGATIVE</span>';
+                                else if(result_status==3)
+                                    testResult ='<span class="text-grey" >INVALID</span>';
 
-
-
-            },
-            beforeSend: function(){
-                //$("div.paceDiv").show();
-            },
-            complete: function(){
-                //$("div.paceDiv").hide();
-            }
-        });
+                                $('#divTestResult_'+ID).html(testResult);
+                            }
+                            else if(msg.status=='failed')
+                                alert('Rrequest failed, please try again');
+                        },
+                        beforeSend: function(){
+                            Swal.fire({
+                                title: 'Please Wait !',
+                                html: '',// add html attribute if you want or remove
+                                allowOutsideClick: false,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading()
+                                },
+                            });
+                        },
+                        complete: function(){
+                            //$("div.paceDiv").hide();\
+                            swal.close();
+                        }
+                    });
+                }
+            })
+        }else{
+            Swal.fire(
+                'Alert!',
+                'Please select the test result to update.',
+                'warning'
+            )
+        }
     }
 </script>
 @endpush
@@ -94,36 +132,25 @@
                             <td>{{$booking->phone}}</td>
                             <td>{{date('d/m/Y',strtotime($booking->booking_time))}} at {{date('h:i A',strtotime($booking->booking_time))}}</td>
                             <td>
-                                <table cellpadding="0" cellspacing="0" border="0" style="border: 0px; background: none;" width="100%">
-                                    <tr>
-                                        <td style="border: 0px; background: none;">
-                                            <!-- radio -->
-                                            <div class="form-group clearfix">
-                                                <div class="icheck-success d-inline pr-4">
-                                                    <input type="radio" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}_1" onclick="updateStatus('{{$booking->ID}}',2);" @if($booking->test_result==2) checked="checked" @endif>
-                                                    <label for="test_result_{{$booking->ID}}_1"><span class="text-green">Negative</span></label>
-                                                </div>
-
-                                                <div class="icheck-danger d-inline pr-4">
-                                                    <input type="radio" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}_2" onclick="updateStatus('{{$booking->ID}}',1);" @if($booking->test_result==1) checked="checked" @endif>
-                                                    <label for="test_result_{{$booking->ID}}_2"><span class="text-red">Positive</span></label>
-                                                </div>
-
-                                                <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="test_result_{{$booking->ID}}_3" name="test_result_{{$booking->ID}}" onclick="updateStatus('{{$booking->ID}}',3);" @if($booking->test_result==3) checked="checked" @endif>
-                                                    <label for="test_result_{{$booking->ID}}_3"><span class="text-grey">Invalid</span></label>
-                                                </div>
-                                            </div>
-
-                                            {{--<input type="radio" onclick="updateStatus('{{$booking->ID}}',1);" @if($booking->test_result==1) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="1"> <span class="text-red">Positive</span><br>--}}
-                                            {{--<input type="radio" onclick="updateStatus('{{$booking->ID}}',2);" @if($booking->test_result==2) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="2"> <span class="text-green">Negative</span><br>--}}
-                                            {{--<input type="radio" onclick="updateStatus('{{$booking->ID}}',3);" @if($booking->test_result==3) checked="checked" @endif class="form-check-inline" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" value="3"> <span class="text-grey">Invalid Results</span><br>--}}
-                                        </td>
-                                        <td  style="border: 0px; background: none;">
-                                            <i id="loading_{{$booking->ID}}" class="hourglass-32x32" style="display: none;" />
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div id="divTestResult_{{$booking->ID}}">
+                                    @if($booking->test_result)
+                                        @if($booking->test_result==1)
+                                            <span class="text-red">POSITIVE</span>
+                                        @elseif($booking->test_result==2)
+                                            <span class="text-green">NEGATIVE</span>
+                                        @elseif($booking->test_result==3)
+                                            <span class="text-grey">INVALID</span>
+                                        @endif
+                                    @else
+                                        <select class="form-control inline col-md-6" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}">
+                                            <option value=""> - select result - </option>
+                                            <option value="1">Positive</option>
+                                            <option value="2">Negative</option>
+                                            <option value="3">Invalid</option>
+                                        </select>
+                                        <a href="javascript:void(0);"  onclick="updateStatus('{{$booking->ID}}');" ><button type="button" class="btn btn-info">Update</button></a>
+                                    @endif
+                                </div>
                             </td>
                             {{--<td><a href="{{ url('/center/update-patient/'.$patient->ID)  }}"><button type="button" class="btn btn-info">Update</button></a></td>--}}
                         </tr>

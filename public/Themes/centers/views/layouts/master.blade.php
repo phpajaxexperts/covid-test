@@ -111,7 +111,7 @@
         <!-- AdminLTE App -->
         <script src="{{ themes('dist/js/adminlte.js') }}"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="{{ themes('dist/js/pages/dashboard.js') }}"></script>
+        {{--<script src="{{ themes('dist/js/pages/dashboard.js') }}"></script>--}}
         <!-- AdminLTE for demo purposes -->
         <script src="{{ themes('dist/js/demo.js') }}"></script>
 

@@ -30,6 +30,7 @@ class CentersController extends Controller
 //        exit;
        //echo Auth::guard('center')['user']->ID; exit;
         //dd(Auth::guard('center'));
+        //dd(Auth::guard('center')->getUser()->name);
         Theme::set('centers');
         return view('dashboard');
     }
@@ -37,6 +38,7 @@ class CentersController extends Controller
     public function patients(Request $request)
     {
         Theme::set('centers');
+        //echo Auth::getName(); exit;
         //$dat = date('Y-m-d',time() + 86400);
         if(isset($_POST['dat']) && $_POST['dat']!='dd-mm-yyyy')
         $dat = date('Y-m-d',strtotime($_POST['dat']));

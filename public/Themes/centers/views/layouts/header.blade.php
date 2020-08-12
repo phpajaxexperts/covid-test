@@ -26,6 +26,7 @@
     {{--</form>--}}
 
     <!-- Right navbar links -->
+
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -117,6 +118,8 @@
                 {{--<i class="fas fa-th-large"></i>--}}
             {{--</a>--}}
         {{--</li>--}}
+
+        <li  class="nav-item"><a class="nav-link" href="{{ url('/center/logout') }}">Logout</a></li>
     </ul>
 </nav>
 <!-- /.navbar -->
@@ -138,7 +141,7 @@
                 <img src="{{ themes('dist/img/user2-160x160.jpg')  }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{Auth::guard('center')->getUser()->name}}</a>
             </div>
         </div>
 
