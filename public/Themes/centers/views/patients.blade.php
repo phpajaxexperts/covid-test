@@ -59,6 +59,7 @@
                             if(msg.status=='success'){
                                 var testResult='';
                                 var result_status = $('#test_result_'+ID).val();
+
                                 if(result_status==1)
                                     testResult = '<span class="text-red" >POSITIVE</span>';
                                 else if(result_status==2)
