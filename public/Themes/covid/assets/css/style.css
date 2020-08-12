@@ -1538,7 +1538,13 @@ div#divSelectedCenterConfirm {
     color: #FFF;
 }
 .timeslot {
+    font-size: 13px;
     min-width: 155px;
+}
+.slot_booked{
+    background-color: #eff0f2;
+    opacity: .35;
+    pointer-events: none;
 }
 /*--------------------------------------------------------------
 # end custom nested tabs

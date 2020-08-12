@@ -5,10 +5,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="{{ themes('css/intlTelInput.min.css') }} ">
 <style>
-    .slot_booked{
-        background-color: #EEE;
-    }
-
     .iti__selected-flag{
         height: 35px !important;
     }
@@ -238,7 +234,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-           disabled: [1, 2, 3]
+            disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
@@ -599,8 +595,8 @@
                                                                             @else
                                                                                 @php( $booked = 'no' )
                                                                             @endif
-                                                                            <div class="card text-center pointer bm-card mr-2 mb-2 timeslot">
-                                                                                <div class="card-body p-2 @if($booked=='yes') slot_booked @endif" style="font-size: 13px;">
+                                                                            <div class="card text-center pointer bm-card mr-2 mb-2 timeslot slot_booked @if($booked=='yes') slot_booked @endif">
+                                                                                <div class="card-body p-2">
                                                                                     <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                                 </div>
                                                                             </div>
