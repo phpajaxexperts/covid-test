@@ -291,16 +291,19 @@
         $( "#divTimeConfirm" ).html($( "#selectedTime" ).val());
 
         $( "#divConfirmName" ).html($( "#name" ).val());
-        $( "#divConfirmDob" ).html($( "#dob" ).val());
-        $( "#divConfirmICPassportNumber" ).html($( "#nric_passport" ).val());
+        $( "#divConfirmDob" ).html($( "#dob" ).text());
+        if($( "#identity_type" ).val()==1)
+        $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
+        else if($( "#identity_type" ).val()==1)
+        $( "#divConfirmICPassportNumber" ).html($( "#passport_number" ).val());
         //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
         //$( "#divConfirmContactNumber" ).html(phone_country_code+$( "#phone" ).val());
         $( "#divConfirmContactNumber" ).html($( "#phone" ).val());
         var gender_id = $('input[name="gender"]:checked').val();
         if(gender_id==1)
-            var gender='male';
+            var gender='Male';
         else
-            var gender='female';
+            var gender='Female';
         $( "#divConfirmGender" ).html(gender);
         $( "#divConfirmEmailAddress" ).html($( "#email_address" ).val());
         $( "#divConfirmNationality" ).html($( "#country option:selected" ).text());
