@@ -258,7 +258,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-            // disabled: [1, 2, 3]
+            disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
@@ -335,7 +335,7 @@
     function showHideIdentityType(val) {
         $('#div_nric_passport').show();
         if(val==1){
-            var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">ID Number</label><div><input class="form-control" name="nric_passport" type="text" id="nric_number"" ></div></div>';
+            var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">ID Number</label><div><input class="form-control" name="nric_passport" type="text" id="nric_number"" placeholder="000000-00-0000" ></div></div>';
         }else{
             var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">Passport Number</label><div><input class="form-control" name="nric_passport" type="text" id="passport_number"" ></div></div>';
         }
