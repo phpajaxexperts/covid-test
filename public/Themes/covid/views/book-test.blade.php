@@ -291,7 +291,7 @@
         $( "#divTimeConfirm" ).html($( "#selectedTime" ).val());
 
         $( "#divConfirmName" ).html($( "#name" ).val());
-        $( "#divConfirmDob" ).html($( "#dob" ).text());
+        $( "#divConfirmDob" ).html($( "#dob" ).val());
         if($( "#identity_type" ).val()==1)
         $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
         else if($( "#identity_type" ).val()==1)
