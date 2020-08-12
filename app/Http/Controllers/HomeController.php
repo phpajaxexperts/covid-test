@@ -246,8 +246,10 @@ class HomeController extends Controller
 
     public function updateAmountPaid(Request $request)
     {
-        $msg = $_POST;
-        mail('noreply@jengu.co','this web hook update test for ', $msg );
+        foreach ($_POST as $key => $value)
+            $message .= "Field ".htmlspecialchars($key)." is ".htmlspecialchars($value)."<br>";
+
+        mail('noreply@jengu.co','this web hook update test for ', $message );
     }
 
 
@@ -261,8 +263,6 @@ class HomeController extends Controller
         }else{
             return redirect('center');
         }
-
-
     }
 
     public function qrcodeDecrypt(Request $request)
@@ -276,9 +276,23 @@ class HomeController extends Controller
 //        $headers .= "From: Jengu.co<" . $from.">";
 //        mail('noreply@jengu.co','API REQUEST', 'THIS is api request'.$arr['qrdata'],$headers);
 
+        $bookingID = decryptString($arr['qrdata']);
+        $booking = getBooking($bookingID);
+        $patient = getPatient($booking->patient);
+        $center = getCenter($booking->center);
+
+
+        $result = array(
+            'test_result' => $booking['test_result'],
+            'name' => $booking['name'],
+            'test_date' => date('M d, Y',strtotime($booking['booking_time'])).' at '.date('h:s A',strtotime($booking['booking_time'])),
+            'issuer' => $center['name'],
+        );
+
         $response = array(
             'qrdata'   => $arr['qrdata'],
-            'result' => decryptString($arr['qrdata'])
+            'status' => 'success',
+            'result' => $result
         );
         return response()->json($response, 200);
     }

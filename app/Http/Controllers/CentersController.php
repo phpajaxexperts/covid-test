@@ -91,19 +91,21 @@ class CentersController extends Controller
             $data['result_type'] = $result_type;
             $data['result_note'] = $result_note;
 
-            $qrcode_info = 'Name : '.$data['patient']->name.'{\n}';
-            $qrcode_info .= 'NRIC/Passport : '.$data['patient']->nric_passport.'{\n}';
-            $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'{\n}';
-            $qrcode_info .= 'Phone : '.$data['patient']->phone.'{\n}';
-            $qrcode_info .= 'Test Taken on : '.$booking_time.'{\n}';
-            $qrcode_info .= 'Test Result : '.$result_type.'{\n}';
-            $qrcode_info .= 'Note : '.$result_note;
+//            $qrcode_info = 'Name : '.$data['patient']->name.'{\n}';
+//            $qrcode_info .= 'NRIC/Passport : '.$data['patient']->nric_passport.'{\n}';
+//            $qrcode_info .= 'Email Address : '.$data['patient']->email_address.'{\n}';
+//            $qrcode_info .= 'Phone : '.$data['patient']->phone.'{\n}';
+//            $qrcode_info .= 'Test Taken on : '.$booking_time.'{\n}';
+//            $qrcode_info .= 'Test Result : '.$result_type.'{\n}';
+//            $qrcode_info .= 'Note : '.$result_note;
 
             //echo encrptString($qrcode_info); exit;
-            $qrcode_info = encrptString($qrcode_info);
+
+            //$qrcode_info = encrptString($qrcode_info);
             //$qrcode = QrCode::size(300)->format('svg')->generate($qrcode_info);
             //$qrcode = QrCode::size(300)->format('png')->generate($qrcode_info);
 
+            $qrcode_info = encrptString($bookingID);
             $data['qrcode_info'] = $qrcode_info;
 
             //echo "<pre>"; print_r($data); exit;
