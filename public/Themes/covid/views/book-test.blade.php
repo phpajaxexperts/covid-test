@@ -4,6 +4,7 @@
 @push('css')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="{{ themes('css/intlTelInput.min.css') }} ">
+<link rel="stylesheet" href="{{ themes('sweetalert2/sweetalert2.css') }} ">
 <style>
     .iti__selected-flag{
         height: 35px !important;
@@ -67,7 +68,7 @@
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
-
+<script src="{{ themes('sweetalert2/sweetalert2.js')}}"></script>
 <script>
     var input = document.querySelector("#phone");
     var iti = intlTelInput(input);
@@ -81,7 +82,10 @@
             name: {
                 required: true
             },
-            nric_passport: {
+            nric_number: {
+                required: true
+            },
+            passport_number: {
                 required: true
             },
             gender : { required: true },
@@ -104,7 +108,8 @@
         },
         messages: {
             name: "Please enter your full name.",
-            nric_passport: "Please enter a valid IC / Passport number.",
+            nric_number: "Please enter a valid IC number.",
+            passport_number: "Please enter a valid Passport number.",
             gender: "Please Select Gender",
             phone: "Please fill up your contact number",
             email_address: {
@@ -174,29 +179,42 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $("#loadingPayment").show();
+
             $.ajax({
                 type: "POST",
                 url: "{{ url('/payment-process-init') }}",
                 data: param,
-                async: false,
+                //async: false,
                 success: function(msg){
                     $("#loadingPayment").hide();
                     if(msg.status=='success')
                         window.location = msg.payment_url;
                     else
-                        if(msg.status=='slot_filled')
-                            alert(msg.msg);
-                        else{
+                        if(msg.status=='slot_filled'){
+                            swal.close();
+                            Swal.fire({
+                                title: 'Request failed, please correct the following details!',
+                                html: msg.msg,// add html attribute if you want or remove
+                            });
+                        }else{
                             if(msg.payment_err_msg!=''){
                                 var errMsg = '';
                                 var data = msg.payment_err_msg;
                                 $.each(data, function(i, item) {
-                                    errMsg += data[i][0]+'\n';
+                                    errMsg += data[i][0]+'<br>';
                                 });
-                                alert('Request failed, please try again\n'+errMsg);
+                                //alert('Request failed, please try again\n'+errMsg);
+                                swal.close();
+                                Swal.fire({
+                                    title: 'Request failed, please correct the following details!',
+                                    html: errMsg,// add html attribute if you want or remove
+                                });
                             }else{
-                                alert('Request failed, please try again');
+                                swal.close();
+                                Swal.fire({
+                                    title: 'Request failed, please try again!',
+                                    html: '',// add html attribute if you want or remove
+                                });
                             }
                         }
                 },
@@ -207,24 +225,34 @@
                         var errors = data.errors;
                         var errMsg = '';
                         $.each(errors, function(i, item) {
-                            errMsg += errors[i][0]+'\n';
+                            errMsg += errors[i][0]+'<br>';
                         });
-                        alert(data.message+'\n'+errMsg);
+                        //alert(data.message+'\n'+errMsg);
+                        Swal.fire({
+                            title: 'Please Wait !',
+                            html: data.message+'<br>'+errMsg,// add html attribute if you want or remove
+                        });
                         //alert(data.message);
                     }
                 },
                 beforeSend: function(){
-                    $("#loadingPayment").show();
+                    //Loading....
+                    Swal.fire({
+                        title: 'Please Wait !',
+                        html: '',// add html attribute if you want or remove
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading()
+                        },
+                    });
                 },
                 complete: function(){
-                    $("#loadingPayment").hide();
+
                 }
             });
 
         }
     });
-
-
 
     var currentTab = 0;
     $(function () {
@@ -307,10 +335,11 @@
     function showHideIdentityType(val) {
         $('#div_nric_passport').show();
         if(val==1){
-            $('#lbl_nric_passport').html('ID Number');
+            var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">ID Number</label><div><input class="form-control" name="nric_passport" type="text" id="nric_number"" ></div></div>';
         }else{
-            $('#lbl_nric_passport').html('Passport Number');
+            var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">Passport Number</label><div><input class="form-control" name="nric_passport" type="text" id="passport_number"" ></div></div>';
         }
+        $('#divNricPassport').html(identity_template);
     }
     
 </script>
@@ -416,6 +445,7 @@
                                             <label for="identity_type" class=" control-label">{{ 'Identity Type' }}</label>
                                             <div>
                                                 <select name="identity_type" class="form-control" id="identity_type" onchange="showHideIdentityType(this.value)" >
+                                                    <option value=""> - select ID Type - </option>
                                                     @foreach (json_decode('{"1":"NRIC","2":"Passport Number"}', true) as $optionKey => $optionValue)
                                                         <option value="{{ $optionKey }}" {{ (isset($patient->active) && $patient->active == $optionKey) ? 'selected' : ''}}>{{ $optionValue }}</option>
                                                     @endforeach
@@ -423,13 +453,7 @@
                                                 {!! $errors->first('identity_type', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
-                                        <div class="form-group {{ $errors->has('nric_passport') ? 'has-error' : ''}}">
-                                            <label for="nric_passport" class="control-label" id="lbl_nric_passport">ID Number</label>
-                                            <div>
-                                                <input class="form-control" name="nric_passport" type="text" id="nric_passport" value="{{ isset($patient->nric_passport) ? $patient->nric_passport : ''}}" >
-                                                {!! $errors->first('nric_passport', '<p class="help-block">:message</p>') !!}
-                                            </div>
-                                        </div>
+                                        <div id="divNricPassport" ></div>
                                         <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
                                             <label for="gender" class="control-label">{{ 'Gender' }}</label>
                                             <div>
@@ -525,9 +549,9 @@
                             @if(count($centers)>0)
                                 <div class="row">
                                     @foreach($centers as $center)
-                                        <div class="col-sm-4 mb-4">
+                                        <div class="col-sm-4 mb-4"  id="center_{{$center->ID}}">
                                             <div class="card">
-                                                <div class="card-body" id="center_{{$center->ID}}">
+                                                <div class="card-body">
                                                     <h5 class="card-title">{{$center->name}}</h5>
                                                     <p class="card-text">@if(isset($center->street_address_1)){{$center->street_address_1}},@endif @if(isset($center->street_address_2)){{$center->street_address_2}},@endif @if(isset($center->city)){{$center->city}},@endif {{$center->state}} {{$center->zip_code}}</p>
                                                     <a href="javascript:void(0);" class="centers_links btn btn-blue" onclick='selectCenter("{{$center->ID}}");'>select</a>
