@@ -32,10 +32,6 @@
         border: 0px;
     }
 
-    .selected{
-        background-color: #CCC;
-    }
-
     a.centers_links{
         background-color: #FFF;
     }
@@ -234,7 +230,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-            disabled: [1, 2, 3]
+            // disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
@@ -595,9 +591,9 @@
                                                                             @else
                                                                                 @php( $booked = 'no' )
                                                                             @endif
-                                                                            <div class="card text-center pointer bm-card mr-2 mb-2 timeslot @if($booked=='yes') slot_booked @endif">
+                                                                            <div class="card text-center pointer bm-card timeslot @if($booked=='yes') slot_booked @endif">
                                                                                 <div class="card-body p-2">
-                                                                                    <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card-body').removeClass('selected');$(this).parent().addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                                    <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card').removeClass('selected');$(this).parents('.card').addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
                                                                                 </div>
                                                                             </div>
                                                                             @php( $start_time = date('h:i a',$time_slots))
