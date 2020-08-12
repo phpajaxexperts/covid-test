@@ -1531,14 +1531,23 @@ div#divSelectedCenterConfirm {
 #tab_hop_container {
     padding-top: 20px;
 }
-#tab_hop_container .card-body.selected {
+
+#tab_hop_container .card.selected {
     background-color: #dc1e28;
 }
-#tab_hop_container .card-body.selected a {
+#tab_hop_container .card.selected a {
     color: #FFF;
 }
 .timeslot {
+    font-size: 13px;
     min-width: 155px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+.slot_booked{
+    background-color: #eff0f2;
+    opacity: .35;
+    pointer-events: none;
 }
 /*--------------------------------------------------------------
 # end custom nested tabs
