@@ -122,8 +122,8 @@ class CentersController extends Controller
             //$qrcode = QrCode::size(300)->format('svg')->generate($qrcode_info);
             //$qrcode = QrCode::size(300)->format('png')->generate($qrcode_info);
 
-            $qrcode = json_encode( array('bookingID' => $bookingID) );
-            $qrcode_info = encrptString($qrcode);
+            //$qrcode = json_encode( array('bookingID' => $bookingID) );
+            $qrcode_info = encrptString($bookingID);
             $data['qrcode_info'] = $qrcode_info;
 
             //echo "<pre>"; print_r($data); exit;
