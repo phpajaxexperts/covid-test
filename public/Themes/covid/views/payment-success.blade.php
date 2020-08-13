@@ -24,7 +24,7 @@
                 <br><br>
                 {{ date('d/m/Y', strtotime($booking->booking_time))  }} at {{ date('h:i A', strtotime($booking->booking_time))  }}
             </p>
-            <a href="{{ url('/')  }}" class="btn btn-primary">Go Home</a>
+            <a href="{{ url('/')  }}" class="btn btn-primary">Go To Home</a>
         </div>
     </div>
 @endsection
