@@ -654,7 +654,7 @@
                                         <div class="payment-card">
                                             <h4>Payment Details</h4>
                                             <div class="total-Amt">Amount : RM <span id="divConfirmAmount">0.00</span></div>
-                                            <div class="mt-auto" id="divSelectedCenterConfirm">
+                                            <div class="my-auto" id="divSelectedCenterConfirm">
                                                 <p class="locate">Test Location</p>
                                             </div>
                                             {{--<a href="javascript:void(0);" class="previous-step">Previous Step</a>--}}

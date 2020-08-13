@@ -1494,7 +1494,9 @@ div#fragment-2, div#fragment-3, div#fragment-4 {
     background-color: transparent;
     border: none;
 }
-
+#divSelectedCenter .card-body {
+    padding: 0;
+}
 .centers-list h5.card-title, #divSelectedCenter h5.card-title, #divSelectedCenterConfirm h5.card-title {
     font-size: 16px;
     font-weight: 700;
@@ -1566,7 +1568,7 @@ p.locate:after {
     text-align: center;
     padding: 20px 10px;
     color: #dc1e28;
-    margin-top: auto;
+    /*margin-top: auto;*/
 }
 #divSelectedCenterConfirm h5.card-title {
     font-size: 22px;
