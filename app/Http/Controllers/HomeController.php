@@ -232,7 +232,7 @@ class HomeController extends Controller
                 $clinic_address .= '<br>'.$data['center']->street_address_2.',';
             $clinic_address .= '<br>'.$data['center']->city.', '.$data['center']->state.' '.$data['center']->zip_code.'.';
             $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
-            $data['clinic_address'] = $clinic_address;
+            $data['clinic_address'] = $center;
             $data['booking_time'] = $booking_time;
 
 

@@ -33,9 +33,16 @@
             Thanks for booking with us.<br /><br />
 
             <h3>Clinic Address</h3>
-            {{$data['clinic_address']}}
+            <strong>{{$data['clinic_address']->name}}</strong><br>{{$data['clinic_address']->doctor_name}}<br>$data['clinic_address']->street_address_1}},
+            @if($data['clinic_address']->street_address_2)
+            <br>{{$data['clinic_address']->street_address_2}},
+            @if($data['clinic_address']->city)
+            <br>{{$data['clinic_address']->city}},
+            @if($data['clinic_address']->state)
+            <br>{{$data['clinic_address']->state}},
+            @if($data['clinic_address']->zip_code)
+             {{$data['clinic_address']->zip_code}},
             <br /><br />
-
             <strong>Date & Time</strong>: {{$data['booking_time']}}
 
             <br /><br />
