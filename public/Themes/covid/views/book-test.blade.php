@@ -81,73 +81,7 @@
 //        // any initialisation options go here
 //    });
 
-    $("#frmRegister").validate({
-        rules: {
-            name: {
-                required: true
-            },
-            nric_number: {
-                required: true
-            },
-            passport_number: {
-                required: true
-            },
-            gender : { required: true },
-            phone: {
-                required: true
-            },
-            email_address: {
-                required: true,
-                email: true
-            },
-            symtoms:{ required: true, requiredRadioValue: "0"} ,
-            symtoms2:{
-                required: true,
-                requiredRadioValue: "0"
-            } ,
-            travelled_infected_country:{ required: true, requiredRadioValue: "0"} ,
-            terms:{ required: true} ,
-            country:{ required: true},
-            commute_by:{ required: true},
-        },
-        messages: {
-            name: "Please enter your full name.",
-            nric_number: "Please enter a valid IC number.",
-            passport_number: "Please enter a valid Passport number.",
-            gender: "Please Select Gender",
-            phone: "Please fill up your contact number",
-            email_address: {
-                required: "Please fill up your email address.",
-                email: "Please enter a valid email address.",
-            },
-            symtoms: {
-                required : "Please answer survey",
-                requiredRadioValue : "This is the test for asymptomatic only."
-            },
-            symtoms2: {
-                required : "Please answer survey",
-                requiredRadioValue : "This is the test for asymptomatic only."
-            },
-            travelled_infected_country: {
-                required : "Please answer survey",
-                requiredRadioValue : "This is the test for asymptomatic only."
-            },
-            terms: "Please accept terms and conditions",
-            country: "Please select your nationality.",
-            commute_by: "Please select your mode of transport.",
-        },
-        errorPlacement: function(error, element) {
-            if (element.attr("type") == "radio") {
-                error.insertBefore(element);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        submitHandler: function(form) {
-            $ ("#tabs" ).tabs("enable", 1);
-            $( "#tabs" ).tabs({ active: 1 });
-        }
-    });
+    frmRegisterInit();
 
     $("#frmPaymentConfirm").validate({
 //        rules: {
@@ -305,7 +239,9 @@
         }
         //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
         //$( "#divConfirmContactNumber" ).html(phone_country_code+$( "#phone" ).val());
-        $( "#divConfirmContactNumber" ).html($( "#phone" ).val());
+        var countryData = iti.getSelectedCountryData();
+        var phone_country_code = countryData.dialCode;
+        $( "#divConfirmContactNumber" ).html('+'+phone_country_code+' - '+$( "#phone" ).val());
         var gender_id = $('input[name="gender"]:checked').val();
         if(gender_id==1)
             var gender='Male';
@@ -359,6 +295,81 @@
             $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
         });
         $('#nric_number').mask('000000-00-0000');
+        frmRegisterInit();
+    }
+
+    function frmRegisterInit(){
+        $("#frmRegister").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                nric_number: {
+                    required: true
+                },
+                passport_number: {
+                    required: true
+                },
+                gender : { required: true },
+                phone: {
+                    required: true,
+                    maxlength: 15
+                },
+                email_address: {
+                    required: true,
+                    email: true
+                },
+                symtoms:{ required: true, requiredRadioValue: "0"} ,
+                symtoms2:{
+                    required: true,
+                    requiredRadioValue: "0"
+                } ,
+                travelled_infected_country:{ required: true, requiredRadioValue: "0"} ,
+                terms:{ required: true} ,
+                country:{ required: true},
+                commute_by:{ required: true},
+            },
+            messages: {
+                name: "Please enter your full name.",
+                nric_number: "Please enter a valid IC number.",
+                passport_number: "Please enter a valid Passport number.",
+                gender: "Please Select Gender",
+                phone: {
+                    required: "Please fill up your contact number",
+                    maxlength: "Phone number can not be more than 15 characters."
+                },
+                email_address: {
+                    required: "Please fill up your email address.",
+                    email: "Please enter a valid email address.",
+                },
+                symtoms: {
+                    required : "Please answer survey",
+                    requiredRadioValue : "This is the test for asymptomatic only."
+                },
+                symtoms2: {
+                    required : "Please answer survey",
+                    requiredRadioValue : "This is the test for asymptomatic only."
+                },
+                travelled_infected_country: {
+                    required : "Please answer survey",
+                    requiredRadioValue : "This is the test for asymptomatic only."
+                },
+                terms: "Please accept terms and conditions",
+                country: "Please select your nationality.",
+                commute_by: "Please select your mode of transport.",
+            },
+            errorPlacement: function(error, element) {
+                if (element.attr("type") == "radio") {
+                    error.insertBefore(element);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+                $ ("#tabs" ).tabs("enable", 1);
+                $( "#tabs" ).tabs({ active: 1 });
+            }
+        });
     }
     
 </script>
@@ -469,7 +480,7 @@
                                         <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                                             <label for="phone" class="control-label">{{ 'Phone' }}</label>
                                             <div>
-                                                <input class="form-control" name="phone" type="number" id="phone" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number must contain country code without + sign. Example 6013xxxxxxx (Malaysia) or 658xxxxxxx (Singapore).</div>
+                                                <input class="form-control" name="phone" type="number" id="phone" maxlength="15" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number must contain country code without + sign. Example 6013xxxxxxx (Malaysia) or 658xxxxxxx (Singapore).</div>
                                                 {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
