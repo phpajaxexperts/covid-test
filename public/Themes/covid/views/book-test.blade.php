@@ -69,6 +69,7 @@
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 <script src="{{ themes('sweetalert2/sweetalert2.js')}}"></script>
 <script src="{{ themes('js/moment.js')}}"></script>
+<script src="{{ themes('js/jquery.mask.min.js')}}"></script>
 <script>
     var input = document.querySelector("#phone");
     var iti = intlTelInput(input);
@@ -353,7 +354,7 @@
         $( "#nric_number" ).keyup(function() {
             $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
         });
-
+        $('#nric_number').mask('000000-00-0000');
     }
     
 </script>
