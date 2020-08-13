@@ -1303,7 +1303,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 14px;
 }
 
-#contact .php-email-form input::focus, #contact .php-email-form textarea::focus {
+#contact .php-email-form input:focus, #contact .php-email-form textarea:focus {
   background-color: #1dc8cd;
 }
 
@@ -1499,14 +1499,14 @@ div#fragment-2, div#fragment-3, div#fragment-4 {
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #dc1e28;
+    color: #ffeebc;
     margin-bottom: 4px;
 }
 #divSelectedCenter .btn, #divSelectedCenterConfirm .btn {
     display: none;
 }
 div#divSelectedCenterConfirm {
-    background-color: #EEEEEE;
+    background-color: #c07275;
     padding: 20px;
     border-bottom: 1px solid #dc1e28;
 }
@@ -1543,7 +1543,7 @@ p.locate {
     text-transform: uppercase;
     font-weight: bold;
     position: relative;
-    color: #1a2b56;
+    color: #212121;
     display: inline-block;
 }
 p.locate:after {
@@ -1553,14 +1553,14 @@ p.locate:after {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #1a2b56;
+    background-color: #212121;
 }
 .total-Amt {
     font-size: 24px;
     font-weight: 700;
     text-align: center;
     padding: 20px 10px;
-    color: #c07275;
+    color: #dc1e28;
     margin-top: auto;
 }
 #divSelectedCenterConfirm h5.card-title {
@@ -1569,7 +1569,8 @@ p.locate:after {
 }
 
 #divSelectedCenterConfirm p.card-text {
-    margin-bottom: 0 !important
+    margin-bottom: 0 !important;
+    color: #FFE0E3;
 }
 .timeslot {
     font-size: 13px;

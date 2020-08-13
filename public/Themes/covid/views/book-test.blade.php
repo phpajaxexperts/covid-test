@@ -555,18 +555,20 @@
                             <? */ ?>
 
                             @if(count($centers)>0)
-                                <div class="row">
-                                    @foreach($centers as $center)
-                                        <div class="col-sm-4 mb-4"  id="center_{{$center->ID}}">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{$center->name}}</h5>
-                                                    <p class="card-text">@if(isset($center->street_address_1)){{$center->street_address_1}},@endif @if(isset($center->street_address_2)){{$center->street_address_2}},@endif @if(isset($center->city)){{$center->city}},@endif {{$center->state}} {{$center->zip_code}}</p>
-                                                    <a href="javascript:void(0);" class="centers_links btn btn-blue" onclick='selectCenter("{{$center->ID}}");'>select</a>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        @foreach($centers as $center)
+                                            <div class="col-sm-4 mb-4"  id="center_{{$center->ID}}">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{$center->name}}</h5>
+                                                        <p class="card-text">@if(isset($center->street_address_1)){{$center->street_address_1}},@endif @if(isset($center->street_address_2)){{$center->street_address_2}},@endif @if(isset($center->city)){{$center->city}},@endif {{$center->state}} {{$center->zip_code}}</p>
+                                                        <a href="javascript:void(0);" class="centers_links btn btn-blue" onclick='selectCenter("{{$center->ID}}");'>select</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endif
                         </div>
