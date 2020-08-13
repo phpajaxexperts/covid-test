@@ -244,7 +244,7 @@ class HomeController extends Controller
             //echo "<pre>"; print_r($data); exit;
             Mail::to($data['to'])->send(new BookingConfirm($data));
 
-
+            exit;
             Session::regenerate(true);
             return redirect('/payment-receipt/'.$arr_payment['bill_id']);
         }else{
