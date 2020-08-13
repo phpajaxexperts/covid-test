@@ -221,7 +221,20 @@ class HomeController extends Controller
                 'booking' => $booking,
                 'center' => $center
             );
-            bookingConfirmMail($data);
+            //bookingConfirmMail($data);
+
+            $clinic_address = '<strong>'.$data['center']->name.'</strong><br>'.$data['center']->doctor_name.'<br>'.$data['center']->street_address_1.',';
+            if($data['center']->street_address_2)
+                $clinic_address .= '<br>'.$data['center']->street_address_2.',';
+            $clinic_address .= '<br>'.$data['center']->city.', '.$data['center']->state.' '.$data['center']->zip_code.'.';
+            $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
+            $data['clinic_address'] = $clinic_address;
+            $data['booking_time'] = $booking_time;
+
+            //echo "<pre>"; print_r($data); exit;
+            Mail::to($data['to'])->send(new TestResultQrCode($data));
+
+
             Session::regenerate(true);
             return redirect('/payment-receipt/'.$arr_payment['bill_id']);
         }else{

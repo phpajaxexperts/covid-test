@@ -29,23 +29,17 @@
     </tr>
     <tr>
         <td class="email-wrapper" style="font: 14px/20px Verdana,Arial,sans-serif;">
-            <h2>Covid-19 Test Result</h2>
-            You have received test result for Covid-19 Test Taken on {{$data['booking_time']}}.<br />
-            @if($data['test_result']==1)
-                <h3>Result : <span style="color:#FF0000">POSITIVE</span></h3>
-                Necessary actions need to be taken!
-            @elseif($data['test_result']==2)
-                <h3>Result : <span style="color:#00FF00">NEGATIVE</span></h3>
-                Note: No action required!
-            @elseif($data['test_result']==3)
-                <h3>Result : <span style="color:#CCCCCC">INVALID</span></h3>
-                Note: Invalid Result, so you have to take re-test!';
-            @endif
-            <br><br>
-            Thank You
-            <br><br>
+            <h2>Booking Confirmed</h2>
+            Thanks for booking with us.<br /><br />
 
-            <img src="{!!$message->embedData(QrCode::size(300)->format('png')->generate($data['qrcode_info']), 'QrCode.png', 'image/png')!!}">
+            <h3>Clinic Address</h3>
+            {{$data['clinic_address']}}
+            <br /><br />
+
+            <strong>Date & Time</strong>: {{$data['booking_time']}}
+
+            <br /><br />
+            Thank You
         </td>
     </tr>
 </table>
