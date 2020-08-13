@@ -34,16 +34,16 @@
 
             <h3>Clinic Address</h3>
             <strong>{{$data['clinic_address']->name}}</strong><br>{{$data['clinic_address']->doctor_name}}<br>{{$data['clinic_address']->street_address_1}},
-            @if($data['clinic_address']->street_address_2)
+            @if(isset($data['clinic_address']->street_address_2))
             <br>{{$data['clinic_address']->street_address_2}},
             @endif
-            @if($data['clinic_address']->city)
+            @if(isset($data['clinic_address']->city))
             <br>{{$data['clinic_address']->city}},
             @endif
-            @if($data['clinic_address']->state)
+            @if(isset($data['clinic_address']->state))
             <br>{{$data['clinic_address']->state}},
             @endif
-            @if($data['clinic_address']->zip_code)
+            @if(isset($data['clinic_address']->zip_code))
              {{$data['clinic_address']->zip_code}},
             @endif
             <br /><br />
