@@ -242,7 +242,7 @@ class HomeController extends Controller
             $data['subject'] = 'Covid-19 Test - Booking Confirmation';
 
             //echo "<pre>"; print_r($data); exit;
-            Mail::to($data['to'])->send(new TestResultQrCode($data));
+            Mail::to($data['to'])->send(new BookingConfirm($data));
 
 
             Session::regenerate(true);
