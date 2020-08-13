@@ -229,7 +229,7 @@
         $( "#divTimeConfirm" ).html($( "#selectedTime" ).val());
 
         $( "#divConfirmName" ).html($( "#name" ).val());
-        $( "#divConfirmDob" ).html( moment($( "#dob" ).val()).format('DD/MM/YYYY') );
+        $( "#divConfirmDob" ).html( moment($( "#dob" ).val()).format('DD-MM-YYYY') );
         if($( "#identity_type" ).val()==1){
             $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
             $( "#spanConfirmICPassportNumber" ).html('NRIC Number');
@@ -310,6 +310,7 @@
                 passport_number: {
                     required: true
                 },
+                dob : { required: true },
                 gender : { required: true },
                 phone: {
                     required: true,
@@ -333,6 +334,7 @@
                 name: "Please enter your full name.",
                 nric_number: "Please enter a valid IC number.",
                 passport_number: "Please enter a valid Passport number.",
+                dob: "Please Select the Date of Birth",
                 gender: "Please Select Gender",
                 phone: {
                     required: "Please fill up your contact number",
