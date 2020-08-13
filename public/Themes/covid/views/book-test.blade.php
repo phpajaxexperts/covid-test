@@ -243,7 +243,7 @@
         //$( "#divConfirmContactNumber" ).html(phone_country_code+$( "#phone" ).val());
         var countryData = iti.getSelectedCountryData();
         var phone_country_code = countryData.dialCode;
-        $( "#divConfirmContactNumber" ).html('+'+phone_country_code+' - '+$( "#phone" ).val());
+        $( "#divConfirmContactNumber" ).html('+'+phone_country_code+$( "#phone" ).val());
         var gender_id = $('input[name="gender"]:checked').val();
         if(gender_id==1)
             var gender='Male';
