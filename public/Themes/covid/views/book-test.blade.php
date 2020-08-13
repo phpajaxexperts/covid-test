@@ -375,7 +375,7 @@
                 name: "Please enter your full name.",
                 nric_number: "Please enter a valid IC number.",
                 passport_number: "Please enter a valid Passport number.",
-                dob: "Please Select the Identity Type",
+                identity_type: "Please Select the Identity Type",
                 dob: "Please Select the Date of Birth",
                 gender: "Please Select Gender",
                 phone: {
