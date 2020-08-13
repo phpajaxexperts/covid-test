@@ -55,11 +55,10 @@
 
 @push('js')
 <script>
-//    $(function () {
-//        $('#dob').datetimepicker({
-//            minDate:new Date()
-//        });
-//    });
+    $(function () {
+
+    });
+
 </script>
 
 
@@ -69,13 +68,13 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ themes('js/jquery.validate.min.js') }}"></script>
 <script src="{{ themes('sweetalert2/sweetalert2.js')}}"></script>
+<script src="{{ themes('js/moment.js')}}"></script>
 <script>
     var input = document.querySelector("#phone");
     var iti = intlTelInput(input);
 //    window.intlTelInput(input, {
 //        // any initialisation options go here
 //    });
-
 
     $("#frmRegister").validate({
         rules: {
@@ -291,11 +290,14 @@
         $( "#divTimeConfirm" ).html($( "#selectedTime" ).val());
 
         $( "#divConfirmName" ).html($( "#name" ).val());
-        $( "#divConfirmDob" ).html($( "#dob" ).val());
-        if($( "#identity_type" ).val()==1)
-        $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
-        else if($( "#identity_type" ).val()==1)
-        $( "#divConfirmICPassportNumber" ).html($( "#passport_number" ).val());
+        $( "#divConfirmDob" ).html( moment($( "#dob" ).val()).format('DD/MM/YYYY') );
+        if($( "#identity_type" ).val()==1){
+            $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
+            $( "#spanConfirmICPassportNumber" ).html('NRIC Number');
+        }else if($( "#identity_type" ).val()==2){
+            $( "#divConfirmICPassportNumber" ).html($( "#passport_number" ).val());
+            $( "#spanConfirmICPassportNumber" ).html('Passport Number');
+        }
         //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
         //$( "#divConfirmContactNumber" ).html(phone_country_code+$( "#phone" ).val());
         $( "#divConfirmContactNumber" ).html($( "#phone" ).val());
@@ -322,7 +324,6 @@
             $( "#divConfirmAmount" ).html('130');
     }
 
-
     function commuteBySelected(val){
         if(val==1){
             $('#center_4').show();
@@ -339,10 +340,20 @@
         $('#div_nric_passport').show();
         if(val==1){
             var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">ID Number</label><div><input class="form-control" name="nric_passport" type="text" id="nric_number"" placeholder="000000-00-0000" ></div></div>';
+            $( "#spanConfirmICPassportNumber" ).html('NRIC Number');
         }else{
             var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">Passport Number</label><div><input class="form-control" name="nric_passport" type="text" id="passport_number"" ></div></div>';
+            $( "#spanConfirmICPassportNumber" ).html('Passport Number');
         }
         $('#divNricPassport').html(identity_template);
+        $( "#passport_number" ).keyup(function() {
+            $( "#divConfirmICPassportNumber" ).html($( "#passport_number" ).val());
+        });
+
+        $( "#nric_number" ).keyup(function() {
+            $( "#divConfirmICPassportNumber" ).html($( "#nric_number" ).val());
+        });
+
     }
     
 </script>
@@ -472,14 +483,14 @@
                                         <div class="form-group {{ $errors->has('dob') ? 'has-error' : ''}}">
                                             <label for="dob" class="control-label">{{ 'Date of Birth' }}</label>
                                             <div>
-                                                <input class="form-control" name="dob" type="date" id="dob" value="{{ isset($patient->dob) ? $patient->dob : ''}}" >
+                                                <input class="form-control" name="dob" type="date" id="dob" max="{{ date('Y-m-d')  }}" value="{{ isset($patient->dob) ? $patient->dob : ''}}" >
                                                 {!! $errors->first('dob', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
                                         <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                                             <label for="phone" class="control-label">{{ 'Phone' }}</label>
                                             <div>
-                                                <input class="form-control" name="phone" type="text" id="phone" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number must contain country code without + sign. Example 6013xxxxxxx (Malaysia) or 658xxxxxxx (Singapore).</div>
+                                                <input class="form-control" name="phone" type="number" id="phone" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number must contain country code without + sign. Example 6013xxxxxxx (Malaysia) or 658xxxxxxx (Singapore).</div>
                                                 {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
@@ -665,7 +676,7 @@
                             <br><br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <strong>IC/Passport Number :</strong> <br><span id="divConfirmICPassportNumber"></span>
+                                    <strong><span id="spanConfirmICPassportNumber">IC/Passport Number :</span></strong> <br><span id="divConfirmICPassportNumber"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Contact Number :</strong> <br><span id="divConfirmContactNumber"></span>
