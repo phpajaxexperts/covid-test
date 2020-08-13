@@ -311,5 +311,14 @@ class HomeController extends Controller
         }
     }
 
+    public function getTimeSlots(Request $request)
+    {
+        Theme::set('covid');
+        $centerID = $request->centerID;
+        $center = getCenter($centerID);
+        $selected_time_slots = getSeletedTimeSlotByCenter($center->ID);
+        return view('get-time-slots',compact('centerID','center','selected_time_slots'));
+    }
 
+    
     }

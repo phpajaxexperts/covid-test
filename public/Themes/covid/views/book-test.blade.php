@@ -61,7 +61,6 @@
 
     });
 
-
     Pace.on("done", function(){
         $(".pageCover").fadeIn(2000);
     });
@@ -199,7 +198,7 @@
         $("#tabs").tabs({
             active: 0,
             disabled: [1, 2, 3]
-    });
+        });
 
         $(".tabs_hop").tabs({
             active: 0
@@ -216,6 +215,41 @@
         $( "#tabs" ).tabs({ active: 2 });
         $( ".center_hours_of_operation").hide();
         $( "#center_hours_of_operation_"+centerID).show();
+
+
+        {{--$.ajaxSetup({--}}
+            {{--headers: {--}}
+                {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--}--}}
+        {{--});--}}
+
+        {{--$.ajax({--}}
+            {{--type: "POST",--}}
+            {{--url: "{{ url('/get-time-slots') }}",--}}
+            {{--data: 'centerID='+centerID,--}}
+            {{--//async: false,--}}
+            {{--success: function(msg){--}}
+                {{--$('#divTimeSlot').html(msg);--}}
+                {{--$("#tabs_hop").tabs({--}}
+                    {{--active: 0--}}
+                {{--});--}}
+                {{--swal.close();--}}
+            {{--},--}}
+            {{--beforeSend: function(){--}}
+                {{--//Loading....--}}
+                {{--Swal.fire({--}}
+                    {{--title: 'Please Wait !',--}}
+                    {{--html: '',// add html attribute if you want or remove--}}
+                    {{--allowOutsideClick: false,--}}
+                    {{--onBeforeOpen: () => {--}}
+                        {{--Swal.showLoading()--}}
+                    {{--},--}}
+                {{--});--}}
+            {{--},--}}
+            {{--complete: function(){--}}
+
+            {{--}--}}
+        {{--});--}}
     }
 
     function selectedDateTime(dattime,date,time){
@@ -281,6 +315,10 @@
 
     function showHideIdentityType(val) {
         $('#div_nric_passport').show();
+        $( "#passport_number" ).val('')
+        $( "#nric_number" ).val('')
+        $( "#divConfirmICPassportNumber" ).html('');
+
         if(val==1){
             var identity_template = '<div class="form-group"><label for="nric_passport" class="control-label">ID Number</label><div><input class="form-control" name="nric_passport" type="text" id="nric_number"" placeholder="000000-00-0000" ></div></div>';
             $( "#spanConfirmICPassportNumber" ).html('NRIC Number');
@@ -574,13 +612,15 @@
                         </div>
                         <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
                             <div id="divSelectedCenter" class="mb-3"></div>
+                            <div id="divTimeSlot" class="mb-3"></div>
+
                             @if(count($centers)>0)
                                 @foreach($centers as $center)
                                     @php( $selected_time_slots = getSeletedTimeSlotByCenter($center->ID) )
                                     {{--@if(searchForBookingTime('2020-08-11 07:08:00',$selected_time_slots))--}}
-                                        {{--yes exist--}}
+                                    {{--yes exist--}}
                                     {{--@else--}}
-                                        {{--not exist--}}
+                                    {{--not exist--}}
                                     {{--@endif--}}
                                     {{--@php( exit )--}}
                                     <div class="center_hours_of_operation" id="center_hours_of_operation_{{$center->ID}}" style="display: none;">
@@ -600,48 +640,48 @@
                                                 @endfor
                                             </ul>
                                             <div id="tab_hop_container">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                @php( $cur_date_timestamp = time() + 86400 * $i )
-                                                @if(count($hours_of_operations)>0)
-                                                    @foreach($hours_of_operations as $hours_of_operation)
-                                                        @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                            <div id="tab_hoo_{{$center->ID}}_{{$i}}" style="overflow-y: auto;">
-                                                                {{--{{$hours_of_operation->open}} - {{$hours_of_operation->close}}--}}
-                                                                @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
-                                                                @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
-                                                                @for ($j = 1; $j <= $difference; $j++)
-                                                                    <div class="row mb-2">
-                                                                        @for ($k = 1; $k <= $center->slots_per_hour; $k++)
-                                                                            @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
-                                                                            @php( $cur_time_slot = date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)) )
-                                                                            {{--@php( $booked_patients_count_in_slot = getBookedPatientsCountInSlot($cur_time_slot,$center->ID) )--}}
-                                                                            @php( $res = searchForBookingTime($cur_time_slot, $selected_time_slots) )
-                                                                            @if($res['status']=='yes')
-                                                                                @if($selected_time_slots[$res['key']]['booking_count']>=$center->patients_per_slot)
-                                                                                    @php( $booked = 'yes' )
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @php( $cur_date_timestamp = time() + 86400 * $i )
+                                                    @if(count($hours_of_operations)>0)
+                                                        @foreach($hours_of_operations as $hours_of_operation)
+                                                            @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
+                                                                <div id="tab_hoo_{{$center->ID}}_{{$i}}" style="overflow-y: auto;">
+                                                                    {{--{{$hours_of_operation->open}} - {{$hours_of_operation->close}}--}}
+                                                                    @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
+                                                                    @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
+                                                                    @for ($j = 1; $j <= $difference; $j++)
+                                                                        <div class="row mb-2">
+                                                                            @for ($k = 1; $k <= $center->slots_per_hour; $k++)
+                                                                                @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
+                                                                                @php( $cur_time_slot = date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)) )
+                                                                                {{--@php( $booked_patients_count_in_slot = getBookedPatientsCountInSlot($cur_time_slot,$center->ID) )--}}
+                                                                                @php( $res = searchForBookingTime($cur_time_slot, $selected_time_slots) )
+                                                                                @if($res['status']=='yes')
+                                                                                    @if($selected_time_slots[$res['key']]['booking_count']>=$center->patients_per_slot)
+                                                                                        @php( $booked = 'yes' )
+                                                                                    @else
+                                                                                        @php( $booked = 'no' )
+                                                                                    @endif
                                                                                 @else
                                                                                     @php( $booked = 'no' )
                                                                                 @endif
-                                                                            @else
-                                                                                @php( $booked = 'no' )
-                                                                            @endif
-                                                                            <div class="card text-center pointer bm-card timeslot @if($booked=='yes') slot_booked @endif">
-                                                                                <div class="card-body p-2">
-                                                                                    <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card').removeClass('selected');$(this).parents('.card').addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                                <div class="card text-center pointer bm-card timeslot @if($booked=='yes') slot_booked @endif">
+                                                                                    <div class="card-body p-2">
+                                                                                        <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card').removeClass('selected');$(this).parents('.card').addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            @php( $start_time = date('h:i a',$time_slots))
-                                                                        @endfor
-                                                                    </div>
-                                                                @endfor
-                                                            </div>
-                                                            @break
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            @endfor
+                                                                                @php( $start_time = date('h:i a',$time_slots))
+                                                                            @endfor
+                                                                        </div>
+                                                                    @endfor
+                                                                </div>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endfor
 
-                                        </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -674,7 +714,7 @@
                                                     <li class="list-group-item"><span>Email Address</span><span id="divConfirmEmailAddress"></span></li>
                                                     <li class="list-group-item"><span>Date of Birth</span><span id="divConfirmDob"></span></li>
                                                     <li class="list-group-item"><span>Gender</span><span id="divConfirmGender"></span></li>
-                                                    <li class="list-group-item"><span>IC/Passport Number</span><span id="divConfirmICPassportNumber"></span></li>
+                                                    <li class="list-group-item"><span id="spanConfirmICPassportNumber">IC/Passport Number :</span><span id="divConfirmICPassportNumber"></span></li>
                                                     <li class="list-group-item"><span>Contact Number</span><span id="divConfirmContactNumber"></span></li>
                                                     <li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>
                                                     <li class="list-group-item"><span>Nationality</span><span id="divConfirmNationality"></span></li>
