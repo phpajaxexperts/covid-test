@@ -6,10 +6,12 @@
 <link rel="stylesheet" href="{{ themes('css/intlTelInput.min.css') }} ">
 <link rel="stylesheet" href="{{ themes('sweetalert2/sweetalert2.css') }} ">
 <style>
+    .iti {
+        width: 100%;
+    }
     .iti__selected-flag{
         height: 35px !important;
     }
-
     body{
         font-size: 13px;
     }
@@ -373,7 +375,7 @@
             }
         });
     }
-    
+
 </script>
 @endpush
 
@@ -644,9 +646,47 @@
                             @endif
                         </div>
                         <div id="fragment-4" style="height: 750px; overflow-y: auto;">
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="payment-card">
+                                            <h4>Payment Details</h4>
+                                            <div id="divSelectedCenterConfirm">
+                                                <p class="locate">Test Location</p>
+                                            </div>
+                                            <div class="total-Amt">Amount : RM <span id="divConfirmAmount">0.00</span></div>
+                                            {{--<a href="javascript:void(0);" class="previous-step">Previous Step</a>--}}
+                                            <div class="text-center mt-auto">
+                                                <button class="btn btn-blue" type="submit">Proceed to Payment</button>
+                                                <div id="loadingPayment" style="display: none;" class="spinner-border text-primary mt-3" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="payment-card-details">
+                                            <form name="frmPaymentConfirm" id="frmPaymentConfirm">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><span>Name</span><span id="divConfirmName"></span></li>
+                                                    <li class="list-group-item"><span>Email Address</span><span id="divConfirmEmailAddress"></span></li>
+                                                    <li class="list-group-item"><span>Date of Birth</span><span id="divConfirmDob"></span></li>
+                                                    <li class="list-group-item"><span>Gender</span><span id="divConfirmGender"></span></li>
+                                                    <li class="list-group-item"><span>IC/Passport Number</span><span id="divConfirmICPassportNumber"></span></li>
+                                                    <li class="list-group-item"><span>Contact Number</span><span id="divConfirmContactNumber"></span></li>
+                                                    <li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>
+                                                    <li class="list-group-item"><span>Nationality</span><span id="divConfirmNationality"></span></li>
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <? /* ?>
                             <form name="frmPaymentConfirm" id="frmPaymentConfirm">
-                            <strong>Test Location:</strong><br>
-                            <div id="divSelectedCenterConfirm" class="mb-3"></div>
+                                <strong>Test Location:</strong><br>
+                                <div id="divSelectedCenterConfirm" class="mb-3"></div>
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -684,22 +724,58 @@
                                 </div>
                             </div>
                             <br><br>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>Nationality :</strong> <br><span id="divConfirmNationality"></span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Date :</strong> <br><span id="divDateConfirm"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Time :</strong> <br><span id="divTimeConfirm"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <br><br>
-                            <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Name :</strong> <br><span id="divConfirmName"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Date of Birth :</strong> <br><span id="divConfirmDob"></span>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>IC/Passport Number :</strong> <br><span id="divConfirmICPassportNumber"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Contact Number :</strong> <br><span id="divConfirmContactNumber"></span>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Gender :</strong> <br><span id="divConfirmGender"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Email Address :</strong> <br><span id="divConfirmEmailAddress"></span>
+                                    </div>
+                                </div>
+                                <br><br>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Nationality :</strong> <br><span id="divConfirmNationality"></span>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <h2 style="color: #000">Amount : RM <span id="divConfirmAmount">0.00</span></h2>
                                 <div class="text-center pt-3">
                                     <button class="btn btn-blue" type="submit">Proceed to Payment</button>
                                     <div id="loadingPayment" style="display: none;" class="spinner-border text-primary mt-3" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
-
                             </form>
+                            <? */ ?>
                         </div>
                     </div>
                 </div>

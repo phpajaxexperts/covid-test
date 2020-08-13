@@ -1505,8 +1505,83 @@ div#divSelectedCenterConfirm {
     padding: 20px;
     border-bottom: 1px solid #dc1e28;
 }
+.payment-card {
+    height: 100%;
+    width: 60%;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.payment-card h4 {
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    color: #1a2b56;
+}
+.payment-card div#divSelectedCenterConfirm {
+    /*height: 60%;*/
+    min-height: 260px;
+    padding: 50px;
+    border-bottom: none;
+    border-radius: 10px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+a.previous-step {
+    margin-top: auto;
+}
+p.locate {
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    color: #1a2b56;
+}
+p.locate:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #1a2b56;
+}
+.total-Amt {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px 10px;
+    color: #c07275;
+    margin-top: auto;
+}
+#divSelectedCenterConfirm h5.card-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
 #divSelectedCenterConfirm p.card-text {
     margin-bottom: 0 !important
+}
+.timeslot {
+    font-size: 13px;
+    min-width: 155px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+.slot_booked{
+    background-color: #eff0f2;
+    opacity: .35;
+    pointer-events: none;
+}
+
+#frmPaymentConfirm .list-group-item span:first-child {
+    display: block;
+    color: #bdbdbd;
+    font-weight: 700;
+    font-size: 12px;
 }
 
 /*--------------------------------------------------------------
@@ -1538,17 +1613,8 @@ div#divSelectedCenterConfirm {
 #tab_hop_container .card.selected a {
     color: #FFF;
 }
-.timeslot {
-    font-size: 13px;
-    min-width: 155px;
-    margin-right: 4px;
-    margin-bottom: 4px;
-}
-.slot_booked{
-    background-color: #eff0f2;
-    opacity: .35;
-    pointer-events: none;
-}
+
+
 /*--------------------------------------------------------------
 # end custom nested tabs
 --------------------------------------------------------------*/
