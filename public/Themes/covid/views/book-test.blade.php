@@ -198,7 +198,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-            disabled: [1, 2, 3]
+            // disabled: [1, 2, 3]
     });
 
         $(".tabs_hop").tabs({
@@ -646,16 +646,15 @@
                             @endif
                         </div>
                         <div id="fragment-4" style="height: 750px; overflow-y: auto;">
-
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-sm">
+                                    <div class="col-sm order-1">
                                         <div class="payment-card">
                                             <h4>Payment Details</h4>
-                                            <div id="divSelectedCenterConfirm">
+                                            <div class="total-Amt">Amount : RM <span id="divConfirmAmount">0.00</span></div>
+                                            <div class="mt-auto" id="divSelectedCenterConfirm">
                                                 <p class="locate">Test Location</p>
                                             </div>
-                                            <div class="total-Amt">Amount : RM <span id="divConfirmAmount">0.00</span></div>
                                             {{--<a href="javascript:void(0);" class="previous-step">Previous Step</a>--}}
                                             <div class="text-center mt-auto">
                                                 <button class="btn btn-blue" type="submit">Proceed to Payment</button>
@@ -665,7 +664,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm">
+                                    <div class="col-sm order-0">
                                         <div class="payment-card-details">
                                             <form name="frmPaymentConfirm" id="frmPaymentConfirm">
                                                 <ul class="list-group list-group-flush">

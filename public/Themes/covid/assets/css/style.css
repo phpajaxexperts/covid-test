@@ -1490,6 +1490,11 @@ div#fragment-2, div#fragment-3, div#fragment-4 {
     max-height: 42px;
     overflow: hidden;
 }
+#divSelectedCenter .card, #divSelectedCenterConfirm .card {
+    background-color: transparent;
+    border: none;
+}
+
 .centers-list h5.card-title, #divSelectedCenter h5.card-title, #divSelectedCenterConfirm h5.card-title {
     font-size: 16px;
     font-weight: 700;
@@ -1523,7 +1528,7 @@ div#divSelectedCenterConfirm {
 .payment-card div#divSelectedCenterConfirm {
     /*height: 60%;*/
     min-height: 260px;
-    padding: 50px;
+    padding: 30px;
     border-bottom: none;
     border-radius: 10px;
     align-items: flex-start;
@@ -1539,6 +1544,7 @@ p.locate {
     font-weight: bold;
     position: relative;
     color: #1a2b56;
+    display: inline-block;
 }
 p.locate:after {
     content: "";
