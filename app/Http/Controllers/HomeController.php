@@ -9,6 +9,10 @@ use GuzzleHttp;
 use Modules\Members\Entities\Patient;
 use Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
+use App\Mail\BookingConfirm;
+
 
 class HomeController extends Controller
 {
