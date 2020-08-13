@@ -235,6 +235,12 @@ class HomeController extends Controller
             $data['clinic_address'] = $clinic_address;
             $data['booking_time'] = $booking_time;
 
+
+            $data['to'] = $data['patient']->email_address;
+            //$to = 'v.veerabharathi@gmail.com';
+            $data['from'] = config('app.noreply_email_address');
+            $data['subject'] = 'Covid-19 Test - Booking Confirmation';
+
             //echo "<pre>"; print_r($data); exit;
             Mail::to($data['to'])->send(new TestResultQrCode($data));
 
