@@ -81,6 +81,7 @@ function getSeletedTimeSlotByCenter($center)
     $bookings = DB::table('patients_booking')
         ->select('patients_booking.booking_time',DB::raw('count(*) as booking_count'))
         ->where('patients_booking.center', $center)
+        ->where('patients_booking.booking_time', '>',date('Y-m-d H:i'))
         ->groupBy('patients_booking.booking_time')
         ->get();
     //echo "<prE>";print_r($bookings); exit;
