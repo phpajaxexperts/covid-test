@@ -33,7 +33,7 @@
             Thanks for booking with us.<br /><br />
 
             <h3>Clinic Address</h3>
-            <strong>{{$data['clinic_address']->name}}</strong><br>{{$data['clinic_address']->doctor_name}}<br>$data['clinic_address']->street_address_1}},
+            <strong>{{$data['clinic_address']->name}}</strong><br>{{$data['clinic_address']->doctor_name}}<br>{{$data['clinic_address']->street_address_1}},
             @if($data['clinic_address']->street_address_2)
             <br>{{$data['clinic_address']->street_address_2}},
             @endif
