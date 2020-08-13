@@ -689,6 +689,7 @@
                         </div>
                         <div id="fragment-4" style="height: 750px; overflow-y: auto;">
                             <div class="container-fluid">
+                                <form name="frmPaymentConfirm" id="frmPaymentConfirm">
                                 <div class="row">
                                     <div class="col-sm order-1">
                                         <div class="payment-card">
@@ -708,21 +709,20 @@
                                     </div>
                                     <div class="col-sm order-0">
                                         <div class="payment-card-details">
-                                            <form name="frmPaymentConfirm" id="frmPaymentConfirm">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><span>Name</span><span id="divConfirmName"></span></li>
-                                                    <li class="list-group-item"><span>Email Address</span><span id="divConfirmEmailAddress"></span></li>
-                                                    <li class="list-group-item"><span>Date of Birth</span><span id="divConfirmDob"></span></li>
-                                                    <li class="list-group-item"><span>Gender</span><span id="divConfirmGender"></span></li>
-                                                    <li class="list-group-item"><span id="spanConfirmICPassportNumber">IC/Passport Number :</span><span id="divConfirmICPassportNumber"></span></li>
-                                                    <li class="list-group-item"><span>Contact Number</span><span id="divConfirmContactNumber"></span></li>
-                                                    <li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>
-                                                    <li class="list-group-item"><span>Nationality</span><span id="divConfirmNationality"></span></li>
-                                                </ul>
-                                            </form>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item"><span>Name</span><span id="divConfirmName"></span></li>
+                                                <li class="list-group-item"><span>Email Address</span><span id="divConfirmEmailAddress"></span></li>
+                                                <li class="list-group-item"><span>Date of Birth</span><span id="divConfirmDob"></span></li>
+                                                <li class="list-group-item"><span>Gender</span><span id="divConfirmGender"></span></li>
+                                                <li class="list-group-item"><span id="spanConfirmICPassportNumber">IC/Passport Number :</span><span id="divConfirmICPassportNumber"></span></li>
+                                                <li class="list-group-item"><span>Contact Number</span><span id="divConfirmContactNumber"></span></li>
+                                                <li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>
+                                                <li class="list-group-item"><span>Nationality</span><span id="divConfirmNationality"></span></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <? /* ?>
                             <form name="frmPaymentConfirm" id="frmPaymentConfirm">
