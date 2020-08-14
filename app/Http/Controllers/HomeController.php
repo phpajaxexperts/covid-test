@@ -397,7 +397,7 @@ class HomeController extends Controller
 
     public function qrCodeGenerator(Request $request)
     {
-        $ID = $request->ID;
+        $ID = encrptString($request->ID);
         Theme::set('covid');
         return view('qr-code-generator',compact('ID'));
     }
