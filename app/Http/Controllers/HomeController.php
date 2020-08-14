@@ -392,13 +392,17 @@ class HomeController extends Controller
             elseif($patient->identity_type==2)
                 $identity_type = 'Passport Number';
 
+            if($booking->booking_type==1)
+            $test_date = date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time));
+            else
+            $test_date = '';
 
-            $result = array(
+                $result = array(
                 'test_result' => $test_result,
                 'name' => $patient->name,
                 'identity_type' => $identity_type,
                 'identity_number' => $patient->nric_passport,
-                'test_date' => date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time)),
+                'test_date' => $test_date,
                 'issuer' => $center->name,
             );
 
