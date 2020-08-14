@@ -405,8 +405,7 @@ class HomeController extends Controller
             $test_date = date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time));
             else
             $test_date = '';
-
-                $result = array(
+            $result = array(
                 'test_result' => $test_result,
                 'name' => $patient->name,
                 'nationality' => $patient->country_name,

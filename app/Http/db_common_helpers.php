@@ -231,6 +231,7 @@ function getBooking($ID){
 }
 
 function getPatient($ID){
+
     $patient = DB::table('patients')
         ->select('patients.*','core_country.name as country_name')
         ->join('core_country','core_country.ID','=','patients.country')
