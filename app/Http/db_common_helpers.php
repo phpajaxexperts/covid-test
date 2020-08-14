@@ -325,14 +325,14 @@ function getBookingsByDate($start_date,$end_date,$ID){
         ->join('patients','patients.ID','=','patients_booking.patient')
         //->where('patients_booking.booking_date', '>=' ,$start_date)
         //->where('patients_booking.booking_date', '<=' ,$end_date)
-        ->where('patients_booking.paid', 1)
+        //->where('patients_booking.paid', 1)
         ->where('patients_booking.center', $ID)
         ->orderBy('patients.name','asc')
         ->get();
         //->toSql();
     //echo $dat; exit;
     //echo $bookings; exit;
-    dd($bookings);
+    //dd($bookings);
     return $bookings;
 }
 
