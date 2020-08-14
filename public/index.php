@@ -11,6 +11,10 @@ define('LARAVEL_START', microtime(true));
 
 //This is my test for develop branch again test branch
 
+echo "Hai"; exit;
+
+
+
 
 /*
 |--------------------------------------------------------------------------

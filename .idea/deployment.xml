@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="covid-test" uploadOnCheckin="573f30c0-7b68-49cf-a18c-506d165ddcc9">
+  <component name="PublishConfigData" serverName="covid-test">
     <serverData>
       <paths name="covid-test">
         <serverdata>
@@ -10,6 +10,5 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="covid-test" />
   </component>
 </project>
