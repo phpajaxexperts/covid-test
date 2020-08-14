@@ -398,8 +398,8 @@ class HomeController extends Controller
     public function qrCodeGenerator(Request $request)
     {
         $ID = $request->ID;
-        echo QrCode::size(300)->format('svg')->generate($ID);
-        exit;
+        Theme::set('covid');
+        return view('qr-code-generator',compact('ID'));
     }
 
     }
