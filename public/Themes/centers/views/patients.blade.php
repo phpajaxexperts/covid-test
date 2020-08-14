@@ -129,7 +129,9 @@
                 <tr>
                     <th>Name</th>
                     <th>Phone</th>
+                    @if($booking->booking_type==1)
                     <th>Booked On</th>
+                    @endif
                     <th>Test Result</th>
                     {{--<th>Actions</th>--}}
                 </tr>
@@ -140,11 +142,11 @@
                         <tr>
                             <td>{{$booking->name}}</td>
                             <td>+{{$booking->phone}}</td>
+                            @if($booking->booking_type==1)
                             <td>
-                                @if($booking->booking_type==1)
                                 {{date('d/m/Y',strtotime($booking->booking_time))}} at {{date('h:i A',strtotime($booking->booking_time))}}
-                                @endif
                             </td>
+                            @endif
                             <td>
                                 <div id="divTestResult_{{$booking->ID}}">
                                     @if($booking->test_result)
