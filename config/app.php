@@ -64,7 +64,7 @@ return [
     'media_folder' =>  'media',
 
 
-    'raudhapay_payment_gateway_status' => 'sandbox',
+    'raudhapay_payment_gateway_status' => 'live',
     //'raudhapay_payment_gateway_status' => 'live',
     'raudhapay_live' => array(
             'api_url' => 'https://api.raudhahpay.com/api',
