@@ -20,6 +20,6 @@
 @section('content')
 {{--<img src="{!!QrCode::format('png')->generate('This is test QR code by Veera!')!!}">--}}
 <div style="margin: 0px auto; padding-top: 100px; width: 1000px;">
-{!!QrCode::format('svg')->generate('This is test QR code by Veera!')!!}
+{!!QrCode::format('svg')->generate($data)!!}
 </div>
 @endsection

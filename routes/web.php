@@ -33,9 +33,10 @@ Route::post('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
 
 
 
-Route::get('/qrcode', function () {
+Route::get('/qrcode/{data}', function (Request $request) {
     Theme::set('covid');
-    return view('qrcode');
+    $data = $request->data;
+    return view('qrcode', compact('data'));
 });
 
 Route::get('/center', function () {

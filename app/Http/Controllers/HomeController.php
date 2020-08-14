@@ -394,5 +394,11 @@ class HomeController extends Controller
 
         return view('booking-confirm',compact('bookingID','booking'));
     }
-    
+
+    public function qrCodeGenerator(Request $request)
+    {
+        $data = $request->data;
+        echo QrCode::size(300)->format('png')->generate($data); exit;
+    }
+
     }
