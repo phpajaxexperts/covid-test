@@ -5,7 +5,7 @@
         <div class="col-md-12 text-center pt-5" style="background-color: #c07275; height: 185px; color: #ffe0e3;">
             <br>
             <h1>
-                Booking Confirm
+                Booking Confirmed
             </h1>
         </div>
     </div>
