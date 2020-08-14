@@ -152,6 +152,37 @@ class HomeController extends Controller
                 $offline_payment = '';
 
             if($offline_payment=='yes'){
+
+                $booking = getBooking($bookingID);
+                $patient = getPatient($booking->patient);
+                $center = getCenter($booking->center);
+
+
+                $data = array(
+                    'patient' => $patient,
+                    'booking' => $booking,
+                    'center' => $center
+                );
+                //bookingConfirmMail($data);
+
+                $clinic_address = '<strong>'.$data['center']->name.'</strong><br>'.$data['center']->doctor_name.'<br>'.$data['center']->street_address_1.',';
+                if($data['center']->street_address_2)
+                    $clinic_address .= '<br>'.$data['center']->street_address_2.',';
+                $clinic_address .= '<br>'.$data['center']->city.', '.$data['center']->state.' '.$data['center']->zip_code.'.';
+                $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
+                $data['clinic_address'] = $center;
+                $data['booking_time'] = $booking_time;
+                $data['booking_type'] = $data['booking']->booking_type;
+
+
+                $data['to'] = $data['patient']->email_address;
+                //$to = 'v.veerabharathi@gmail.com';
+                $data['from'] = config('app.noreply_email_address');
+                $data['subject'] = 'Covid-19 Test - Booking Confirmation';
+
+                //echo "<pre>"; print_r($data); exit;
+                Mail::to($data['to'])->send(new BookingConfirm($data));
+
                 $response = array(
                     'status'   => 'offline_payment',
                     'bookingID' => $bookingID
