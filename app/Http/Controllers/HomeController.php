@@ -312,9 +312,17 @@ class HomeController extends Controller
             elseif($booking->test_result==3)
                 $test_result = 'invalid';
 
+            if($booking->identity_type==1)
+                $identity_type = 'NRIC';
+            elseif($booking->identity_type==2)
+                $identity_type = 'Passport Number';
+
+
             $result = array(
                 'test_result' => $test_result,
                 'name' => $patient->name,
+                'identity_type' => $identity_type,
+                'identity_number' => $booking->nric_passport,
                 'test_date' => date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time)),
                 'issuer' => $center->name,
             );
