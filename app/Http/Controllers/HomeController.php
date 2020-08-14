@@ -277,6 +277,7 @@ class HomeController extends Controller
             $booking_time = date('d/m/Y',strtotime($data['booking']->booking_time)).' at '.date('h:i A',strtotime($data['booking']->booking_time));
             $data['clinic_address'] = $center;
             $data['booking_time'] = $booking_time;
+            $data['booking_type'] = $data['booking']->booking_type;
 
 
             $data['to'] = $data['patient']->email_address;

@@ -50,8 +50,11 @@
             @if(isset($data['clinic_address']->zip_code))
              {{$data['clinic_address']->zip_code}},
             @endif
+
+            @if($data['booking_type']==1)
             <br /><br />
             <strong>Date & Time</strong>: {{$data['booking_time']}}
+            @endif
 
             <br /><br />
             Thank You
