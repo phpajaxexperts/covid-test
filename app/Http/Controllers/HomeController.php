@@ -409,6 +409,7 @@ class HomeController extends Controller
                 $result = array(
                 'test_result' => $test_result,
                 'name' => $patient->name,
+                'nationality' => $patient->country_name,
                 'identity_type' => $identity_type,
                 'identity_number' => $patient->nric_passport,
                 'test_date' => $test_date,
