@@ -101,7 +101,7 @@ function getCenters($testType)
 {
     if($testType=='pre-screening')
         $testType = 1;
-    elseif($testType=='point-of-entry-test')
+    elseif($testType=='point-of-entry')
         $testType = 2;
 
     $days = DB::table('centers')

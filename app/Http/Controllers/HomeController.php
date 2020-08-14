@@ -16,12 +16,21 @@ use App\Mail\BookingConfirm;
 
 class HomeController extends Controller
 {
-    public function bookTest(Request $request)
+    public function bookPreScreeningTest(Request $request)
     {
         Session::regenerate(true);
-        $testType = $request->testType;
+        $testType = 'pre-screening';
         Theme::set('covid');
-        return view('book-test', compact('testType'));
+        return view('pre-screening-test', compact('testType'));
+    }
+
+    public function bookPointOfEntryTest(Request $request)
+    {
+        Session::regenerate(true);
+        //$testType = $request->testType;
+        $testType = 'point-of-entry';
+        Theme::set('covid');
+        return view('point-of-entry-test', compact('testType'));
     }
 
     public function paymentProcessInit(Request $request)
@@ -39,10 +48,9 @@ class HomeController extends Controller
             'testType.required' => 'Pre Procession or Point of entry selection is required field!',
             'selectedCenter.required' => 'Center is required field!',
             'selectedTimeSlot.required' => 'Date & Time is required field!',
-
         ];
 
-        $this->validate($request, [
+        $fields = [
             'name' => 'required|max:255',
             'identity_type' => 'required',
             'nric_passport' => 'required',
@@ -52,7 +60,18 @@ class HomeController extends Controller
             'testType' => 'required',
             'selectedCenter' => 'required',
             'selectedTimeSlot' => 'required',
-        ],$messages);
+        ];
+
+        if($requestData['testType']=='point-of-entry'){
+            $fields['traveller_type'] = 'required';
+            $fields['lane_type'] = 'required';
+
+            $messages['traveller_type'] = 'Traveller type is required field';
+            $messages['lane_type'] = 'Lane type is required field';
+        }
+
+
+        $this->validate($request, $fields,$messages);
 
 
         //echo "<pre>";print_r($requestData); exit;
@@ -85,7 +104,7 @@ class HomeController extends Controller
 
             if($requestData['testType']=='pre-screening')
                 $testType = 1;
-            elseif($requestData['testType']=='point-of-entry-test')
+            elseif($requestData['testType']=='point-of-entry')
                 $testType = 2;
 
             if(!isset($booking_exist)){
@@ -97,6 +116,8 @@ class HomeController extends Controller
                     'booking_time' => $booking_time,
                     'sessionid' => $session_id,
                     'commute_by' => $requestData['commute_by'],
+                    'traveller_type' => $requestData['traveller_type'],
+                    'lane_type' => $requestData['lane_type'],
                 );
 
                 $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
@@ -110,68 +131,78 @@ class HomeController extends Controller
             }elseif($requestData['testType']=='pre-screening' && $requestData['country']!='132'){
                 $title = 'Pre Screening Test';
                 $amount = 250;
-            }elseif($requestData['testType']=='point-of-entry-test'){
-                $title = 'Point of Entry Test';
+            }elseif($requestData['testType']=='point-of-entry' &&  $requestData['traveller_type']=='RGL' && $requestData['country']!='132'){
+                $title = 'Point of Entry Test - RGL';
                 $amount = 130;
+            }elseif($requestData['testType']=='point-of-entry' &&  $requestData['traveller_type']=='PCA' && $requestData['country']=='132'){
+                $title = 'Point of Entry Test - PCA';
+                $amount = 200;
             }
 
-
-            if(config('app.raudhapay_payment_gateway_status')=='live'){
-                $api_url = config('app.raudhapay_live.api_url');
-                $collection_code = config('app.raudhapay_live.collection_code');
-                $access_token = config('app.raudhapay_live.api_token');
+            if($requestData['offline_payment']=='yes'){
+                $response = array(
+                    'status'   => 'offline_payment',
+                    'bookingID' => $bookingID
+                );
+                return response()->json($response, 200);
             }else{
-                $api_url = config('app.raudhapay_sandbox.api_url');
-                $collection_code = config('app.raudhapay_sandbox.collection_code');
-                $access_token = config('app.raudhapay_sandbox.api_token');
-            }
+                if(config('app.raudhapay_payment_gateway_status')=='live'){
+                    $api_url = config('app.raudhapay_live.api_url');
+                    $collection_code = config('app.raudhapay_live.collection_code');
+                    $access_token = config('app.raudhapay_live.api_token');
+                }else{
+                    $api_url = config('app.raudhapay_sandbox.api_url');
+                    $collection_code = config('app.raudhapay_sandbox.collection_code');
+                    $access_token = config('app.raudhapay_sandbox.api_token');
+                }
 
 
-            $url = $api_url.'/collections/'.$collection_code.'/bills?include=product-collections.product';
-            $product[] = array(
-                'title' => $title,
-                'price' => $amount,
-                'quantity' => '1',
-            );
-            $data = array(
-                'due' => date('Y-m-d'),
-                'currency' => 'MYR',
-                'ref1' => $session_id,
-                'ref2' => $bookingID,
-                'customer' => array(
-                    'first_name' => $requestData['name'],
-                    "last_name"=> $requestData['name'],
-                    "address" => $requestData['name'],
-                    "email" => $requestData['email_address'],
-                    "mobile"=> str_replace('+','',$requestData['phone'])
-                    ),
-                'product' => $product
-            );
+                $url = $api_url.'/collections/'.$collection_code.'/bills?include=product-collections.product';
+                $product[] = array(
+                    'title' => $title,
+                    'price' => $amount,
+                    'quantity' => '1',
+                );
+                $data = array(
+                    'due' => date('Y-m-d'),
+                    'currency' => 'MYR',
+                    'ref1' => $session_id,
+                    'ref2' => $bookingID,
+                    'customer' => array(
+                        'first_name' => $requestData['name'],
+                        "last_name"=> $requestData['name'],
+                        "address" => $requestData['name'],
+                        "email" => $requestData['email_address'],
+                        "mobile"=> str_replace('+','',$requestData['phone'])
+                        ),
+                    'product' => $product
+                );
 
 
-            $res = curlPost($url,$data,$access_token);
+                $res = curlPost($url,$data,$access_token);
 
-            //echo "<pre>";print_r($res); exit;
+                //echo "<pre>";print_r($res); exit;
 
-            if(isset($res->status)){
-                if($res->status == 2){
-                    $response = array(
-                        'payment_url' => $res->payment_url,
-                        'status'   => 'success'
-                    );
+                if(isset($res->status)){
+                    if($res->status == 2){
+                        $response = array(
+                            'payment_url' => $res->payment_url,
+                            'status'   => 'success'
+                        );
+                    }else{
+                        $response = array(
+                            'status'   => 'failed'
+                        );
+                    }
                 }else{
                     $response = array(
-                        'status'   => 'failed'
+                        'status'   => 'failed',
+                        'payment_err_msg'   => $res,
                     );
                 }
-            }else{
-                $response = array(
-                    'status'   => 'failed',
-                    'payment_err_msg'   => $res,
-                );
-            }
 
-            return response()->json($response, 200);
+                return response()->json($response, 200);
+            }
         }else{
             $response = array(
                 'status'   => 'slot_filled',
@@ -312,9 +343,9 @@ class HomeController extends Controller
             elseif($booking->test_result==3)
                 $test_result = 'invalid';
 
-            if($booking->identity_type==1)
+            if($patient->identity_type==1)
                 $identity_type = 'NRIC';
-            elseif($booking->identity_type==2)
+            elseif($patient->identity_type==2)
                 $identity_type = 'Passport Number';
 
 
@@ -350,5 +381,18 @@ class HomeController extends Controller
         return view('get-time-slots',compact('centerID','center','selected_time_slots'));
     }
 
+    public function bookingConfirm(Request $request)
+    {
+        $bookingID = $request->bookingID;
+        Theme::set('covid');
+
+        $booking = DB::table('patients_booking')
+            ->select('centers.*','patients_booking.booking_time')
+            ->join('centers','centers.ID','=','patients_booking.center')
+            ->where('patients_booking.ID','=',$bookingID)
+            ->first();
+
+        return view('booking-confirm',compact('bookingID','booking'));
+    }
     
     }

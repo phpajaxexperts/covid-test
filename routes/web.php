@@ -21,12 +21,15 @@ Route::get('/', function () {
 //    return view('book-test');
 //});
 
-Route::get('/book-test/{testType}', 'HomeController@bookTest');
+Route::get('/book-test/pre-screening', 'HomeController@bookPreScreeningTest');
+Route::get('/book-test/point-of-entry', 'HomeController@bookPointOfEntryTest');
 Route::post('/payment-process-init', 'HomeController@paymentProcessInit');
 Route::get('/payment-confirm', 'HomeController@paymentConfirm');
 Route::get('/payment-receipt/{bill_id}', 'HomeController@paymentReceipt');
 Route::post('/update-amount-paid', 'HomeController@updateAmountPaid');
 Route::post('/get-time-slots', 'HomeController@getTimeSlots');
+Route::post('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
+
 
 
 

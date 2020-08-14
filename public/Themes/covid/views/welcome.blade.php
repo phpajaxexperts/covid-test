@@ -32,7 +32,7 @@
             <div class="col-md-5 col-sm-6 text-center pt-5" style="background-color: #ffeebc; min-height: 435px;">
                 <img src="{{ themes('img/Point-of-entry-test.png')  }}"><br>
                 <div style="width: 52%;margin: 0px auto;">Point-of-Entry Testing will be conducted on all travellers entering Malaysia via Johor. Nasal swab samples will be tested at the point of care as travellers enter Malaysia</div><br>
-                <a href="{{ url('book-test/point-of-entry-test')  }}"><img src="{{ themes('img/booktestbtn-yellow.png')  }}"></a>
+                <a href="{{ url('book-test/point-of-entry')  }}"><img src="{{ themes('img/booktestbtn-yellow.png')  }}"></a>
                 <br><br>
             </div>
             <div class="col-md-1"></div>

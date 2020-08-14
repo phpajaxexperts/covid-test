@@ -98,6 +98,9 @@
             var selectedDate = $('#selectedDate').val();
             var selectedTime = $('#selectedTime').val();
             var selectedTimeSlot = $('#selectedTimeSlot').val();
+            var laneType = $('#laneType').val();
+            var offline_payment = $('#offline_payment').val();
+
 
             if($('#commute_by').length>0){
                 var commute_by = $('#commute_by').val();
@@ -111,7 +114,7 @@
             var countryData = iti.getSelectedCountryData();
             //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
             var phone_country_code = countryData.dialCode;
-            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by;
+            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by+'&laneType='+laneType+'&offline_payment='+offline_payment;
 
             $.ajaxSetup({
                 headers: {
@@ -129,12 +132,14 @@
                     if(msg.status=='success')
                         window.location = msg.payment_url;
                     else
-                        if(msg.status=='slot_filled'){
+                        if(msg.status=='slot_filled') {
                             swal.close();
                             Swal.fire({
                                 title: 'Request failed, please correct the following details!',
                                 html: msg.msg,// add html attribute if you want or remove
                             });
+                        }else if(msg.status=='offline_payment'){
+                            window.location = '{{ url("/booking-confirm/") }}'+msg.bookingID;
                         }else{
                             if(msg.payment_err_msg!=''){
                                 var errMsg = '';
@@ -197,7 +202,7 @@
     $(function () {
         $("#tabs").tabs({
             active: 0,
-            disabled: [1, 2, 3]
+            //disabled: [1, 2]
         });
 
         $(".tabs_hop").tabs({
@@ -208,13 +213,21 @@
     });
 
     function selectCenter(centerID){
-        $( "#divSelectedCenter" ).html($( "#center_"+centerID+"" ).html());
+        //$( "#divSelectedCenter" ).html($( "#center_"+centerID+"" ).html());
         $( "#divSelectedCenterConfirm" ).html($( "#center_"+centerID+"" ).html());
         $( "#selectedCenter").val(centerID);
-        $ ("#tabs" ).tabs("enable", 2);
-        $( "#tabs" ).tabs({ active: 2 });
-        $( ".center_hours_of_operation").hide();
-        $( "#center_hours_of_operation_"+centerID).show();
+        //$ ("#tabs" ).tabs("enable", 2);
+        //$( "#tabs" ).tabs({ active: 2 });
+        if(centerID==4){
+            $ ("#KsabButtons" ).show();
+            $ ("#BsiButtons" ).hide();
+        }else if(centerID==5){
+            $ ("#KsabButtons" ).hide();
+            $ ("#BsiButtons" ).show();
+        }
+
+        //$( ".center_hours_of_operation").hide();
+        //$( "#center_hours_of_operation_"+centerID).show();
 
 
         {{--$.ajaxSetup({--}}
@@ -250,6 +263,12 @@
 
             {{--}--}}
         {{--});--}}
+    }
+
+    function selectLane(laneType) {
+        $('#lane_type').val(laneType);
+        $ ("#tabs" ).tabs("enable", 2);
+        $( "#tabs" ).tabs({ active: 2 });
     }
 
     function selectedDateTime(dattime,date,time){
@@ -288,17 +307,15 @@
         $( "#divConfirmNationality" ).html($( "#country option:selected" ).text());
 
         testAmountCalc();
-        $ ("#tabs" ).tabs("enable", 3);
-        $( "#tabs" ).tabs({ active: 3 });
+        //$ ("#tabs" ).tabs("enable", 3);
+        //$( "#tabs" ).tabs({ active: 3 });
     }
 
     function testAmountCalc(){
-        if($( "#testType" ).val()=='pre-screening' && $( "#country" ).val()=='132')
-            $( "#divConfirmAmount" ).html('200');
-        else if($( "#testType" ).val()=='pre-screening' && $( "#country" ).val()!='132')
-            $( "#divConfirmAmount" ).html('250');
-        else if($( "#testType" ).val()=='point-of-entry-test')
+        if($( "#traveller_type" ).val()=='RGL')
             $( "#divConfirmAmount" ).html('130');
+        else if($( "#traveller_type" ).val()=='PCA')
+            $( "#divConfirmAmount" ).html('200');
     }
 
     function commuteBySelected(val){
@@ -338,6 +355,14 @@
         frmRegisterInit();
     }
 
+    function selectOfflinePayment() {
+        if($('#offline_payment').is(":checked")){
+            $('#btnPayment').html('Submit');
+        }else{
+            $('#btnPayment').html('Proceed to Payment');
+        }
+    }
+    
     function frmRegisterInit(){
         $("#frmRegister").validate({
             rules: {
@@ -370,6 +395,7 @@
                 terms:{ required: true} ,
                 country:{ required: true},
                 commute_by:{ required: true},
+                traveller_type:{ required: true},
             },
             messages: {
                 name: "Please enter your full name.",
@@ -401,6 +427,7 @@
                 terms: "Please accept terms and conditions",
                 country: "Please select your nationality.",
                 commute_by: "Please select your mode of transport.",
+                traveller_type: "Please select traveller type.",
             },
             errorPlacement: function(error, element) {
                 if (element.attr("type") == "radio") {
@@ -410,8 +437,25 @@
                 }
             },
             submitHandler: function(form) {
-                $ ("#tabs" ).tabs("enable", 1);
-                $( "#tabs" ).tabs({ active: 1 });
+                if($('#traveller_type').val() == 'RGL' && $('#country').val()=='132'){
+                    Swal.fire({
+                        title: '',
+                        'html': 'For RGL travller type, MALAYSIAN/PR do not need to take test.'
+                    });
+                }else if($('#traveller_type').val() == 'RGL' && $('#country').val()!='132'){
+                    submitPersonalDetails();
+                    $ ("#tabs" ).tabs("enable", 1);
+                    $( "#tabs" ).tabs({ active: 1 });
+                }else if($('#traveller_type').val() == 'PCA' && $('#country').val()=='132'){
+                    submitPersonalDetails();
+                    $ ("#tabs" ).tabs("enable", 1);
+                    $( "#tabs" ).tabs({ active: 1 });
+                }else if($('#traveller_type').val() == 'PCA' && $('#country').val()!='132'){
+                    Swal.fire({
+                        title: '',
+                        html: 'For PCA travller type, NON-MALAYSIAN do not need to take test.'
+                    });
+                }
             }
         });
     }
@@ -426,6 +470,8 @@
     <input type="hidden" name="selectedTimeSlot" id="selectedTimeSlot" value="">
     <input type="hidden" name="selectedDate" id="selectedDate" value="">
     <input type="hidden" name="selectedTime" id="selectedTime" value="">
+    <input type="hidden" name="lane_type" id="lane_type" value="">
+
     <div class="pageCover" style="display:none;">
     <section>
         <div class="row">
@@ -447,8 +493,7 @@
                     <ul>
                         <li><a href="#fragment-1"><span>Personal Details</span></a></li>
                         <li><a href="#fragment-2"><span>Centers</span></a></li>
-                        <li><a href="#fragment-3"><span>Time Slots</span></a></li>
-                        <li><a href="#fragment-4"><span>Payment</span></a></li>
+                        <li><a href="#fragment-3"><span>Payment</span></a></li>
                     </ul>
                     <div class="fragment-container">
                         <div id="fragment-1" style="overflow-y: auto;">
@@ -517,7 +562,7 @@
                                         <div class="form-group {{ $errors->has('dob') ? 'has-error' : ''}}">
                                             <label for="dob" class="control-label">{{ 'Date of Birth' }}</label>
                                             <div>
-                                                <input class="form-control" name="dob" type="date" id="dob" max="{{ date('Y-m-d')  }}" value="{{ isset($patient->dob) ? $patient->dob : ''}}" >
+                                                <input class="form-control" name="dob" type="date" id="dob" max="{{ date('Y-m-d',(strtotime ( '-18 year' , time() ) ))  }}" value="{{ isset($patient->dob) ? $patient->dob : ''}}" >
                                                 {!! $errors->first('dob', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
@@ -551,20 +596,30 @@
                                             </div>
                                         </div>
 
-                                        @if($testType == 'point-of-entry-test')
-                                            <div class="form-group {{ $errors->has('commute_by') ? 'has-error' : ''}}">
-                                                <label for="commute_by" class="control-label">{{ 'Mode of travel or transport' }}</label>
-                                                <div>
-                                                    <select class="form-control"  name="commute_by" id="commute_by" onchange="commuteBySelected(this.value);">
-                                                        <option value=""> - select - </option>
-                                                        <option value="1">Motorcycle, Private Cars, Vans, Taxis, Buses</option>
-                                                        <option value="2">Walking/Cycling</option>
-                                                        <option value="">Large Trucks</option>
-                                                    </select>
-                                                    {!! $errors->first('email_address', '<p class="help-block">:message</p>') !!}
-                                                </div>
+
+                                        <div class="form-group {{ $errors->has('traveller_type') ? 'has-error' : ''}}">
+                                            <label for="traveller_type" class="control-label">{{ 'Traveller Type' }}</label>
+                                            <div>
+                                                <select class="form-control"  name="traveller_type" id="traveller_type" onchange="testAmountCalc();">
+                                                    <option value=""> - select - </option>
+                                                    <option value="RGL">RGL ( Reciprocal Green Lane )</option>
+                                                    <option value="PCA">PCA ( Periodic Commuting Arrangement )</option>
+                                                </select>
+                                                {!! $errors->first('traveller_type', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        @endif
+                                        </div>
+                                        {{--<div class="form-group {{ $errors->has('commute_by') ? 'has-error' : ''}}">--}}
+                                            {{--<label for="commute_by" class="control-label">{{ 'Mode of travel or transport' }}</label>--}}
+                                            {{--<div>--}}
+                                                {{--<select class="form-control"  name="commute_by" id="commute_by" onchange="commuteBySelected(this.value);">--}}
+                                                    {{--<option value=""> - select - </option>--}}
+                                                    {{--<option value="1">Motorcycle, Private Cars, Vans, Taxis, Buses</option>--}}
+                                                    {{--<option value="2">Walking/Cycling</option>--}}
+                                                    {{--<option value="">Large Trucks</option>--}}
+                                                {{--</select>--}}
+                                                {{--{!! $errors->first('email_address', '<p class="help-block">:message</p>') !!}--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <div class="text-center pt-3">
                                             <button class="btn btn-blue" type="submit">Submit</button>
                                         </div>
@@ -610,86 +665,30 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            @endif
-                        </div>
-                        <div id="fragment-3"  style="height: 750px; overflow-y: auto;">
-                            <div id="divSelectedCenter" class="mb-3"></div>
-                            <div id="divTimeSlot" class="mb-3"></div>
 
-                            @if(count($centers)>0)
-                                @foreach($centers as $center)
-                                    @php( $selected_time_slots = getSeletedTimeSlotByCenter($center->ID) )
-                                    {{--@if(searchForBookingTime('2020-08-11 07:08:00',$selected_time_slots))--}}
-                                    {{--yes exist--}}
-                                    {{--@else--}}
-                                    {{--not exist--}}
-                                    {{--@endif--}}
-                                    {{--@php( exit )--}}
-                                    <div class="center_hours_of_operation" id="center_hours_of_operation_{{$center->ID}}" style="display: none;">
-                                        <div class="tabs_hop">
-                                            <ul>
-                                                @php( $hours_of_operations = getHoursOfOperation($center->ID) )
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @php( $cur_date_timestamp = time() + 86400 * $i )
-                                                    @if(count($hours_of_operations)>0)
-                                                        @foreach($hours_of_operations as $hours_of_operation)
-                                                            @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                                <li style="font-size: 13px;"><a href="#tab_hoo_{{$center->ID}}_{{$i}}"><span>{{date("M d, Y", $cur_date_timestamp)}}</span></a></li>
-                                                                @break
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                @endfor
-                                            </ul>
-                                            <div id="tab_hop_container">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @php( $cur_date_timestamp = time() + 86400 * $i )
-                                                    @if(count($hours_of_operations)>0)
-                                                        @foreach($hours_of_operations as $hours_of_operation)
-                                                            @if($hours_of_operation->all_day_close!=1 && strtolower(date('l',$cur_date_timestamp))==strtolower($hours_of_operation->day_name) && $hours_of_operation->open!='' && $hours_of_operation->close!='')
-                                                                <div id="tab_hoo_{{$center->ID}}_{{$i}}" style="overflow-y: auto;">
-                                                                    {{--{{$hours_of_operation->open}} - {{$hours_of_operation->close}}--}}
-                                                                    @php( $difference = round(abs(strtotime($hours_of_operation->open) - strtotime($hours_of_operation->close)) / 3600,2) )
-                                                                    @php( $start_time = date('h:i a',strtotime($hours_of_operation->open)))
-                                                                    @for ($j = 1; $j <= $difference; $j++)
-                                                                        <div class="row mb-2">
-                                                                            @for ($k = 1; $k <= $center->slots_per_hour; $k++)
-                                                                                @php( $time_slots = strtotime($start_time) + ((60/$center->slots_per_hour)*60))
-                                                                                @php( $cur_time_slot = date('Y-m-d H:i',strtotime(date('Y-m-d',$cur_date_timestamp).' '.$start_time)) )
-                                                                                {{--@php( $booked_patients_count_in_slot = getBookedPatientsCountInSlot($cur_time_slot,$center->ID) )--}}
-                                                                                @php( $res = searchForBookingTime($cur_time_slot, $selected_time_slots) )
-                                                                                @if($res['status']=='yes')
-                                                                                    @if($selected_time_slots[$res['key']]['booking_count']>=$center->patients_per_slot)
-                                                                                        @php( $booked = 'yes' )
-                                                                                    @else
-                                                                                        @php( $booked = 'no' )
-                                                                                    @endif
-                                                                                @else
-                                                                                    @php( $booked = 'no' )
-                                                                                @endif
-                                                                                <div class="card text-center pointer bm-card timeslot @if($booked=='yes') slot_booked @endif">
-                                                                                    <div class="card-body p-2">
-                                                                                        <a href="javascript:void(0);" @if($booked=='no') onclick="$('.card').removeClass('selected');$(this).parents('.card').addClass('selected'); selectedDateTime('{{date('Y-m-d',$cur_date_timestamp).' '.$start_time}}','{{date('d/m/Y',$cur_date_timestamp)}}','{{date('h:i A',strtotime($start_time)).' - '.date('h:i A',$time_slots)}}')" @endif >{{$start_time}} - {{date('h:i a',$time_slots)}}</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                @php( $start_time = date('h:i a',$time_slots))
-                                                                            @endfor
-                                                                        </div>
-                                                                    @endfor
-                                                                </div>
-                                                                @break
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                @endfor
 
-                                            </div>
+                                <div id="KsabButtons" style="display: none">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 class="text-uppercase">Swab Locations</h3>
+                                            <button class="centers_links btn btn-blue" onclick="selectLane('Car Lane')">Car Lane</button>
+                                            <button class="centers_links btn btn-blue" onclick="selectLane('Motorcycle Lane')">Motorcycle Lane</button>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
+                                <div id="BsiButtons" style="display: none">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 class="text-uppercase">Swab Locations</h3>
+                                            <button class="centers_links btn btn-blue" onclick="selectLane('Walking Lane')">Walking Lane</button>
+                                            <button class="centers_links btn btn-blue" onclick="selectLane('Car Lane')">Car Lane</button>
+                                            <button class="centers_links btn btn-blue" onclick="selectLane('Motorcycle Lane')">Motorcycle Lane</button>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
-                        <div id="fragment-4" style="height: 750px; overflow-y: auto;">
+                        <div id="fragment-3" style="height: 750px; overflow-y: auto;">
                             <div class="container-fluid">
                                 <form name="frmPaymentConfirm" id="frmPaymentConfirm">
                                 <div class="row">
@@ -702,7 +701,7 @@
                                             </div>
                                             {{--<a href="javascript:void(0);" class="previous-step">Previous Step</a>--}}
                                             <div class="text-center mt-auto">
-                                                <button class="btn btn-blue" type="submit">Proceed to Payment</button>
+                                                <button id="btnPayment" class="btn btn-blue" type="submit">Proceed to Payment</button>
                                                 <div id="loadingPayment" style="display: none;" class="spinner-border text-primary mt-3" role="status">
                                                     <span class="sr-only">Loading...</span>
                                                 </div>
@@ -712,14 +711,15 @@
                                     <div class="col-sm order-0">
                                         <div class="payment-card-details">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><span>Name</span><span id="divConfirmName"></span></li>
+                                                <li class="list-group-item"><span>Full Name</span><span id="divConfirmName"></span></li>
                                                 <li class="list-group-item"><span>Email Address</span><span id="divConfirmEmailAddress"></span></li>
                                                 <li class="list-group-item"><span>Date of Birth</span><span id="divConfirmDob"></span></li>
                                                 <li class="list-group-item"><span>Gender</span><span id="divConfirmGender"></span></li>
                                                 <li class="list-group-item"><span id="spanConfirmICPassportNumber">IC/Passport Number :</span><span id="divConfirmICPassportNumber"></span></li>
                                                 <li class="list-group-item"><span>Contact Number</span><span id="divConfirmContactNumber"></span></li>
-                                                <li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>
+                                                {{--<li class="list-group-item"><span>Date & Time</span><span id="divDateConfirm"></span> - <span id="divTimeConfirm"></span></li>--}}
                                                 <li class="list-group-item"><span>Nationality</span><span id="divConfirmNationality"></span></li>
+                                                <li class="list-group-item"><input type="checkbox" name="offline_payment" id="offline_payment" value="yes" onclick="selectOfflinePayment()"> Offline Payment or Manual Payment</li>
                                             </ul>
                                         </div>
                                     </div>
