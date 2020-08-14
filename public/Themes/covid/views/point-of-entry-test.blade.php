@@ -458,7 +458,7 @@
                 }else if($('#traveller_type').val() == 'PCA' && $('#country').val()!='132'){
                     Swal.fire({
                         title: '',
-                        html: 'For PCA travller type, NON-MALAYSIAN do not need to take test.'
+                        html: 'For PCA, Non-Malaysians do not need to take test.'
                     });
                 }
             }
