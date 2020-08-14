@@ -67,7 +67,7 @@ class HomeController extends Controller
 
             $messages['traveller_type'] = 'Traveller type is required field';
             $messages['lane_type'] = 'Lane type is required field';
-        }elseif($requestData['testType']=='per-processing'){
+        }elseif($requestData['testType']=='pre-processing'){
             $fields['selectedTimeSlot'] = 'selectedTimeSlot.required';
             $messages['selectedTimeSlot'] = 'Date & Time is required field!';
         }
@@ -109,6 +109,14 @@ class HomeController extends Controller
             elseif($requestData['testType']=='point-of-entry')
                 $testType = 2;
 
+
+            if(isset($requestData['offline_payment']))
+                $offline_payment = $requestData['offline_payment'];
+            else
+                $offline_payment = '';
+
+
+
             if(!isset($booking_exist)){
                 $arr_payment = array(
                     'patient' => $ID,
@@ -125,6 +133,10 @@ class HomeController extends Controller
                 {
                     $arr_payment['traveller_type']  = $requestData['traveller_type'];
                     $arr_payment['lane_type'] = $requestData['lane_type'];
+
+                    if($offline_payment=='yes'){
+                        $arr_payment['payment_mode'] = 'offline';
+                    }
                 }
 
                 $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
@@ -145,11 +157,6 @@ class HomeController extends Controller
                 $title = 'Point of Entry Test - PCA';
                 $amount = 200;
             }
-
-            if(isset($requestData['offline_payment']))
-                $offline_payment = $requestData['offline_payment'];
-            else
-                $offline_payment = '';
 
             if($offline_payment=='yes'){
 
@@ -292,7 +299,7 @@ class HomeController extends Controller
 
             DB::table('patients_booking')
                 ->where('ID', $bookingID)
-                ->update(['paid' => 1]);
+                ->update(['paid' => 1,'payment_mode' => 'online']);
 
             $data = array(
                 'patient' => $patient,
