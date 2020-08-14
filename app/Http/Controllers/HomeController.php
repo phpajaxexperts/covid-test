@@ -118,9 +118,14 @@ class HomeController extends Controller
                     'booking_time' => $booking_time,
                     'sessionid' => $session_id,
                     'commute_by' => $requestData['commute_by'],
-                    'traveller_type' => $requestData['traveller_type'],
-                    'lane_type' => $requestData['lane_type'],
+
                 );
+
+                if($requestData['testType']=='point-of-entry')
+                {
+                    $arr_payment['traveller_type']  = $requestData['traveller_type'];
+                    $arr_payment['lane_type'] = $requestData['lane_type'];
+                }
 
                 $bookingID = DB::table('patients_booking')->insertGetId($arr_payment);
             }else
@@ -141,7 +146,12 @@ class HomeController extends Controller
                 $amount = 200;
             }
 
-            if($requestData['offline_payment']=='yes'){
+            if(isset($requestData['offline_payment']))
+                $offline_payment = $requestData['offline_payment'];
+            else
+                $offline_payment = '';
+
+            if($offline_payment=='yes'){
                 $response = array(
                     'status'   => 'offline_payment',
                     'bookingID' => $bookingID
