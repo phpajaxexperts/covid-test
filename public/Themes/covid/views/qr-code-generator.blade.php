@@ -21,7 +21,7 @@
 {{--<img src="{!!QrCode::format('png')->generate('This is test QR code by Veera!')!!}">--}}
 <div style="margin: 0px auto; padding-top: 100px; width: 1000px;">
 {!!QrCode::size(300)->format('svg')->generate($ID)!!}
-
+<br><br><br><br>
     {{$ID}}
 </div>
 @endsection
