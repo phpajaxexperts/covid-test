@@ -129,8 +129,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Phone</th>
-                    @if($booking->booking_type==1)
-                    <th>Booked On</th>
+                    @if(Auth::id()!=4 && Auth::id()!=5)
+                        <th>Booked On</th>
                     @endif
                     <th>Test Result</th>
                     {{--<th>Actions</th>--}}
