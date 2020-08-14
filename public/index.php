@@ -11,7 +11,7 @@ define('LARAVEL_START', microtime(true));
 
 //This is my test for develop branch again test branch
 
-echo "Hai"; exit;
+
 
 
 
@@ -30,6 +30,7 @@ echo "Hai"; exit;
 
 require __DIR__.'/../vendor/autoload.php';
 
+echo "Hai"; exit;
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights
