@@ -445,7 +445,7 @@
                 if($('#traveller_type').val() == 'RGL' && $('#country').val()=='132'){
                     Swal.fire({
                         title: '',
-                        'html': 'For RGL travller type, MALAYSIAN/PR do not need to take test.'
+                        'html': 'For RGL, Malaysians or PR do not need to take the test.'
                     });
                 }else if($('#traveller_type').val() == 'RGL' && $('#country').val()!='132'){
                     submitPersonalDetails();
