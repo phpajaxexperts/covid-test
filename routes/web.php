@@ -28,7 +28,7 @@ Route::get('/payment-confirm', 'HomeController@paymentConfirm');
 Route::get('/payment-receipt/{bill_id}', 'HomeController@paymentReceipt');
 Route::post('/update-amount-paid', 'HomeController@updateAmountPaid');
 Route::post('/get-time-slots', 'HomeController@getTimeSlots');
-Route::post('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
+Route::get('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
 
 Route::get('/qr-code-generator/{ID}', 'HomeController@qrCodeGenerator');
 

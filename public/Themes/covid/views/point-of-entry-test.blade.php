@@ -98,8 +98,13 @@
             var selectedDate = $('#selectedDate').val();
             var selectedTime = $('#selectedTime').val();
             var selectedTimeSlot = $('#selectedTimeSlot').val();
-            var laneType = $('#laneType').val();
-            var offline_payment = $('#offline_payment').val();
+            var lane_type = $('#lane_type').val();
+
+            if($('#offline_payment').is(":checked")){
+                var offline_payment = 'yes';
+            }else{
+                var offline_payment = 'no';
+            }
 
 
             if($('#commute_by').length>0){
@@ -114,7 +119,7 @@
             var countryData = iti.getSelectedCountryData();
             //var phone_country_code = $("#phone").intlTelInput("getSelectedCountryData").dialCode;
             var phone_country_code = countryData.dialCode;
-            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by+'&laneType='+laneType+'&offline_payment='+offline_payment;
+            var param = data+'&testType='+testType+'&selectedCenter='+selectedCenter+'&selectedDate='+selectedDate+'&selectedTime='+selectedTime+'&selectedTimeSlot='+selectedTimeSlot+'&phone_country_code='+phone_country_code+'&commute_by='+commute_by+'&lane_type='+lane_type+'&offline_payment='+offline_payment;
 
             $.ajaxSetup({
                 headers: {
@@ -139,7 +144,7 @@
                                 html: msg.msg,// add html attribute if you want or remove
                             });
                         }else if(msg.status=='offline_payment'){
-                            window.location = '{{ url("/booking-confirm/") }}'+msg.bookingID;
+                            window.location = '{{ url("/booking-confirm") }}'+'/'+msg.bookingID;
                         }else{
                             if(msg.payment_err_msg!=''){
                                 var errMsg = '';

@@ -58,8 +58,7 @@ class HomeController extends Controller
             'email_address' => 'required',
             'country' => 'required',
             'testType' => 'required',
-            'selectedCenter' => 'required',
-            'selectedTimeSlot' => 'required',
+            'selectedCenter' => 'required'
         ];
 
         if($requestData['testType']=='point-of-entry'){
@@ -68,6 +67,9 @@ class HomeController extends Controller
 
             $messages['traveller_type'] = 'Traveller type is required field';
             $messages['lane_type'] = 'Lane type is required field';
+        }elseif($requestData['testType']=='per-processing'){
+            $fields['selectedTimeSlot'] = 'selectedTimeSlot.required';
+            $messages['selectedTimeSlot'] = 'Date & Time is required field!';
         }
 
 
@@ -288,7 +290,7 @@ class HomeController extends Controller
         Theme::set('covid');
 
         $booking = DB::table('payments')
-            ->select('centers.*','patients_booking.booking_time')
+            ->select('centers.*','patients_booking.booking_time','patients_booking.booking_type')
             ->join('patients_booking','patients_booking.ID','=','payments.booking')
             ->join('centers','centers.ID','=','patients_booking.center')
             ->where('payments.bill_id','=',$bill_id)
@@ -387,7 +389,7 @@ class HomeController extends Controller
         Theme::set('covid');
 
         $booking = DB::table('patients_booking')
-            ->select('centers.*','patients_booking.booking_time')
+            ->select('centers.*','patients_booking.booking_time','patients_booking.booking_type')
             ->join('centers','centers.ID','=','patients_booking.center')
             ->where('patients_booking.ID','=',$bookingID)
             ->first();

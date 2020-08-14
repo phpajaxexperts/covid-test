@@ -21,8 +21,10 @@
                     <strong>{{$booking->doctor_name}}</strong><br>
                 @endif
                 @if($booking->street_address_1){{$booking->street_address_1}},@endif @if($booking->street_address_2)<br>{{$booking->street_address_2}},@endif @if($booking->city)<br>{{$booking->city}},@endif @if($booking->state)<br>{{$booking->state}}@endif @if($booking->city) {{$booking->zip_code}},@endif
+                @if($booking->booking_type==1)
                 <br><br>
                 {{ date('d/m/Y', strtotime($booking->booking_time))  }} at {{ date('h:i A', strtotime($booking->booking_time))  }}
+                @endif
             </p>
             <a href="{{ url('/')  }}" class="btn btn-primary">Go To Home</a>
         </div>
