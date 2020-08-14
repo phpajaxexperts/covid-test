@@ -158,6 +158,7 @@ class HomeController extends Controller
                 $amount = 200;
             }
 
+
             $amount = 1;
             if($offline_payment=='yes'){
 
