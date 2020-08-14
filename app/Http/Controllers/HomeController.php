@@ -397,8 +397,8 @@ class HomeController extends Controller
 
     public function qrCodeGenerator(Request $request)
     {
-        $data = $request->data;
-        echo QrCode::size(300)->format('png')->generate($data); exit;
+        $ID = $request->ID;
+        echo QrCode::size(300)->format('svg')->generate($ID); exit;
     }
 
     }

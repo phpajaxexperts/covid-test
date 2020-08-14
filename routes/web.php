@@ -30,13 +30,13 @@ Route::post('/update-amount-paid', 'HomeController@updateAmountPaid');
 Route::post('/get-time-slots', 'HomeController@getTimeSlots');
 Route::post('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
 
+Route::post('/qr-code-generator/{ID}', 'HomeController@qrCodeGenerator');
 
 
 
-Route::get('/qrcode}', function () {
+Route::get('/qrcode', function () {
     Theme::set('covid');
-    $data = $_REQUEST['data'];
-    return view('qrcode', compact('data'));
+    return view('qrcode');
 });
 
 Route::get('/center', function () {
