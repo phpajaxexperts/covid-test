@@ -30,7 +30,7 @@ Route::post('/update-amount-paid', 'HomeController@updateAmountPaid');
 Route::post('/get-time-slots', 'HomeController@getTimeSlots');
 Route::post('/booking-confirm/{bookingID}', 'HomeController@bookingConfirm');
 
-Route::post('/qr-code-generator/{ID}', 'HomeController@qrCodeGenerator');
+Route::get('/qr-code-generator/{ID}', 'HomeController@qrCodeGenerator');
 
 
 
