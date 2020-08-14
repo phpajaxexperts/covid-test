@@ -332,7 +332,7 @@ function getBookingsByDate($start_date,$end_date,$ID){
         //->toSql();
     //echo $dat; exit;
     //echo $bookings; exit;
-    //dd($bookings);
+    dd($bookings);
     return $bookings;
 }
 
