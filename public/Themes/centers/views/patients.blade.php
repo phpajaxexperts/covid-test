@@ -158,7 +158,7 @@
                                             <span class="text-grey">INVALID</span>
                                         @endif
                                     @else
-                                        <select class="form-control" name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}">
+                                        <select name="test_result_{{$booking->ID}}" id="test_result_{{$booking->ID}}" style="width:150px;height: 45px;">
                                             <option value=""> - select result - </option>
                                             <option value="1">Positive</option>
                                             <option value="2">Negative</option>
