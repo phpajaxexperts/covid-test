@@ -159,7 +159,7 @@ class HomeController extends Controller
             }
 
 
-            $amount = 1;
+            $amount = 2;
             if($offline_payment=='yes'){
 
                 $booking = getBooking($bookingID);
