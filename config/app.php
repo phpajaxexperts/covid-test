@@ -64,8 +64,8 @@ return [
     'media_folder' =>  'media',
 
 
-    //'raudhapay_payment_gateway_status' => 'sanbox',
-    'raudhapay_payment_gateway_status' => 'live',
+    'raudhapay_payment_gateway_status' => 'sanbox',
+    //'raudhapay_payment_gateway_status' => 'live',
     'raudhapay_live' => array(
             'api_url' => 'https://api.raudhahpay.com/api',
             'collection_code' => '9ZO0Ez8r',
