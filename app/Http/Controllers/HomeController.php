@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailable;
 use App\Mail\BookingConfirm;
-
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -166,7 +166,6 @@ class HomeController extends Controller
                 $patient = getPatient($booking->patient);
                 $center = getCenter($booking->center);
 
-
                 $data = array(
                     'patient' => $patient,
                     'booking' => $booking,
@@ -182,7 +181,6 @@ class HomeController extends Controller
                 $data['clinic_address'] = $center;
                 $data['booking_time'] = $booking_time;
                 $data['booking_type'] = $data['booking']->booking_type;
-
 
                 $data['to'] = $data['patient']->email_address;
                 //$to = 'v.veerabharathi@gmail.com';
@@ -371,6 +369,41 @@ class HomeController extends Controller
             return redirect('center');
         }
     }
+
+    public function collectionLogin(Request $request)
+    {
+        $email_address = $request->email_address;
+        $password = $request->password;
+        //$credentials = $request->only('collection_email_address', 'collection_password');
+        $user = DB::table('centers')
+            ->where('centers.collection_email_address','=',$email_address)
+            ->where('centers.collection_password','=',md5($password))
+            ->first();
+            //->toSql();
+
+        //dd($user); exit;
+
+        //if (Auth::guard('center')->attempt(['collection_email_address' => $email_address, 'collection_password' => $password])) {
+        if(isset($user)){
+            if(isset($user->ID)){
+                $user = array(
+                    'ID' => $user->ID,
+                    'name' => $user->name,
+                );
+
+                session(['user' => $user]);
+                session::save();
+
+                //dd(session()->get('user'));
+                return redirect('collection/manual-bookings');
+            }else{
+                return redirect('collection');
+            }
+        }else{
+            return redirect('collection');
+        }
+    }
+
 
     public function qrcodeDecrypt(Request $request)
     {

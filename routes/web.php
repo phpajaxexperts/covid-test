@@ -47,6 +47,18 @@ Route::get('/center', function () {
 Route::post('/center/login', 'HomeController@centerLogin');
 
 
+Route::get('/collection', function () {
+    Theme::set('centers');
+    return view('collection-login');
+});
+
+Route::post('/collection/login', 'HomeController@collectionLogin');
+Route::get('collection/manual-bookings', 'CollectionsController@manualBookings');
+Route::post('collection/manual-bookings', 'CollectionsController@manualBookings');
+Route::post('collection/update-manual-payment', 'CollectionsController@updateManualPayment');
+
+
+
 
 Route::get('/video-popup/{ID}', 'HomeController@videoPopup');
 

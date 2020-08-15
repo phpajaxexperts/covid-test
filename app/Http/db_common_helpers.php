@@ -340,6 +340,26 @@ function getBookingsByDate($start_date,$end_date,$ID){
 }
 
 
+function getManualBookingsByDate($start_date,$end_date,$ID){
+    $bookings = DB::table('patients_booking')
+        ->select('patients_booking.*','patients.name','patients.phone','patients.nric_passport')
+        ->join('patients','patients.ID','=','patients_booking.patient')
+        //->where('patients_booking.booking_date', '>=' ,$start_date)
+        //->where('patients_booking.booking_date', '<=' ,$end_date)
+        //->where('patients_booking.paid', 1)
+        ->where('patients_booking.booking_type','=', 2)
+        ->where('patients_booking.paid','!=' ,1)
+        ->where('patients_booking.center','=', $ID)
+        ->orderBy('patients.name','asc')
+        ->get();
+    //->toSql();
+    //echo $dat; exit;
+    //echo $bookings; exit;
+    //dd($bookings);
+    return $bookings;
+}
+
+
 function sendTestResulstUpdateMail($data){
     $to = $data['patient']->email_address;
     //$to = 'noreply@jengu.co';

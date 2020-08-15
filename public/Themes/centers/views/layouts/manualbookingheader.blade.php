@@ -142,8 +142,8 @@
             {{--</div>--}}
             <div class="info">
                 <a href="#" class="d-block">
-                    @if(isset(Auth::guard('center')->getUser()->name))
-                    {{Auth::guard('center')->getUser()->name}}
+                    @if(session()->get('user')['name'])
+                    {{session()->get('user')['name']}}
                     @endif
                 </a>
             </div>
@@ -164,24 +164,24 @@
                     {{--</a>--}}
                     <ul class="nav nav-treeview">
                         @php( $action_name = getActionName() )
+                        {{--<li class="nav-item">--}}
+                            {{--<a href="{{ url('center/dashboard')  }}" class="nav-link  @if($action_name=='' || $action_name=='dashboard') active @endif">--}}
+                                {{--<i class="far fa-circle nav-icon"></i>--}}
+                                {{--<p>Dashboard</p>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <li class="nav-item">
-                            <a href="{{ url('center/dashboard')  }}" class="nav-link  @if($action_name=='' || $action_name=='dashboard') active @endif">
+                            <a href="{{ url('collection/manual-bookings')  }}" class="nav-link @if($action_name=='patients') active @endif ">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard</p>
+                                <p>Manual Bookings</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('center/patients')  }}" class="nav-link @if($action_name=='patients') active @endif ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Patients</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('center/reports')  }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Report</p>
-                            </a>
-                        </li>
+                        {{--<li class="nav-item">--}}
+                            {{--<a href="{{ url('center/reports')  }}" class="nav-link">--}}
+                                {{--<i class="far fa-circle nav-icon"></i>--}}
+                                {{--<p>Report</p>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </li>
                 {{--<li class="nav-item">--}}

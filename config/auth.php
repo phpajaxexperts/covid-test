@@ -46,6 +46,11 @@ return [
             'provider' => 'centers',
         ],
 
+        'collection' => [
+            'driver' => 'session',
+            'provider' => 'collection',
+        ],
+
         'member' => [
             'driver' => 'session',
             'provider' => 'members',
