@@ -30,7 +30,6 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
-echo "Hai"; exit;
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights

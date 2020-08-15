@@ -128,6 +128,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>NRIC/Passport Number</th>
                     <th>Phone</th>
                     @if(Auth::id()!=4 && Auth::id()!=5)
                         <th>Booked On</th>
@@ -141,6 +142,7 @@
                     @foreach($bookings as $booking)
                         <tr>
                             <td>{{$booking->name}}</td>
+                            <td>{{$booking->nric_passport}}</td>
                             <td>+{{$booking->phone}}</td>
                             @if($booking->booking_type==1)
                             <td>
