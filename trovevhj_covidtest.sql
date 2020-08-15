@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 14, 2020 at 01:29 PM
+-- Generation Time: Aug 15, 2020 at 02:44 AM
 -- Server version: 5.6.41-84.1
 -- PHP Version: 7.3.6
 
@@ -1483,7 +1483,10 @@ INSERT INTO `patients` (`ID`, `name`, `identity_type`, `nric_passport`, `gender`
 (41, 'Vikramathithya', 1, '645465-44-6564', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'R5QOeoS8ufja2uXMzZkwrDD8l8HQurKa1psaHUzs', '2020-08-14 10:51:34', '2020-08-14 10:51:34'),
 (42, 'Vinoth', 1, '546546-46-5546', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'tzFsNvZxNkoXifWjpGnSKZDejDJbxQabHClOENk4', '2020-08-14 10:56:50', '2020-08-14 10:56:50'),
 (43, 'Vinoth', 1, '234234-23-4234', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'OCA6y8jhWBOEykIbp1uwSCReEPZbBbTGF2mifUfH', '2020-08-14 10:58:16', '2020-08-14 10:58:16'),
-(44, 'Vinoth', 1, '234234-23-4234', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'TdfKF1Op2djl4nYgfNB4z6uGLKXJi8rkMzSFbdGN', '2020-08-14 11:02:53', '2020-08-14 11:02:53');
+(44, 'Vinoth', 1, '234234-23-4234', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'TdfKF1Op2djl4nYgfNB4z6uGLKXJi8rkMzSFbdGN', '2020-08-14 11:02:53', '2020-08-14 11:02:53'),
+(45, 'Althaf', 2, 'ASDF3234343', '1', '2002-07-29', '6581234567', 'althaf@belmonttek.com', 198, 0, 0, '1', '5nUGRFjWF2a7eboL1NVCPxxYP3dxfQ2HnePbzJjp', '2020-08-14 14:41:33', '2020-08-14 14:41:33'),
+(46, 'Raj', 1, '654655-45-4654', '1', '2002-07-30', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'MCztMi6lcI7rJXpTbROIs6nu2DD4MdLVOsX2AzS6', '2020-08-15 02:32:39', '2020-08-15 02:32:39'),
+(47, 'Jaikumar', 1, '897987-97-9879', '1', '2002-07-29', '919944909167', 'veerabharathi2020@gmail.com', 100, 0, 0, '1', 'I8r3Iqy5BvfGReEgYJyyYQh9Y7rISfTVlEQqrznf', '2020-08-15 02:41:15', '2020-08-15 02:41:15');
 
 -- --------------------------------------------------------
 
@@ -1558,7 +1561,10 @@ INSERT INTO `patients_booking` (`ID`, `patient`, `center`, `booking_type`, `book
 (41, 41, 10, 1, '2020-08-15', '2020-08-15 09:52', 'online', 1, 1, NULL, 'R5QOeoS8ufja2uXMzZkwrDD8l8HQurKa1psaHUzs', NULL, NULL, NULL, '2020-08-14 10:51:34', '2020-08-14 10:51:34'),
 (42, 42, 11, 1, '2020-08-15', '2020-08-15 09:12', NULL, NULL, NULL, NULL, 'tzFsNvZxNkoXifWjpGnSKZDejDJbxQabHClOENk4', NULL, NULL, NULL, '2020-08-14 10:56:50', '2020-08-14 10:56:50'),
 (43, 43, 11, 1, '2020-08-15', '2020-08-15 09:04', NULL, NULL, NULL, NULL, 'OCA6y8jhWBOEykIbp1uwSCReEPZbBbTGF2mifUfH', NULL, NULL, NULL, '2020-08-14 10:58:16', '2020-08-14 10:58:16'),
-(44, 44, 11, 1, '2020-08-15', '2020-08-15 09:08', 'online', 1, NULL, NULL, 'TdfKF1Op2djl4nYgfNB4z6uGLKXJi8rkMzSFbdGN', NULL, NULL, NULL, '2020-08-14 11:02:53', '2020-08-14 11:02:53');
+(44, 44, 11, 1, '2020-08-15', '2020-08-15 09:08', 'online', 1, NULL, NULL, 'TdfKF1Op2djl4nYgfNB4z6uGLKXJi8rkMzSFbdGN', NULL, NULL, NULL, '2020-08-14 11:02:53', '2020-08-14 11:02:53'),
+(45, 45, 5, 2, '1970-01-01', '1970-01-01 00:00', 'offline', NULL, 2, NULL, '5nUGRFjWF2a7eboL1NVCPxxYP3dxfQ2HnePbzJjp', NULL, 'RGL', 'Car Lane', '2020-08-14 14:41:33', '2020-08-14 14:41:33'),
+(46, 46, 5, 2, '1970-01-01', '1970-01-01 00:00', NULL, NULL, NULL, NULL, 'MCztMi6lcI7rJXpTbROIs6nu2DD4MdLVOsX2AzS6', NULL, 'RGL', 'Car Lane', '2020-08-15 02:32:39', '2020-08-15 02:32:39'),
+(47, 47, 5, 2, '1970-01-01', '1970-01-01 00:00', 'online', 1, 1, NULL, 'I8r3Iqy5BvfGReEgYJyyYQh9Y7rISfTVlEQqrznf', NULL, 'RGL', 'Motorcycle Lane', '2020-08-15 02:41:15', '2020-08-15 02:41:15');
 
 -- --------------------------------------------------------
 
@@ -1615,7 +1621,8 @@ INSERT INTO `payments` (`ID`, `patient`, `booking`, `amount`, `bill_id`, `bill_n
 (25, 37, 37, '250.00', 5124, 'DP7FJ1L4', 'MYR', 1, 'Credit/Debit Card', 'CD__DP7FJ1L4__20200814184305', 4, '942ab86f5abfe035430e9e3061c1bdfe071e40a0c16a93ac2802e5f28555352a', '2020-08-14 10:43:18', '2020-08-14 10:43:18'),
 (26, 39, 39, '200.00', 5126, 'UA4XRH31', 'MYR', 1, 'Credit/Debit Card', 'CD__UA4XRH31__20200814184632', 4, '9c790d0998d265543da964bdf10b7f859427fea7ab4e7944b1d22cedd1521fcf', '2020-08-14 10:46:44', '2020-08-14 10:46:44'),
 (27, 41, 41, '250.00', 5128, 'QC17MXZ1', 'MYR', 1, 'Credit/Debit Card', 'CD__QC17MXZ1__20200814185157', 4, '8096d8d94087352fedf7a3d10f97c740600868fe66e51d7188788a5f8f45f486', '2020-08-14 10:52:09', '2020-08-14 10:52:09'),
-(28, 44, 44, '2.00', 382641, 'OQQMRFXY', 'MYR', 1, 'Credit/Debit Card', 'CD__OQQMRFXY__20200814190750', 4, 'cb7b6efee74c8ca1bb5263f465c2c9756e9bb236ded11fc9262efeaf38ca8a38', '2020-08-14 11:08:59', '2020-08-14 11:08:59');
+(28, 44, 44, '2.00', 382641, 'OQQMRFXY', 'MYR', 1, 'Credit/Debit Card', 'CD__OQQMRFXY__20200814190750', 4, 'cb7b6efee74c8ca1bb5263f465c2c9756e9bb236ded11fc9262efeaf38ca8a38', '2020-08-14 11:08:59', '2020-08-14 11:08:59'),
+(29, 47, 47, '2.00', 5133, 'BV371JTL', 'MYR', 1, 'Credit/Debit Card', 'CD__BV371JTL__20200815104139', 4, 'f88b8ca1070de965de8398f1c8993cd4cf492c0519d1a9d44f09281446ed213c', '2020-08-15 02:41:54', '2020-08-15 02:41:54');
 
 -- --------------------------------------------------------
 
@@ -2194,19 +2201,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `patients_booking`
 --
 ALTER TABLE `patients_booking`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `permissions`
