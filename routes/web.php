@@ -103,3 +103,33 @@ Route::post('/center/patients', 'CentersController@patients');
 Route::post('/center/update-patient', 'CentersController@updatePatient');
 Route::get('/center/logout', 'CentersController@logout');
 
+
+
+
+Route::get('/collection', function () {
+    Theme::set('centers');
+    return view('collection-login');
+});
+
+Route::group( [  'middleware' => [ 'guest'] ], function () {
+    
+
+
+Route::get('/clinic', function () {
+    if (\Auth::guard('clinic')->user()) {
+        return Redirect::to('/clinic/dashboard');
+    }
+    Theme::set('clinic');
+    return view('login');
+});
+});
+Route::post('/clinic/login', 'Auth\LoginController@clinicLogin');
+
+Route::group( [  'middleware' => [ 'auth:clinic'] ], function () {
+
+    Route::get('/clinic/dashboard', 'ClinicController@dashboard');
+    Route::get('/clinic/patients', 'ClinicController@patients');
+    Route::post('/clinic/patients', 'ClinicController@patients');
+    Route::post('/clinic/update-patient', 'ClinicController@updatePatient');
+    Route::get('/clinic/logout', 'ClinicController@logout');
+});
