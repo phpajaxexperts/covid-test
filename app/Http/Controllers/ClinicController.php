@@ -65,7 +65,7 @@ class ClinicController extends Controller
         if($bookingID!='' && $payment_made!='' && $swabstatus!=''){
             DB::table('patients_booking')
                 ->where('ID', $bookingID)
-                ->update(['payment_made' => $payment_made,'swab_taken' => $swabstatus,
+                ->update(['swab_taken' => $swabstatus,
                 'paid' => $payment_made, 'payment_mode' =>'offline']);
 
 
@@ -74,7 +74,6 @@ class ClinicController extends Controller
             $data = array(
                 'patient'       => $patient,
                 'booking'       => $booking,
-                'payment_made'  => $payment_made,
                 'swab_taken'    => $swabstatus
             );
             

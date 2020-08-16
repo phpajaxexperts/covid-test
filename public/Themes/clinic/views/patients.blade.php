@@ -42,7 +42,7 @@
     });
 
     function updateStatus(ID){
-        if(!$('#payment_status_'+ID).val() ){
+        if($('#payment_status_'+ID).val() != 1){
             Swal.fire(
                 'Alert!',
                 'Please select the Payment method to update.',
@@ -50,7 +50,7 @@
             );
             return false;
         }
-        if(!$('#swab_status_'+ID).val() ){
+        if($('#swab_status_'+ID).val() != 1 ){
             Swal.fire(
                 'Alert!',
                 'Please select the Swab status to update.',
@@ -194,7 +194,7 @@
                                     </select>
                                     @endif
 
-                                    @if (empty($booking->swab_taken) && empty($booking->payment_made) )
+                                    @if (empty($booking->swab_taken) )
 
                                     <a href="javascript:void(0);"  onclick="updateStatus('{{$booking->ID}}');" ><button type="button" class="btn btn-info">Update</button></a>
                                     @endif
