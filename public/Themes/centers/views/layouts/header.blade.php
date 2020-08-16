@@ -173,7 +173,7 @@
                         <li class="nav-item">
                             <a href="{{ url('center/patients')  }}" class="nav-link @if($action_name=='patients') active @endif ">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Patients</p>
+                                <p>Travellers</p>
                             </a>
                         </li>
                         <li class="nav-item">

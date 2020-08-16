@@ -74,8 +74,17 @@ class HomeController extends Controller
 
 
         $this->validate($request, $fields,$messages);
-
-
+        
+        $check_exist = checkActiveBookingValidation($nric_passport,$email_address,$phone);
+        if(isset($check_exist)){    
+            if(isset($check_exist->ID)){
+                $response = array(
+                    'status'   => 'failed',
+                    'msg' => 'Given information booking is aready exist and active.'
+                );
+                return response()->json($response, 200);
+            }else{
+            
         //echo "<pre>";print_r($requestData); exit;
         $requestData['active'] = 1;
         $requestData['phone'] = $requestData['phone_country_code'].$requestData['phone'];
@@ -260,6 +269,9 @@ class HomeController extends Controller
             );
             return response()->json($response, 200);
         }
+    }
+
+}
 //        if($res->status==2){
 //            return redirect($res->payment_url);
 //        }
@@ -419,40 +431,50 @@ class HomeController extends Controller
         $bookingID = decryptString($arr['qrdata']);
         $booking = getBooking($bookingID);
         if(isset($booking)){
-            $patient = getPatient($booking->patient);
-            $center = getCenter($booking->center);
+            
+            $result_expired = strtotime ( '+72 hour' , strtotime($booking->swab_taken) ) ;
+            if(time()>$result_expired){
+                $response = array(
+                    'status' => 'expired',
+                    'result' => 'Test result expired.'
+                );
+                return response()->json($response, 200);
+            }else{
+                $patient = getPatient($booking->patient);
+                $center = getCenter($booking->center);
 
-            if($booking->test_result==1)
-                $test_result = 'positive';
-            elseif($booking->test_result==2)
-                $test_result = 'negative';
-            elseif($booking->test_result==3)
-                $test_result = 'invalid';
+                if($booking->test_result==1)
+                    $test_result = 'positive';
+                elseif($booking->test_result==2)
+                    $test_result = 'negative';
+                elseif($booking->test_result==3)
+                    $test_result = 'invalid';
 
-            if($patient->identity_type==1)
-                $identity_type = 'NRIC';
-            elseif($patient->identity_type==2)
-                $identity_type = 'Passport Number';
+                if($patient->identity_type==1)
+                    $identity_type = 'NRIC';
+                elseif($patient->identity_type==2)
+                    $identity_type = 'Passport Number';
 
-            if($booking->booking_type==1)
-            $test_date = date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time));
-            else
-            $test_date = date('M d, Y',strtotime($booking->created_dt)).' at '.date('h:i A',strtotime($booking->created_dt));
-            $result = array(
-                'test_result' => $test_result,
-                'name' => $patient->name,
-                'nationality' => $patient->country_name,
-                'identity_type' => $identity_type,
-                'identity_number' => $patient->nric_passport,
-                'test_date' => $test_date,
-                'issuer' => $center->name,
-            );
+                if($booking->booking_type==1)
+                $test_date = date('M d, Y',strtotime($booking->booking_time)).' at '.date('h:i A',strtotime($booking->booking_time));
+                else
+                $test_date = date('M d, Y',strtotime($booking->created_dt)).' at '.date('h:i A',strtotime($booking->created_dt));
+                $result = array(
+                    'test_result' => $test_result,
+                    'name' => $patient->name,
+                    'nationality' => $patient->country_name,
+                    'identity_type' => $identity_type,
+                    'identity_number' => $patient->nric_passport,
+                    'test_date' => $test_date,
+                    'issuer' => $center->name,
+                );
 
-            $response = array(
-                'status' => 'success',
-                'result' => $result
-            );
-            return response()->json($response, 200);
+                $response = array(
+                    'status' => 'success',
+                    'result' => $result
+                );
+                return response()->json($response, 200);
+            }
         }else{
             $response = array(
                 'status' => 'failed',

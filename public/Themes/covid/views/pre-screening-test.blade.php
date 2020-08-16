@@ -524,7 +524,7 @@
                                         <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                                             <label for="phone" class="control-label">{{ 'Phone' }}</label>
                                             <div>
-                                                <input class="form-control" name="phone" type="text" id="phone" maxlength="15" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number must contain country code without + sign. Example 6013xxxxxxx (Malaysia) or 658xxxxxxx (Singapore).</div>
+                                                <input class="form-control" name="phone" type="text" id="phone" maxlength="15" value="{{ isset($patient->phone) ? $patient->phone : ''}}" ><div style="font-size: 12px">Ex: Mobile number ignore the '+' sign and country code. Example +6013 xxx xxxx (Malaysia) should be entered as 13 xxx xxxx & +65 xxxx xxxx  should be entered as xxxx xxxx (Singapore).</div>
                                                 {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
