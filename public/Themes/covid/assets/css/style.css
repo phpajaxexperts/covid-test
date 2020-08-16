@@ -243,6 +243,32 @@ h1, h2, h3, h4, h5, h6 {
   top: 150px;
 }
 
+.intro-left, .intro-right {
+    min-height: 435px;
+}
+.intro-left .intro-icon, .intro-right .intro-icon {
+    max-width: 108px;
+}
+.intro-left .btn, .intro-right .btn {
+    background-color: transparent;
+    border-color: #FFF;
+    min-width: 190px;
+    color: #FFF;
+}
+.intro-left {
+    background-color: #dc1e28;
+}
+.intro-right {
+    background-color: #1a2b56;
+}
+.intro-wrapper p {
+    color: #FFF;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 25px auto;
+}
+
 @media (max-width: 767px) {
   #intro .product-screens .product-screen-1 {
     position: static;
@@ -275,6 +301,9 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 1200px) {
     .intro-content {
         width: 50%;
+    }
+    .intro-wrapper p {
+        margin: 35px 0;
     }
 }
 /*--------------------------------------------------------------

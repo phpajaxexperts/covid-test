@@ -21,19 +21,17 @@
 {{--<img src="{!!QrCode::format('png')->generate('Embed me into an e-mail!')!!}">--}}
 <section>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row intro-wrapper">
             <div class="col-md-1"></div>
-            <div class="col-md-5 col-sm-6 text-center pt-5 mr-md-2" style="background-color: #ffe0e3; min-height: 435px;">
-                <img src="{{ themes('img/PreScreening.png')  }}"><br>
-                <div style="width: 52%;margin: 0px auto;">Pre-Screening is for eligible travellers who are planning to travel from Malaysia to Singapore. Eligible travellers are required to undergo a COVID-19 PCR test 72 Hours before departure</div><br>
-                <a href="{{ url('book-test/pre-screening')  }}"><img src="{{ themes('img/booktestbtn.png')  }}"></a>
-                <br><br>
+            <div class="col-md-5 col-sm-6 text-center pt-5 mr-md-2 intro-left">
+                <img class="intro-icon" src="{{ themes('img/earth-globe.svg')  }}"><br>
+                <div style="width: 52%;margin: 0px auto;"><p>Pre-Screening is for eligible travellers who are planning to travel from Malaysia to Singapore. Eligible travellers are required to undergo a COVID-19 PCR test 72 Hours before departure</p></div>
+                <a class="btn" href="{{ url('book-test/pre-screening')  }}">Book Test</a>
             </div>
-            <div class="col-md-5 col-sm-6 text-center pt-5" style="background-color: #ffeebc; min-height: 435px;">
-                <img src="{{ themes('img/Point-of-entry-test.png')  }}"><br>
-                <div style="width: 52%;margin: 0px auto;">Point-of-Entry Testing will be conducted on all travellers entering Malaysia via Johor. Nasal swab samples will be tested at the point of care as travellers enter Malaysia</div><br>
-                <a href="{{ url('book-test/point-of-entry')  }}"><img src="{{ themes('img/booktestbtn-yellow.png')  }}"></a>
-                <br><br>
+            <div class="col-md-5 col-sm-6 text-center pt-5 intro-right" style="background-color: #1a2b56; min-height: 435px;">
+                <img class="intro-icon" src="{{ themes('img/map.svg')  }}"><br>
+                <div style="width: 52%;margin: 0px auto;"><p>Point-of-Entry Testing will be conducted on all travellers entering Malaysia via Johor. Nasal swab samples will be tested at the point of care as travellers enter Malaysia</p></div>
+                <a class="btn" href="{{ url('book-test/point-of-entry')  }}">Book Test</a>
             </div>
             <div class="col-md-1"></div>
         </div>
