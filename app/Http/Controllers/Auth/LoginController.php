@@ -46,7 +46,7 @@ class LoginController extends Controller
         if (\Auth::guard('clinic')->attempt($credentials)) {
             return redirect('clinic/dashboard');
         }else{
-            return redirect('clinic');
+            return redirect()->back() ->withInput()->withErrors(['email' => 'Unknown Email/Phone']);
         }
     }
 }

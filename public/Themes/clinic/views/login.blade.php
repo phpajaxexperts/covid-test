@@ -38,17 +38,18 @@
                 <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
                 <form action="{{ url('clinic/login') }}" method="post">
                     {{ csrf_field() }}
-                    <div class="input-group mb-3">
-                        <input type="text" name="email_address" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="Email / Phone" autofocus>
+                    <div class="input-group mb-3 flex-wrap">
+                        <input type="text" name="email_address" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email_address') }}" placeholder="Email / Phone" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
-                        @if ($errors->has('email'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
+
+                        @if ($errors->any()) 
+                            <span class="invalid-feedback"> 
+                                {{$errors->first()}}
+                            </span>
                         @endif
                     </div>
                     <div class="input-group mb-3">

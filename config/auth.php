@@ -95,7 +95,7 @@ return [
     'providers' => [
         'clinics' => [
             'driver' => 'eloquent',
-            'model' => App\Clinic::class,
+            'model' => App\Center::class,
         ],
 
         'centers' => [
